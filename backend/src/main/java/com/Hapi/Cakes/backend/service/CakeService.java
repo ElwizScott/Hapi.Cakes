@@ -1,0 +1,33 @@
+package com.Hapi.Cakes.backend.service;
+
+import com.Hapi.Cakes.backend.model.Cake;
+import com.Hapi.Cakes.backend.repository.CakeRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CakeService {
+
+    private final CakeRepository cakeRepository;
+
+    public CakeService(CakeRepository cakeRepository) {
+        this.cakeRepository = cakeRepository;
+    }
+
+    public List<Cake> getAllCakes() {
+        return cakeRepository.findAll();
+    }
+
+    public List<Cake> getFeaturedCakes() {
+        return cakeRepository.findByFeaturedTrue();
+    }
+
+    public List<Cake> getCakesByCategory(String category) {
+        return cakeRepository.findByCategory(category);
+    }
+
+    public Cake createCake(Cake cake) {
+        return cakeRepository.save(cake);
+    }
+}
