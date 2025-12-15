@@ -1,4 +1,4 @@
-# 🎂 CakeHouse – Custom Cake Ordering Website
+# 🎂 Hapi.Cakes – Custom Cake Ordering Website
 
 A full-stack web application for showcasing custom cake designs and handling customer inquiries.
 
