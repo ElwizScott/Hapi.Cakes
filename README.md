@@ -1,4 +1,4 @@
-# 🎂 CakeHouse – Custom Cake Ordering Website
+# 🎂 Hapi.Cakes – Custom Cake Ordering Website
 
 A full-stack web application for showcasing custom cake designs and handling customer inquiries.
 
@@ -24,9 +24,9 @@ This project is built as a real-world portfolio project using modern backend and
 
 ## 📂 Project Structure
 
-cakehouse/
-├── frontend/ # React application
-└── backend/ # Spring Boot REST API
+cakehouse/  
+├── frontend/ # React application  
+└── backend/ # Spring Boot REST API  
 
 ---
 
