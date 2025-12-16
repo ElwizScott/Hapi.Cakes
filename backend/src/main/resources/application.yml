@@ -2,9 +2,11 @@ server:
   port: 8080
 
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/cakehouse
+  devtools:
+    restart:
+      enabled: false
+  mongodb:
+    uri: ${MONGODB_URI}
   mail:
     host: smtp.gmail.com
     port: 587
@@ -16,3 +18,6 @@ spring:
           auth: true
           starttls:
             enable: true
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
