@@ -8,7 +8,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cakes")
-@CrossOrigin(origins = "http://localhost:3000")
 public class CakeController {
 
     private final CakeService cakeService;
