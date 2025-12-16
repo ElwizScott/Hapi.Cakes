@@ -9,7 +9,7 @@ import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-hapi-light font-sans text-slate-700">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 py-6">

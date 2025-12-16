@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const linkClass =
-  "px-3 py-2 rounded-md text-sm font-medium transition-colors";
+const linkClass = "px-3 py-2 rounded-md text-sm font-medium transition-colors";
 
 const activeClass = "bg-pink-600 text-white";
 const inactiveClass = "text-gray-700 hover:bg-pink-100 hover:text-pink-700";
@@ -21,7 +20,11 @@ export default function Navbar() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                `px-4 py-2 rounded-full ${
+                  isActive
+                    ? "bg-hapi-pink text-white"
+                    : "text-slate-700 hover:text-hapi-pink"
+                }`
               }
             >
               Home
