@@ -10,7 +10,7 @@ const quickLinks = [
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/hapi.cakes_bymichelle/" },
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61568773922797" },
-  { label: "Pinterest", href: "https://pinterest.com" },
+  { label: "Tiktok", href: "https://www.tiktok.com/@hapi.cakes_bymichelle" },
 ];
 
 export default function Footer() {
