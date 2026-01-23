@@ -6,7 +6,7 @@ spring:
     restart:
       enabled: false
   mongodb:
-    uri: ${MONGODB_URI}
+    uri: mongodb+srv://hapicakes_user:Elwiz1106!@hapicakes-cluster.cwvvgbp.mongodb.net/hapicakes
   mail:
     host: smtp.gmail.com
     port: 587
