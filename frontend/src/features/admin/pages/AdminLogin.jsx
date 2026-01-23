@@ -21,6 +21,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
+      // Server sets an httpOnly JWT cookie. The frontend never reads or stores it.
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -5,16 +5,10 @@ import com.Hapi.Cakes.backend.model.AdminUser;
 import com.Hapi.Cakes.backend.repository.AdminLoginHistoryRepository;
 import com.Hapi.Cakes.backend.repository.AdminUserRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -34,31 +28,23 @@ public class AuthService {
 
     public AuthResult authenticate(String email, String password, HttpServletRequest request) {
         AdminUser adminUser = adminUserRepository.findByEmail(email).orElse(null);
-        boolean success = adminUser != null
-                && adminUser.isEnabled()
-                && passwordEncoder.matches(password, adminUser.getPasswordHash());
-
-        recordLoginAttempt(email, success, request);
-
-        if (!success) {
+        if (adminUser == null) {
+            recordLoginAttempt(email, false, request);
             return new AuthResult(false, "Invalid email or password.");
         }
 
-        UserDetails userDetails = User.withUsername(adminUser.getEmail())
-                .password(adminUser.getPasswordHash())
-                .disabled(!adminUser.isEnabled())
-                .authorities(Collections.emptyList())
-                .build();
+        if (!adminUser.isEnabled()) {
+            recordLoginAttempt(email, false, request);
+            return new AuthResult(false, "Account disabled.");
+        }
 
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-                userDetails.getAuthorities());
+        if (!passwordEncoder.matches(password, adminUser.getPasswordHash())) {
+            recordLoginAttempt(email, false, request);
+            return new AuthResult(false, "Invalid email or password.");
+        }
 
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        SecurityContextHolder.setContext(context);
-        request.getSession(true);
-
-        return new AuthResult(true, "Login successful.");
+        recordLoginAttempt(email, true, request);
+        return new AuthResult(true, "Login successful.", adminUser.getEmail());
     }
 
     private void recordLoginAttempt(String email, boolean success, HttpServletRequest request) {
@@ -86,10 +72,18 @@ public class AuthService {
     public static class AuthResult {
         private final boolean success;
         private final String message;
+        private final String email;
 
         public AuthResult(boolean success, String message) {
             this.success = success;
             this.message = message;
+            this.email = null;
+        }
+
+        public AuthResult(boolean success, String message, String email) {
+            this.success = success;
+            this.message = message;
+            this.email = email;
         }
 
         public boolean isSuccess() {
@@ -98,6 +92,10 @@ public class AuthService {
 
         public String getMessage() {
             return message;
+        }
+
+        public String getEmail() {
+            return email;
         }
     }
 }

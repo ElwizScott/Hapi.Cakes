@@ -21,3 +21,9 @@ spring:
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-me-please-change-32-bytes-minimum}
+    expirationMillis: ${JWT_EXPIRATION_MS:86400000}
+    secureCookie: ${JWT_SECURE_COOKIE:false}
