@@ -1,3 +1,5 @@
+import Gallery from "../features/public/pages/Gallery";
+
 export default function GallerySocial() {
-  return <h1 className="text-2xl font-bold">Instagram Gallery</h1>;
+  return <Gallery variant="social" />;
 }

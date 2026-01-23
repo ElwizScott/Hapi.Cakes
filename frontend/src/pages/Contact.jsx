@@ -1,3 +1,1 @@
-export default function Contact() {
-  return <h1 className="text-2xl font-bold">Contact</h1>;
-}
+export { default } from "../features/public/pages/Contact";

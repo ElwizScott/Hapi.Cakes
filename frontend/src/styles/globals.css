@@ -1,0 +1,10 @@
+@import url("https://fonts.cdnfonts.com/css/magnolia-script");
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #fff7fb;
+}
