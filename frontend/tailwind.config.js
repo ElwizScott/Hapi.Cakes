@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        brandCream: "#FFF2E8",
         brandPink: "#C88DBF",
         lavender: "#EAD7EA",
         accent: "#B895C2",

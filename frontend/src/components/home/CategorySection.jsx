@@ -3,7 +3,7 @@ const categories = ["Wedding Cakes", "Birthday Cakes", "Event Cakes"];
 export default function CategorySection() {
   return (
     <section className="max-w-7xl mx-auto bg-softBg px-8 py-16">
-      <h2 className="font-serif text-3xl text-center mb-12 text-plum">
+      <h2 className="font-script text-5xl text-center mb-12 text-plum">
         Special Events & Occasions
       </h2>
 
