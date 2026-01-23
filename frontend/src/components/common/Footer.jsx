@@ -8,8 +8,8 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "Facebook", href: "https://facebook.com" },
+  { label: "Instagram", href: "https://www.instagram.com/hapi.cakes_bymichelle/" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61568773922797" },
   { label: "Pinterest", href: "https://pinterest.com" },
 ];
 
@@ -19,8 +19,8 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 py-10">
         <div className="grid gap-8 md:grid-cols-3">
           <div className="space-y-3">
-            <p className="font-script text-xl text-plum">Hapi.Cakes</p>
-            <p className="text-sm text-muted">
+            <p className="font-script text-2xl text-plum">Hapi.Cakes</p>
+            <p className="text-sm font-serif text-muted">
               Handcrafted cakes for celebrations, delivered with care and a dash
               of sweetness.
             </p>
@@ -28,7 +28,7 @@ export default function Footer() {
 
           <div>
             <p className="text-sm font-semibold text-ink">Quick Links</p>
-            <ul className="mt-3 space-y-2 text-sm">
+            <ul className="mt-3 font-serif space-y-2 text-sm">
               {quickLinks.map((link) => (
                 <li key={link.to}>
                   <Link
@@ -44,7 +44,7 @@ export default function Footer() {
 
           <div>
             <p className="text-sm font-semibold text-ink">Follow Us</p>
-            <ul className="mt-3 space-y-2 text-sm">
+            <ul className="mt-3 font-serif space-y-2 text-sm">
               {socialLinks.map((link) => (
                 <li key={link.href}>
                   <a

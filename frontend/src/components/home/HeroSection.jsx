@@ -8,17 +8,17 @@ export default function HeroSection() {
             Hapi.Cakes
           </h1>
 
-          <p className="mt-6 text-lg max-w-md text-muted">
+          <p className="mt-6 text-lg font-serif max-w-md text-muted">
             Custom cakes for birthdays, weddings and special moments. Handmade
             with love and premium ingredients.
           </p>
 
           <div className="mt-8 flex gap-4">
-            <button className="rounded-full bg-brandPink px-8 py-3 text-white shadow-sm hover:bg-brandPink/90">
+            <button className="rounded-full font-serif bg-brandPink px-8 py-3 text-white shadow-sm hover:bg-brandPink/90">
               Order Now
             </button>
 
-            <button className="rounded-full border-2 border-brandPink px-8 py-3 text-brandPink transition hover:bg-brandPink hover:text-white">
+            <button className="rounded-full font-serif border-2 border-brandPink px-8 py-3 text-brandPink transition hover:bg-brandPink hover:text-white">
               Contact Us
             </button>
           </div>
