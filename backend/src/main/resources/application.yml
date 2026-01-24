@@ -2,11 +2,17 @@ server:
   port: 8080
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   devtools:
     restart:
       enabled: false
   mongodb:
     uri: mongodb+srv://hapicakes_user:Elwiz1106!@hapicakes-cluster.cwvvgbp.mongodb.net/hapicakes
+  cloudinary:
+    cloud-name: doyeh7kzi
+    api-key: 697461559443859
+    api-secret: qzcrR2QwntXtxnJz2gU3ICHH9OI
   mail:
     host: smtp.gmail.com
     port: 587

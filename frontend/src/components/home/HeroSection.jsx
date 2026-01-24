@@ -1,4 +1,10 @@
-export default function HeroSection() {
+import AdminImageEditOverlay from "../../features/admin/components/AdminImageEditOverlay";
+
+export default function HeroSection({
+  featuredImageUrl,
+  isAdmin,
+  onFeaturedImageUploaded,
+}) {
   return (
     <section className="mx-auto max-w-7xl px-8 py-16">
       {/* Subtle cream stroke to separate hero from the page background. */}
@@ -27,10 +33,26 @@ export default function HeroSection() {
           </div>
 
           {/* RIGHT */}
-          <div className="relative">
-            <div className="rounded-2xl bg-white border border-lavender h-80 flex items-center justify-center text-plum text-xl font-serif shadow-[0_12px_30px_rgba(200,141,191,0.2)]">
-              Featured Cake
+          <div className="relative group">
+            <div className="rounded-2xl bg-white border border-lavender h-80 flex items-center justify-center text-plum text-xl font-serif shadow-[0_12px_30px_rgba(200,141,191,0.2)] overflow-hidden">
+              {featuredImageUrl ? (
+                <img
+                  src={featuredImageUrl}
+                  alt="Featured cake"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                "Featured Cake"
+              )}
             </div>
+            {isAdmin ? (
+              <AdminImageEditOverlay
+                label="Update featured cake"
+                uploadEndpoint="/api/admin/upload/featured"
+                currentImageUrl={featuredImageUrl}
+                onUploaded={onFeaturedImageUploaded}
+              />
+            ) : null}
           </div>
         </div>
       </div>
