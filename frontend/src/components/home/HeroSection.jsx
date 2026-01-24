@@ -34,12 +34,13 @@ export default function HeroSection({
 
           {/* RIGHT */}
           <div className="relative group">
-            <div className="rounded-2xl bg-white border border-lavender h-80 flex items-center justify-center text-plum text-xl font-serif shadow-[0_12px_30px_rgba(200,141,191,0.2)] overflow-hidden">
+            {/* Soft hover motion to make the featured cake feel alive without shouting. */}
+            <div className="rounded-2xl bg-white border border-lavender h-80 flex items-center justify-center text-plum text-xl font-serif shadow-[0_12px_30px_rgba(200,141,191,0.2)] overflow-hidden transition-shadow duration-[600ms] ease-out group-hover:shadow-[0_16px_40px_rgba(200,141,191,0.25)]">
               {featuredImageUrl ? (
                 <img
                   src={featuredImageUrl}
                   alt="Featured cake"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.03]"
                 />
               ) : (
                 "Featured Cake"
