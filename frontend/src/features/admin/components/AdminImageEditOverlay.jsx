@@ -52,7 +52,10 @@ export default function AdminImageEditOverlay({
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={(event) => {
+          event.stopPropagation();
+          setOpen(true);
+        }}
         className="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition bg-white/90 backdrop-blur rounded-full p-2 shadow-sm text-plum"
         aria-label={`Edit ${label}`}
       >

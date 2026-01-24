@@ -23,11 +23,20 @@ public class CakeService {
         return cakeRepository.findByFeaturedTrue();
     }
 
-    public List<Cake> getCakesByCategory(String category) {
-        return cakeRepository.findByCategory(category);
+    public List<Cake> getCakesByCategoryId(String categoryId) {
+        return cakeRepository.findByCategoryId(categoryId);
     }
 
     public Cake createCake(Cake cake) {
         return cakeRepository.save(cake);
+    }
+
+    public Cake updateCake(String id, Cake cake) {
+        cake.setId(id);
+        return cakeRepository.save(cake);
+    }
+
+    public void deleteCake(String id) {
+        cakeRepository.deleteById(id);
     }
 }

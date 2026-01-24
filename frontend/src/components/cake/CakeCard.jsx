@@ -16,7 +16,11 @@ export default function CakeCard({ cake, variant = "elegant" }) {
 
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800">{cake.name}</h3>
-        <p className="text-sm text-gray-500 capitalize mt-1">{cake.category}</p>
+        {cake.category ? (
+          <p className="text-sm text-gray-500 capitalize mt-1">
+            {cake.category}
+          </p>
+        ) : null}
         {cake.description ? (
           <p className="text-sm text-gray-600 mt-2 line-clamp-2">
             {cake.description}

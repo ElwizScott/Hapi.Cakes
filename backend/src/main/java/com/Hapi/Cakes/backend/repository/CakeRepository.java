@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CakeRepository extends MongoRepository<Cake, String> {
 
-    List<Cake> findByCategory(String category);
+    List<Cake> findByCategoryId(String categoryId);
 
     List<Cake> findByFeaturedTrue();
 }

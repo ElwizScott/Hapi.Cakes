@@ -52,4 +52,11 @@ public class AdminImageController {
         HomepageImage saved = homepageImageService.saveImage(normalized, result.secureUrl());
         return ResponseEntity.ok(new HomepageImageResponse(saved.getType(), saved.getUrl()));
     }
+
+    @PostMapping("/cake")
+    public ResponseEntity<HomepageImageResponse> uploadCakeImage(@RequestPart("file") MultipartFile file)
+            throws IOException {
+        CloudinaryService.UploadResult result = cloudinaryService.uploadImage(file, "hapi-cakes/cakes");
+        return ResponseEntity.ok(new HomepageImageResponse("cake", result.secureUrl()));
+    }
 }
