@@ -56,7 +56,17 @@ export default function AdminImageEditOverlay({
         className="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition bg-white/90 backdrop-blur rounded-full p-2 shadow-sm text-plum"
         aria-label={`Edit ${label}`}
       >
-        ✏️
+        <svg
+          className="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M12 20h9" />
+          <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+        </svg>
       </button>
 
       <Modal

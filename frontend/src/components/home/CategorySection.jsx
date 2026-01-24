@@ -23,7 +23,7 @@ export default function CategorySection({
             key={c.type}
             className="rounded-2xl bg-white shadow-sm transition p-6 text-center border border-transparent hover:border-brandPink"
           >
-            <div className="relative group h-40 rounded-xl mb-4 overflow-hidden border border-lavender bg-gradient-to-br from-softBg to-lavender">
+            <div className="relative group h-80 rounded-xl mb-4 overflow-hidden border border-lavender bg-gradient-to-br from-softBg to-lavender">
               {categoryImages?.[c.type] ? (
                 <img
                   src={categoryImages[c.type]}
