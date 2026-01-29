@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import HeroSection from "../../../components/home/HeroSection";
 import CategorySection from "../../../components/home/CategorySection";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchPublic } from "../../../api/http";
 
 export default function Home() {
   const { authenticated } = useAdminAuth();
@@ -17,9 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     let isActive = true;
-    fetch(`${API_BASE_URL}/api/public/homepage-images`, {
-      credentials: "include",
-    })
+    fetchPublic("/api/public/homepage-images")
       .then((response) => (response.ok ? response.json() : {}))
       .then((data) => {
         if (!isActive) return;

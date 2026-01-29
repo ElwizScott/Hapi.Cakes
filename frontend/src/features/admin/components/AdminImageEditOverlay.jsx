@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Modal from "../../../components/common/Modal";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchAdmin } from "../../../api/http";
 
 export default function AdminImageEditOverlay({
   uploadEndpoint,
@@ -24,9 +22,8 @@ export default function AdminImageEditOverlay({
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch(`${API_BASE_URL}${uploadEndpoint}`, {
+      const response = await fetchAdmin(uploadEndpoint, {
         method: "POST",
-        credentials: "include",
         body: formData,
       });
 

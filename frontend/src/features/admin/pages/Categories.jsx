@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchAdmin } from "../../../api/http";
 
 const emptyForm = {
   id: "",
@@ -19,9 +17,7 @@ export default function Categories() {
   const [error, setError] = useState("");
 
   const loadCategories = async () => {
-    const response = await fetch(`${API_BASE_URL}/api/admin/categories`, {
-      credentials: "include",
-    });
+    const response = await fetchAdmin("/api/admin/categories");
     if (!response.ok) return;
     const data = await response.json();
     setCategories(data);
@@ -53,14 +49,13 @@ export default function Categories() {
     };
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/admin/categories${form.id ? `/${form.id}` : ""}`,
+      const response = await fetchAdmin(
+        `/api/admin/categories${form.id ? `/${form.id}` : ""}`,
         {
           method: form.id ? "PUT" : "POST",
-          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -89,9 +84,8 @@ export default function Categories() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${API_BASE_URL}/api/admin/categories/${id}`, {
+    await fetchAdmin(`/api/admin/categories/${id}`, {
       method: "DELETE",
-      credentials: "include",
     });
     await loadCategories();
   };

@@ -30,6 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+        boolean adminRequest = isAdminRequest(request);
         String token = extractToken(request);
 
         if (token != null) {
@@ -40,8 +41,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception ex) {
                 SecurityContextHolder.clearContext();
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                return;
+                if (adminRequest) {
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    return;
+                }
             }
         }
 
@@ -58,5 +61,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         return null;
+    }
+
+    private boolean isAdminRequest(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path != null && path.startsWith("/api/admin/");
     }
 }

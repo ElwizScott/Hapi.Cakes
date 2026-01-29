@@ -1,15 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import useAdminAuth from "../hooks/useAdminAuth";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchPublic } from "../../../api/http";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { email } = useAdminAuth();
 
   const handleLogout = async () => {
-    await fetch(`${API_BASE_URL}/api/auth/logout`, {
+    await fetchPublic("/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });

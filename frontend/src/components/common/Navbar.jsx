@@ -1,8 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchPublic } from "../../api/http";
 
 const linkClass =
   "px-3 py-2 rounded-md text-sm font-medium font-script transition-colors";
@@ -15,7 +13,7 @@ export default function Navbar() {
   const { authenticated } = useAdminAuth();
 
   const handleLogout = async () => {
-    await fetch(`${API_BASE_URL}/api/auth/logout`, {
+    await fetchPublic("/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });

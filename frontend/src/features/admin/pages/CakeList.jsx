@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchAdmin } from "../../../api/http";
 
 const emptyForm = {
   id: "",
@@ -24,17 +22,13 @@ export default function CakeList() {
   const [error, setError] = useState("");
 
   const loadCakes = async () => {
-    const response = await fetch(`${API_BASE_URL}/api/admin/cakes`, {
-      credentials: "include",
-    });
+    const response = await fetchAdmin("/api/admin/cakes");
     if (!response.ok) return;
     setCakes(await response.json());
   };
 
   const loadCategories = async () => {
-    const response = await fetch(`${API_BASE_URL}/api/admin/categories`, {
-      credentials: "include",
-    });
+    const response = await fetchAdmin("/api/admin/categories");
     if (!response.ok) return;
     setCategories(await response.json());
   };
@@ -65,9 +59,8 @@ export default function CakeList() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(`${API_BASE_URL}/api/admin/upload/cake`, {
+    const response = await fetchAdmin("/api/admin/upload/cake", {
       method: "POST",
-      credentials: "include",
       body: formData,
     });
 
@@ -116,14 +109,13 @@ export default function CakeList() {
     };
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/admin/cakes${form.id ? `/${form.id}` : ""}`,
+      const response = await fetchAdmin(
+        `/api/admin/cakes${form.id ? `/${form.id}` : ""}`,
         {
           method: form.id ? "PUT" : "POST",
-          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -162,9 +154,8 @@ export default function CakeList() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${API_BASE_URL}/api/admin/cakes/${id}`, {
+    await fetchAdmin(`/api/admin/cakes/${id}`, {
       method: "DELETE",
-      credentials: "include",
     });
     await loadCakes();
   };

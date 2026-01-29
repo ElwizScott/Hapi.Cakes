@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
+import { fetchAdmin } from "../../../api/http";
 
 export default function useAdminAuth() {
   const [state, setState] = useState({
@@ -15,10 +13,11 @@ export default function useAdminAuth() {
 
     try {
       // Uses httpOnly cookie; no token stored or read in JS.
-      const response = await fetch(`${API_BASE_URL}/api/admin/me`, {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetchAdmin(
+        "/api/admin/me",
+        { method: "GET" },
+        { skipAuthRedirect: true }
+      );
 
       if (!response.ok) {
         setState({ loading: false, authenticated: false, email: "" });
