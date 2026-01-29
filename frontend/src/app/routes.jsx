@@ -5,7 +5,7 @@ import Contact from "../features/public/pages/Contact";
 import Order from "../features/public/pages/Order";
 import AdminLogin from "../features/admin/pages/AdminLogin";
 import AdminDashboard from "../features/admin/pages/Dashboard";
-import AdminRouteGuard from "../features/admin/components/AdminRouteGuard";
+import AdminLayout from "../features/admin/components/AdminLayout";
 import AdminCategories from "../features/admin/pages/Categories";
 import AdminCakes from "../features/admin/pages/CakeList";
 
@@ -19,25 +19,25 @@ const routes = [
   {
     path: "/admin/dashboard",
     element: (
-      <AdminRouteGuard>
+      <AdminLayout>
         <AdminDashboard />
-      </AdminRouteGuard>
+      </AdminLayout>
     ),
   },
   {
     path: "/admin/categories",
     element: (
-      <AdminRouteGuard>
+      <AdminLayout>
         <AdminCategories />
-      </AdminRouteGuard>
+      </AdminLayout>
     ),
   },
   {
     path: "/admin/cakes",
     element: (
-      <AdminRouteGuard>
+      <AdminLayout>
         <AdminCakes />
-      </AdminRouteGuard>
+      </AdminLayout>
     ),
   },
 ];

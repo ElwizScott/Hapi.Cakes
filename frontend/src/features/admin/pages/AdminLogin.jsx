@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAdminAuth from "../hooks/useAdminAuth";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
+  const { setSession, clearSession } = useAdminAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -36,9 +38,11 @@ export default function AdminLogin() {
 
       if (!response.ok) {
         setError(data.message || "Login failed. Check your credentials.");
+        clearSession();
         return;
       }
 
+      setSession({ email: form.email.trim() });
       navigate("/admin/dashboard", { replace: true });
     } catch (err) {
       setError("Unable to reach the server. Try again.");

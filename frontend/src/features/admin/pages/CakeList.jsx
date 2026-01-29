@@ -115,7 +115,7 @@ export default function CakeList() {
           method: form.id ? "PUT" : "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       if (!response.ok) {
