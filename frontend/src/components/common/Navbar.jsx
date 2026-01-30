@@ -10,14 +10,15 @@ const inactiveClass = "text-gray-700 hover:text-[#B895C2]";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { authenticated } = useAdminAuth();
+  const { authenticated, clearSession } = useAdminAuth();
 
   const handleLogout = async () => {
     await fetchPublic("/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });
-    navigate("/admin/login", { replace: true });
+    clearSession();
+    navigate("/", { replace: true });
   };
 
   return (
@@ -41,6 +42,17 @@ export default function Navbar() {
             >
               Home
             </NavLink>
+
+            {authenticated ? (
+              <NavLink
+                to="/admin/dashboard"
+                className={({ isActive }) =>
+                  `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                }
+              >
+                Dashboard
+              </NavLink>
+            ) : null}
 
             <NavLink
               to="/gallery"
