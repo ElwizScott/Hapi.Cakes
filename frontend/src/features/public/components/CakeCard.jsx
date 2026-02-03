@@ -5,9 +5,11 @@ export default function CakeCard({
   feedbackImageUrl,
   showAdminEdit = false,
   onEdit,
+  onClick,
 }) {
   return (
     <div
+      onClick={onClick}
       className="
         group relative overflow-hidden
         rounded-2xl bg-white border border-transparent shadow-sm
@@ -15,11 +17,15 @@ export default function CakeCard({
         flex-[0_0_280px] hover:flex-[0_0_660px]
         hover:border-brandPink
         hover:shadow-[0_18px_36px_rgba(200,141,191,0.25)]
+        cursor-pointer
       "
     >
       {showAdminEdit && (
         <button
-          onClick={onEdit}
+          onClick={(event) => {
+            event.stopPropagation();
+            onEdit?.();
+          }}
           className="absolute top-2 right-2 z-10 rounded-full bg-white/90 p-2 opacity-0 transition group-hover:opacity-100"
         >
           ✎

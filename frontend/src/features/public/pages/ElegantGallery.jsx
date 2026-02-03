@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
 import Loader from "../../../components/common/Loader";
@@ -9,6 +9,7 @@ import GalleryCategorySection from "../components/GalleryCategorySection";
 export default function ElegantGallery() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { authenticated } = useAdminAuth();
   const categoryParam = (searchParams.get("category") || "").toLowerCase();
   const [cakes, setCakes] = useState([]);
@@ -17,6 +18,7 @@ export default function ElegantGallery() {
   const [error, setError] = useState("");
   const [categoriesError, setCategoriesError] = useState("");
   const [visible, setVisible] = useState(false);
+  const restoredScrollRef = useRef(false);
 
   useEffect(() => {
     let isActive = true;
@@ -54,6 +56,16 @@ export default function ElegantGallery() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    // Restore scroll position when navigating back from the detail page.
+    if (restoredScrollRef.current) return;
+    const scrollY = location.state?.scrollY;
+    if (typeof scrollY === "number") {
+      requestAnimationFrame(() => window.scrollTo(0, scrollY));
+    }
+    restoredScrollRef.current = true;
+  }, [location.state]);
+
   const visibleCategories = useMemo(() => {
     if (!categoryParam) return categories;
     return categories.filter((category) => category.slug === categoryParam);
@@ -69,6 +81,16 @@ export default function ElegantGallery() {
     });
     return map;
   }, [cakes, categories]);
+
+  const handleSelectCake = (cake, category) => {
+    navigate(`/cakes/${cake.id}`, {
+      state: {
+        cake,
+        categoryName: category?.name ?? "",
+        scrollY: window.scrollY,
+      },
+    });
+  };
 
   return (
     <section
@@ -116,11 +138,13 @@ export default function ElegantGallery() {
                   navigate(`/admin/cakes?edit=${cake.id ?? ""}`)
                 }
                 onAdd={() => navigate("/admin/cakes")}
+                onSelect={handleSelectCake}
               />
             ))}
           </div>
         )}
       </div>
+
     </section>
   );
 }

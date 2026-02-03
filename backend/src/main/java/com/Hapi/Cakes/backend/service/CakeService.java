@@ -5,6 +5,7 @@ import com.Hapi.Cakes.backend.repository.CakeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CakeService {
@@ -25,6 +26,10 @@ public class CakeService {
 
     public List<Cake> getCakesByCategoryId(String categoryId) {
         return cakeRepository.findByCategoryId(categoryId);
+    }
+
+    public Optional<Cake> getCakeById(String id) {
+        return cakeRepository.findById(id);
     }
 
     public Cake createCake(Cake cake) {

@@ -8,3 +8,9 @@ export const fetchCakes = async (category) => {
   });
   return res.data;
 };
+
+export const fetchCakeFeedbackImages = async (cakeId) => {
+  if (!cakeId) return [];
+  const res = await axios.get(`${API_BASE_URL}/cakes/${cakeId}/feedback-images`);
+  return res.data;
+};

@@ -6,6 +6,7 @@ export default function GalleryCategorySection({
   showAdminEdit = false,
   onEdit,
   onAdd,
+  onSelect,
 }) {
   return (
     <section className="space-y-4">
@@ -35,6 +36,7 @@ export default function GalleryCategorySection({
             feedbackImageUrl={cake.feedbackImages?.[0]}
             showAdminEdit={showAdminEdit}
             onEdit={() => onEdit?.(cake)}
+            onClick={() => onSelect?.(cake, category)}
           />
         ))}
       </div>

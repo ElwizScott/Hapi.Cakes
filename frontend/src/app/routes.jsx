@@ -8,11 +8,13 @@ import AdminDashboard from "../features/admin/pages/Dashboard";
 import AdminLayout from "../features/admin/components/AdminLayout";
 import AdminCategories from "../features/admin/pages/Categories";
 import AdminCakes from "../features/admin/pages/CakeList";
+import CakeDetail from "../features/public/pages/CakeDetail";
 
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/gallery", element: <ElegantGallery /> },
   { path: "/gallery-social", element: <Gallery variant="social" /> },
+  { path: "/cakes/:cakeId", element: <CakeDetail /> },
   { path: "/order", element: <Order /> },
   { path: "/contact", element: <Contact /> },
   { path: "/admin/login", element: <AdminLogin /> },
