@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { fetchCakeFeedbackImages, fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
+import { fetchAdmin } from "../../../api/http";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import Loader from "../../../components/common/Loader";
 
@@ -20,6 +21,9 @@ export default function CakeDetail() {
   const [feedbackImages, setFeedbackImages] = useState([]);
   const [loadingFeedback, setLoadingFeedback] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [savingImages, setSavingImages] = useState(false);
+  const [imageError, setImageError] = useState("");
+  const imageInputRef = useRef(null);
 
   const images = useMemo(() => cake?.imageUrls ?? [], [cake]);
   const showPrev = images.length > 1;
@@ -30,7 +34,25 @@ export default function CakeDetail() {
     setLoading(true);
     setError("");
 
-    Promise.all([fetchCakes(), fetchCategories()])
+    const loadFromPublic = () =>
+      Promise.all([fetchCakes(), fetchCategories()]);
+
+    const loadFromAdmin = async () => {
+      const [cakesResponse, categoriesResponse] = await Promise.all([
+        fetchAdmin("/api/admin/cakes"),
+        fetchAdmin("/api/admin/categories"),
+      ]);
+      if (!cakesResponse.ok || !categoriesResponse.ok) {
+        throw new Error("Unable to load admin data.");
+      }
+      const cakes = await cakesResponse.json();
+      const categories = await categoriesResponse.json();
+      return [cakes, categories];
+    };
+
+    const loader = authenticated ? loadFromAdmin : loadFromPublic;
+
+    loader()
       .then(([cakes, categories]) => {
         if (!active) return;
         const found = cakes.find((item) => String(item.id) === String(cakeId));
@@ -55,7 +77,7 @@ export default function CakeDetail() {
     return () => {
       active = false;
     };
-  }, [cakeId, cake]);
+  }, [cakeId, cake, authenticated]);
 
   useEffect(() => {
     let active = true;
@@ -88,6 +110,71 @@ export default function CakeDetail() {
 
   const goNext = () => {
     setActiveIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetchAdmin("/api/admin/upload/cake", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Upload failed");
+    }
+
+    const data = await response.json();
+    return data.url;
+  };
+
+  const persistCakeImages = async (nextImages) => {
+    const payload = {
+      name: cake?.name ?? "",
+      description: cake?.description ?? "",
+      price: cake?.price ?? null,
+      categoryId: cake?.categoryId ?? "",
+      imageUrls: nextImages,
+      feedbackImages: cake?.feedbackImages ?? [],
+      featured: cake?.featured ?? false,
+    };
+
+    const response = await fetchAdmin(`/api/admin/cakes/${cake?.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to save cake images.");
+    }
+  };
+
+  const handleAddImages = async (event) => {
+    const files = Array.from(event.target.files ?? []);
+    if (!files.length || !cake?.id) return;
+    setSavingImages(true);
+    setImageError("");
+    try {
+      const uploadedUrls = [];
+      for (const file of files) {
+        uploadedUrls.push(await uploadImage(file));
+      }
+      const nextImages = [...(cake.imageUrls ?? []), ...uploadedUrls];
+      await persistCakeImages(nextImages);
+      setCake((prev) =>
+        prev ? { ...prev, imageUrls: nextImages } : prev,
+      );
+      if (!images.length && uploadedUrls.length) {
+        setActiveIndex(0);
+      }
+    } catch (err) {
+      setImageError("Image upload failed.");
+    } finally {
+      setSavingImages(false);
+      event.target.value = "";
+    }
   };
 
   if (loading) {
@@ -134,14 +221,16 @@ export default function CakeDetail() {
                 <button
                   type="button"
                   onClick={goPrev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 text-ink shadow"
+                  aria-label="Previous image"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-ink shadow ring-1 ring-black/10 transition hover:bg-white"
                 >
                   ‹
                 </button>
                 <button
                   type="button"
                   onClick={goNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 text-ink shadow"
+                  aria-label="Next image"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-ink shadow ring-1 ring-black/10 transition hover:bg-white"
                 >
                   ›
                 </button>
@@ -153,16 +242,23 @@ export default function CakeDetail() {
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                className="rounded-full border border-lavender px-3 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink"
+                onClick={() => imageInputRef.current?.click()}
+                className="rounded-full border border-lavender px-3 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink disabled:opacity-60"
+                disabled={savingImages}
               >
-                Add Image
+                {savingImages ? "Uploading..." : "Add Image"}
               </button>
-              <button
-                type="button"
-                className="rounded-full border border-lavender px-3 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink"
-              >
-                Remove Image
-              </button>
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={handleAddImages}
+              />
+              {imageError ? (
+                <span className="text-xs text-rose-500">{imageError}</span>
+              ) : null}
             </div>
           ) : null}
         </div>
