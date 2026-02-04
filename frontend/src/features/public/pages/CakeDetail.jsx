@@ -23,7 +23,6 @@ export default function CakeDetail() {
   const [feedbackImages, setFeedbackImages] = useState([]);
   const [loadingFeedback, setLoadingFeedback] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeFeedbackIndex, setActiveFeedbackIndex] = useState(0);
   const [savingImages, setSavingImages] = useState(false);
   const [imageError, setImageError] = useState("");
   const [savingFeedback, setSavingFeedback] = useState(false);
@@ -36,6 +35,8 @@ export default function CakeDetail() {
   });
   const imageInputRef = useRef(null);
   const feedbackInputRef = useRef(null);
+  const leftImageRef = useRef(null);
+  const [rightMaxHeight, setRightMaxHeight] = useState(null);
 
   const images = useMemo(() => cake?.imageUrls ?? [], [cake]);
   const showPrev = images.length > 1;
@@ -118,7 +119,6 @@ export default function CakeDetail() {
       return;
     }
     setFeedbackImages(cake.feedbackImages ?? []);
-    setActiveFeedbackIndex(0);
     setLoadingFeedback(true);
     fetchCakeFeedbackImages(cake.id)
       .then((data) => {
@@ -157,24 +157,23 @@ export default function CakeDetail() {
     }
   }, [cake?.categoryId, categories, categoryName]);
 
+  useEffect(() => {
+    const element = leftImageRef.current;
+    if (!element) return;
+    const updateHeight = () =>
+      setRightMaxHeight(Math.round(element.getBoundingClientRect().height));
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [images.length, activeIndex]);
+
   const goPrev = () => {
     setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   const goNext = () => {
     setActiveIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const goPrevFeedback = () => {
-    setActiveFeedbackIndex(
-      (prev) => (prev - 1 + feedbackImages.length) % feedbackImages.length,
-    );
-  };
-
-  const goNextFeedback = () => {
-    setActiveFeedbackIndex(
-      (prev) => (prev + 1) % feedbackImages.length,
-    );
   };
 
   const uploadImage = async (file) => {
@@ -287,9 +286,6 @@ export default function CakeDetail() {
       const nextFeedback = [...feedbackImages, ...uploadedUrls];
       await persistCakeUpdate({ feedbackImages: nextFeedback });
       setFeedbackImages(nextFeedback);
-      if (!feedbackImages.length && uploadedUrls.length) {
-        setActiveFeedbackIndex(0);
-      }
     } catch (err) {
       setFeedbackError("Feedback upload failed.");
     } finally {
@@ -298,21 +294,16 @@ export default function CakeDetail() {
     }
   };
 
-  const handleDeleteFeedbackImage = async () => {
+  const handleDeleteFeedbackImage = async (index) => {
     if (!authenticated || !feedbackImages.length) return;
     const nextFeedback = feedbackImages.filter(
-      (_, index) => index !== activeFeedbackIndex,
+      (_, imageIndex) => imageIndex !== index,
     );
     setSavingFeedback(true);
     setFeedbackError("");
     try {
       await persistCakeUpdate({ feedbackImages: nextFeedback });
       setFeedbackImages(nextFeedback);
-      if (nextFeedback.length === 0) {
-        setActiveFeedbackIndex(0);
-      } else if (activeFeedbackIndex >= nextFeedback.length) {
-        setActiveFeedbackIndex(nextFeedback.length - 1);
-      }
     } catch (err) {
       setFeedbackError("Unable to delete feedback image.");
     } finally {
@@ -397,12 +388,15 @@ export default function CakeDetail() {
 
       <div className="grid gap-8 rounded-3xl bg-white p-6 shadow-[0_30px_80px_rgba(83,55,99,0.2)] md:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-4">
-          <div className="group relative rounded-2xl bg-softBg">
+          <div
+            ref={leftImageRef}
+            className="group relative overflow-hidden rounded-2xl bg-softBg"
+          >
             {images[activeIndex] ? (
               <img
                 src={images[activeIndex]}
                 alt={cake.name}
-                className="block w-full h-auto object-contain"
+                className="block w-full h-auto object-contain rounded-2xl"
               />
             ) : (
               <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
@@ -469,7 +463,10 @@ export default function CakeDetail() {
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div
+          className="flex flex-col gap-4 overflow-y-auto pr-2"
+          style={rightMaxHeight ? { maxHeight: `${rightMaxHeight}px` } : undefined}
+        >
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               {editingField === "name" ? (
@@ -625,43 +622,27 @@ export default function CakeDetail() {
             {loadingFeedback ? (
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
-              <div className="relative h-56 overflow-hidden rounded-2xl bg-softBg md:h-64">
-                <img
-                  src={feedbackImages[activeFeedbackIndex]}
-                  alt="Feedback"
-                  className="h-full w-full object-contain"
-                />
-                {feedbackImages.length > 1 ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={goPrevFeedback}
-                      aria-label="Previous feedback image"
-                      className="absolute left-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow ring-1 ring-black/10 transition hover:bg-white"
-                    >
-                      ‹
-                    </button>
-                    <button
-                      type="button"
-                      onClick={goNextFeedback}
-                      aria-label="Next feedback image"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow ring-1 ring-black/10 transition hover:bg-white"
-                    >
-                      ›
-                    </button>
-                  </>
-                ) : null}
-                {authenticated ? (
-                  <button
-                    type="button"
-                    onClick={handleDeleteFeedbackImage}
-                    aria-label="Delete feedback image"
-                    className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
-                    disabled={savingFeedback}
-                  >
-                    🗑
-                  </button>
-                ) : null}
+              <div className="space-y-3">
+                {feedbackImages.map((image, index) => (
+                  <div key={image} className="relative rounded-2xl bg-softBg p-2">
+                    <img
+                      src={image}
+                      alt="Feedback"
+                      className="w-full h-auto object-contain rounded-xl"
+                    />
+                    {authenticated ? (
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteFeedbackImage(index)}
+                        aria-label="Delete feedback image"
+                        className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
+                        disabled={savingFeedback}
+                      >
+                        🗑
+                      </button>
+                    ) : null}
+                  </div>
+                ))}
               </div>
             ) : (
               <p className="text-xs text-muted">No feedback images yet.</p>
