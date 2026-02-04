@@ -397,18 +397,19 @@ export default function CakeDetail() {
 
       <div className="grid gap-8 rounded-3xl bg-white p-6 shadow-[0_30px_80px_rgba(83,55,99,0.2)] md:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-4">
-          <div className="relative h-72 overflow-hidden rounded-2xl bg-softBg md:h-[620px]">
+          <div className="group relative rounded-2xl bg-softBg">
             {images[activeIndex] ? (
               <img
                 src={images[activeIndex]}
                 alt={cake.name}
-                className="h-full w-full object-contain"
+                className="block w-full h-auto object-contain"
               />
             ) : (
-              <div className="flex h-full items-center justify-center text-sm text-muted">
+              <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
                 No image available
               </div>
             )}
+            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
             {showPrev ? (
               <>
                 <button
@@ -440,18 +441,19 @@ export default function CakeDetail() {
                 🗑
               </button>
             ) : null}
+            {authenticated ? (
+              <button
+                type="button"
+                onClick={() => imageInputRef.current?.click()}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-plum shadow opacity-0 transition group-hover:opacity-100"
+              >
+                Add Image
+              </button>
+            ) : null}
           </div>
 
           {authenticated ? (
             <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => imageInputRef.current?.click()}
-                className="rounded-full border border-lavender px-3 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink disabled:opacity-60"
-                disabled={savingImages}
-              >
-                {savingImages ? "Uploading..." : "Add Image"}
-              </button>
               <input
                 ref={imageInputRef}
                 type="file"
