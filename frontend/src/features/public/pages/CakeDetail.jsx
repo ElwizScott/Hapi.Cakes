@@ -362,8 +362,12 @@ export default function CakeDetail() {
     );
   }
 
+  const maxThumbs = 5;
+  const visibleThumbs = images.slice(0, maxThumbs);
+  const extraThumbs = images.length - visibleThumbs.length;
+
   return (
-    <section className="mx-auto flex h-full w-full max-w-6xl flex-col gap-4">
+    <section className="mx-auto flex h-full w-full max-w-6xl flex-col gap-3">
       <div className="flex items-center justify-between">
         <button
           type="button"
@@ -375,10 +379,10 @@ export default function CakeDetail() {
         <span className="text-xs text-muted">{categoryName}</span>
       </div>
 
-      <div className="grid h-full gap-6 rounded-3xl bg-white p-4 shadow-[0_30px_80px_rgba(83,55,99,0.2)] lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="space-y-4">
-          <div className="rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm">
-            <div className="group relative overflow-hidden rounded-2xl bg-white">
+      <div className="grid h-full gap-5 rounded-3xl bg-white p-4 shadow-[0_30px_80px_rgba(83,55,99,0.2)] lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="space-y-3">
+          <div className="rounded-3xl border border-lavender/40 bg-white p-3 shadow-sm">
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 shadow-[0_18px_45px_rgba(83,55,99,0.18)]">
             {images[activeIndex] ? (
               <img
                 src={images[activeIndex]}
@@ -414,16 +418,16 @@ export default function CakeDetail() {
             </div>
 
             {images.length > 1 ? (
-              <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-5">
-                {images.map((image, index) => (
+              <div className="mt-3 grid grid-cols-5 gap-3">
+                {visibleThumbs.map((image, index) => (
                   <button
                     key={image}
                     type="button"
                     onClick={() => setActiveIndex(index)}
                     className={`relative overflow-hidden rounded-xl border ${
                       index === activeIndex
-                        ? "border-brandPink ring-2 ring-brandPink/40"
-                        : "border-transparent"
+                        ? "border-brandPink ring-2 ring-brandPink/40 scale-[1.03]"
+                        : "border-transparent hover:border-lavender/60"
                     }`}
                     aria-label={`View image ${index + 1}`}
                   >
@@ -434,6 +438,11 @@ export default function CakeDetail() {
                     />
                   </button>
                 ))}
+                {extraThumbs > 0 ? (
+                  <div className="flex h-20 items-center justify-center rounded-xl border border-dashed border-lavender/60 bg-softBg text-xs font-semibold text-plum">
+                    +{extraThumbs}
+                  </div>
+                ) : null}
               </div>
             ) : null}
           </div>
@@ -455,8 +464,8 @@ export default function CakeDetail() {
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-5 shadow-sm overflow-hidden">
-          <div className="space-y-2">
+        <div className="flex flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm overflow-hidden">
+          <div className="space-y-2 pb-2 border-b border-lavender/30">
             <div className="flex items-center gap-2">
               {editingField === "name" ? (
                 <input
@@ -470,7 +479,9 @@ export default function CakeDetail() {
                   className="w-full rounded-xl border border-lavender bg-softBg px-3 py-2 text-sm text-ink"
                 />
               ) : (
-                <h2 className="text-2xl font-semibold text-ink">{cake.name}</h2>
+                <h2 className="text-2xl font-semibold tracking-tight text-ink">
+                  {cake.name}
+                </h2>
               )}
               {authenticated ? (
                 <button
@@ -526,7 +537,7 @@ export default function CakeDetail() {
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 pb-2 border-b border-lavender/30">
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-ink">Description</h3>
               {authenticated ? (
@@ -639,8 +650,8 @@ export default function CakeDetail() {
                     <img
                       src={image}
                       alt="Feedback"
-                      className="block h-40 w-full object-cover rounded-2xl"
-                    />
+                  className="block aspect-[4/3] w-full object-cover rounded-2xl"
+                />
                     <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
                     {authenticated ? (
                       <button
