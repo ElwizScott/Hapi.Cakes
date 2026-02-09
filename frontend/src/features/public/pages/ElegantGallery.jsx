@@ -105,6 +105,17 @@ export default function ElegantGallery() {
             Explore our signature cakes by category, with interactive cards that
             expand in place.
           </p>
+          {authenticated ? (
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={() => navigate("/admin/categories")}
+                className="rounded-full border border-lavender bg-white px-4 py-2 text-xs font-semibold text-plum shadow-sm transition hover:border-brandPink hover:text-brandPink"
+              >
+                Add Category
+              </button>
+            </div>
+          ) : null}
         </header>
 
         {loading ? (

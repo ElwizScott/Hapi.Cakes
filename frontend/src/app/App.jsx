@@ -1,16 +1,25 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import routes from "./routes";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { AdminAuthProvider } from "../features/admin/context/AdminAuthContext";
 
 function App() {
+  const location = useLocation();
+  const hideChrome = location.pathname.startsWith("/cakes/");
+
   return (
     <AdminAuthProvider>
       <div className="min-h-screen bg-hapi-light font-sans text-slate-700">
-        <Navbar />
+        {hideChrome ? null : <Navbar />}
 
-        <main className="max-w-7xl mx-auto px-4 py-6">
+        <main
+          className={`mx-auto px-4 py-6 ${
+            hideChrome
+              ? "h-screen max-w-6xl overflow-hidden"
+              : "max-w-7xl"
+          }`}
+        >
           <Routes>
             {routes.map((route) => (
               <Route
@@ -22,7 +31,7 @@ function App() {
           </Routes>
         </main>
 
-        <Footer />
+        {hideChrome ? null : <Footer />}
       </div>
     </AdminAuthProvider>
   );

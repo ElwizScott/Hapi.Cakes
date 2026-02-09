@@ -28,6 +28,7 @@ export default function CakeDetail() {
   const [savingFeedback, setSavingFeedback] = useState(false);
   const [feedbackError, setFeedbackError] = useState("");
   const [editingField, setEditingField] = useState(null);
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const [fieldDraft, setFieldDraft] = useState({
     name: "",
     description: "",
@@ -35,8 +36,6 @@ export default function CakeDetail() {
   });
   const imageInputRef = useRef(null);
   const feedbackInputRef = useRef(null);
-  const leftImageRef = useRef(null);
-  const [rightMaxHeight, setRightMaxHeight] = useState(null);
 
   const images = useMemo(() => cake?.imageUrls ?? [], [cake]);
   const showPrev = images.length > 1;
@@ -145,6 +144,7 @@ export default function CakeDetail() {
       description: cake.description ?? "",
       categoryId: cake.categoryId ?? "",
     });
+    setShowFullDescription(false);
   }, [cake?.id]);
 
   useEffect(() => {
@@ -156,17 +156,6 @@ export default function CakeDetail() {
       setCategoryName(match.name);
     }
   }, [cake?.categoryId, categories, categoryName]);
-
-  useEffect(() => {
-    const element = leftImageRef.current;
-    if (!element) return;
-    const updateHeight = () =>
-      setRightMaxHeight(Math.round(element.getBoundingClientRect().height));
-    updateHeight();
-    const observer = new ResizeObserver(updateHeight);
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [images.length, activeIndex]);
 
   const goPrev = () => {
     setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -374,8 +363,8 @@ export default function CakeDetail() {
   }
 
   return (
-    <section className="mx-auto w-full max-w-6xl">
-      <div className="mb-6 flex items-center justify-between">
+    <section className="mx-auto flex h-full w-full max-w-6xl flex-col gap-4">
+      <div className="flex items-center justify-between">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -386,63 +375,66 @@ export default function CakeDetail() {
         <span className="text-xs text-muted">{categoryName}</span>
       </div>
 
-      <div className="grid gap-8 rounded-3xl bg-white p-6 shadow-[0_30px_80px_rgba(83,55,99,0.2)] md:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid h-full gap-6 rounded-3xl bg-white p-4 shadow-[0_30px_80px_rgba(83,55,99,0.2)] lg:grid-cols-[0.9fr_1.1fr]">
         <div className="space-y-4">
-          <div
-            ref={leftImageRef}
-            className="group relative overflow-hidden rounded-2xl bg-softBg"
-          >
+          <div className="rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm">
+            <div className="group relative overflow-hidden rounded-2xl bg-white">
             {images[activeIndex] ? (
               <img
                 src={images[activeIndex]}
                 alt={cake.name}
-                className="block w-full h-auto object-contain rounded-2xl"
+                className="block w-full max-h-[55vh] object-cover object-center rounded-2xl"
               />
-            ) : (
-              <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
-                No image available
+              ) : (
+                <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
+                  No image available
+                </div>
+              )}
+              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
+              {authenticated && images.length ? (
+                <button
+                  type="button"
+                  onClick={handleDeleteImage}
+                  aria-label="Delete image"
+                  className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
+                  disabled={savingImages}
+                >
+                  🗑
+                </button>
+              ) : null}
+              {authenticated ? (
+                <button
+                  type="button"
+                  onClick={() => imageInputRef.current?.click()}
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-plum shadow opacity-0 transition group-hover:opacity-100"
+                >
+                  Add Image
+                </button>
+              ) : null}
+            </div>
+
+            {images.length > 1 ? (
+              <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-5">
+                {images.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    className={`relative overflow-hidden rounded-xl border ${
+                      index === activeIndex
+                        ? "border-brandPink ring-2 ring-brandPink/40"
+                        : "border-transparent"
+                    }`}
+                    aria-label={`View image ${index + 1}`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${cake.name} thumbnail ${index + 1}`}
+                      className="h-20 w-full object-cover"
+                    />
+                  </button>
+                ))}
               </div>
-            )}
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
-            {showPrev ? (
-              <>
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  aria-label="Previous image"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow ring-1 ring-black/10 transition hover:bg-white"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  onClick={goNext}
-                  aria-label="Next image"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow ring-1 ring-black/10 transition hover:bg-white"
-                >
-                  ›
-                </button>
-              </>
-            ) : null}
-            {authenticated && images.length ? (
-              <button
-                type="button"
-                onClick={handleDeleteImage}
-                aria-label="Delete image"
-                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
-                disabled={savingImages}
-              >
-                🗑
-              </button>
-            ) : null}
-            {authenticated ? (
-              <button
-                type="button"
-                onClick={() => imageInputRef.current?.click()}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-plum shadow opacity-0 transition group-hover:opacity-100"
-              >
-                Add Image
-              </button>
             ) : null}
           </div>
 
@@ -463,10 +455,7 @@ export default function CakeDetail() {
           ) : null}
         </div>
 
-        <div
-          className="flex flex-col gap-4 overflow-y-auto pr-2"
-          style={rightMaxHeight ? { maxHeight: `${rightMaxHeight}px` } : undefined}
-        >
+        <div className="flex flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-5 shadow-sm overflow-hidden">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               {editingField === "name" ? (
@@ -569,7 +558,26 @@ export default function CakeDetail() {
               />
             ) : (
               <div className="rounded-2xl bg-softBg p-3 text-sm text-muted">
-                {cake.description || "No description provided."}
+                <div
+                  className="whitespace-pre-line"
+                  style={{
+                    maxHeight: showFullDescription ? "14rem" : "6.5rem",
+                    overflowY: showFullDescription ? "auto" : "hidden",
+                  }}
+                >
+                  {cake.description || "No description provided."}
+                </div>
+                {cake.description && cake.description.length > 180 ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowFullDescription((prev) => !prev)
+                    }
+                    className="mt-2 text-xs font-semibold text-plum transition hover:text-brandPink"
+                  >
+                    {showFullDescription ? "See less" : "See more"}
+                  </button>
+                ) : null}
               </div>
             )}
             {editingField ? (
@@ -622,14 +630,18 @@ export default function CakeDetail() {
             {loadingFeedback ? (
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
-              <div className="space-y-3">
+              <div className="flex gap-3 overflow-x-auto pb-2">
                 {feedbackImages.map((image, index) => (
-                  <div key={image} className="relative rounded-2xl bg-softBg p-2">
+                  <div
+                    key={image}
+                    className="group relative w-56 flex-none overflow-hidden rounded-2xl"
+                  >
                     <img
                       src={image}
                       alt="Feedback"
-                      className="w-full h-auto object-contain rounded-xl"
+                      className="block h-40 w-full object-cover rounded-2xl"
                     />
+                    <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
                     {authenticated ? (
                       <button
                         type="button"
