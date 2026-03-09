@@ -1,24 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminImageEditOverlay from "../../features/admin/components/AdminImageEditOverlay";
-
-const categories = [
-  { label: "Wedding Cakes", type: "wedding" },
-  { label: "Birthday Cakes", type: "birthday" },
-  { label: "Event Cakes", type: "event" },
-];
 
 export default function CategorySection({
-  categoryImages,
-  isAdmin,
-  onCategoryImageUploaded,
+  categories = [],
 }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
 
   return (
-    <section className="max-w-7xl mx-auto bg-softBg px-8 py-16 overflow-hidden">
+    <section
+      id="special-events"
+      className="max-w-7xl mx-auto bg-softBg px-8 py-12 overflow-hidden font-serif"
+    >
       <h2 className="font-script text-5xl text-center mb-14 text-plum">
         Special Events & Occasions
       </h2>
@@ -39,13 +33,13 @@ export default function CategorySection({
             if (clickedIndex !== null) return;
             setClickedIndex(index);
             setTimeout(() => {
-              navigate(`/gallery?category=${c.type}`);
+              navigate(`/gallery?category=${c.slug}`);
             }, 300);
           };
 
           return (
             <div
-              key={c.type}
+              key={c.id ?? c.slug}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
               onClick={handleClick}
@@ -71,28 +65,21 @@ export default function CategorySection({
               >
                 {/* Click animates into the gallery without layout shift. */}
                 <div className="relative h-80 rounded-xl mb-4 overflow-hidden border border-lavender bg-gradient-to-br from-softBg to-lavender">
-                  {categoryImages?.[c.type] && (
+                  {c.imageUrl ? (
                     <img
-                      src={categoryImages[c.type]}
-                      alt={c.label}
+                      src={c.imageUrl}
+                      alt={c.name}
                       className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
-                  )}
-
-                  {isAdmin && (
-                    <AdminImageEditOverlay
-                      label={`Update ${c.label}`}
-                      uploadEndpoint={`/api/admin/upload/category/${c.type}`}
-                      currentImageUrl={categoryImages?.[c.type]}
-                      onUploaded={(url) =>
-                        onCategoryImageUploaded?.(c.type, url)
-                      }
-                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-muted">
+                      No image yet
+                    </div>
                   )}
                 </div>
 
                 <p className="font-serif text-lg text-ink transition-colors duration-300">
-                  {c.label}
+                  {c.name}
                 </p>
               </div>
             </div>
