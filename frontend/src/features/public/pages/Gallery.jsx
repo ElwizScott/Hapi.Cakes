@@ -69,22 +69,37 @@ export default function Gallery({ variant = "elegant" }) {
 
   return (
     <section
-      className={`px-6 space-y-6 transition-all duration-500 ease-out ${
+      className={`px-4 py-6 space-y-6 transition-all duration-500 ease-out sm:px-6 ${
         visible ? "opacity-100 scale-100" : "opacity-0 scale-[0.98]"
       }`}
     >
-      <header className="space-y-2">
-        <h1 className="text-2xl font-semibold text-slate-800">
-          {isSocial ? "Instagram Gallery" : "Elegant Gallery"}
-        </h1>
-        <p className="text-sm text-slate-500">
-          {isSocial
-            ? "A curated social feed of our latest creations."
-            : "Discover our signature cakes and seasonal favorites."}
-        </p>
-        <p className="text-xs text-slate-400">
-          Cakes loaded: {filteredCakes.length}
-        </p>
+      <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-6 shadow-sm backdrop-blur">
+          <div className="pointer-events-none absolute inset-0 opacity-70">
+            <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
+            <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
+          </div>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
+        <div className="pointer-events-none absolute right-10 top-8 text-[10px] text-plum/40">
+          ✧ ✦ ✧
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
+              {isSocial ? "Social Feed" : "Curated Collection"}
+            </p>
+            <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
+              {isSocial ? "Instagram Gallery" : "Elegant Gallery"}
+            </h1>
+            <p className="mt-2 text-sm text-muted">
+              {isSocial
+                ? "A curated social feed of our latest creations."
+                : "Discover our signature cakes and seasonal favorites."}
+            </p>
+          </div>
+          <div className="rounded-full border border-lavender/60 bg-white px-3 py-1 text-xs font-semibold text-plum">
+            {filteredCakes.length} cakes
+          </div>
+        </div>
       </header>
 
       {!isSocial ? (
@@ -95,8 +110,8 @@ export default function Gallery({ variant = "elegant" }) {
               href={`/gallery?category=${category.slug}`}
               className={`rounded-full border px-3 py-1 text-xs transition ${
                 category.slug === categoryParam
-                  ? "border-brandPink text-brandPink"
-                  : "border-lavender text-muted hover:border-brandPink hover:text-brandPink"
+                  ? "border-brandPink bg-brandPink/10 text-brandPink"
+                  : "border-lavender bg-white text-muted hover:border-brandPink hover:text-brandPink"
               }`}
             >
               {category.name}
@@ -112,7 +127,7 @@ export default function Gallery({ variant = "elegant" }) {
       ) : isSocial ? (
         <CakeGrid cakes={filteredCakes} variant={variant} />
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {filteredCakes.map((cake, index) => {
             const isHovered = hoveredIndex === index;
             const isOther = hoveredIndex !== null && hoveredIndex !== index;
@@ -127,14 +142,17 @@ export default function Gallery({ variant = "elegant" }) {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={handleClick}
-                className={`group relative overflow-hidden rounded-3xl border border-lavender bg-white p-5 transition-all duration-500 ease-out ${
-                  isOther ? "scale-[0.98] opacity-90" : "scale-100"
+                className={`group relative overflow-hidden rounded-[28px] border border-lavender/50 bg-gradient-to-br from-white via-white to-lavender/20 p-4 shadow-[0_18px_36px_rgba(200,141,191,0.22)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(200,141,191,0.32)] ${
+                  isOther ? "scale-[0.985] opacity-90" : "scale-100"
                 } ${
                   isHovered
-                    ? "md:origin-left md:scale-x-[1.08] md:z-10 md:shadow-[0_18px_40px_rgba(200,141,191,0.2)]"
-                    : "shadow-sm"
+                    ? "md:origin-left md:scale-x-[1.06] md:z-10"
+                    : ""
                 }`}
               >
+                <div className="pointer-events-none absolute right-4 top-4 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold text-plum shadow-sm">
+                  ✦
+                </div>
                 {authenticated ? (
                   <button
                     type="button"
@@ -159,7 +177,8 @@ export default function Gallery({ variant = "elegant" }) {
                   </button>
                 ) : null}
                 <div className="flex flex-col gap-4 md:flex-row">
-                  <div className="h-56 w-full overflow-hidden rounded-2xl bg-softBg md:h-48 md:w-48">
+                  <div className="relative h-56 w-full overflow-hidden rounded-2xl bg-white/70 md:h-48 md:w-48">
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brandPink/10 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
                     {cake.imageUrls?.[0] ? (
                       <img
                         src={cake.imageUrls[0]}
@@ -170,11 +189,11 @@ export default function Gallery({ variant = "elegant" }) {
                       />
                     ) : null}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-ink">
+                  <div className="flex-1 font-serif">
+                    <h3 className="text-lg font-semibold text-ink tracking-tight">
                       {cake.name}
                     </h3>
-                    <p className="text-sm text-muted mt-2">
+                    <p className="text-sm text-muted mt-2 line-clamp-3 font-sans">
                       {cake.description}
                     </p>
                     <div

@@ -25,10 +25,15 @@ export default function CakeDetail() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [savingImages, setSavingImages] = useState(false);
   const [imageError, setImageError] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(null);
   const [savingFeedback, setSavingFeedback] = useState(false);
   const [feedbackError, setFeedbackError] = useState("");
   const [editingField, setEditingField] = useState(null);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [showAllThumbs, setShowAllThumbs] = useState(false);
+  const [feedbackLightboxOpen, setFeedbackLightboxOpen] = useState(false);
+  const [feedbackActiveIndex, setFeedbackActiveIndex] = useState(0);
   const [fieldDraft, setFieldDraft] = useState({
     name: "",
     description: "",
@@ -36,6 +41,7 @@ export default function CakeDetail() {
   });
   const imageInputRef = useRef(null);
   const feedbackInputRef = useRef(null);
+  const dragIndexRef = useRef(null);
 
   const images = useMemo(() => cake?.imageUrls ?? [], [cake]);
   const showPrev = images.length > 1;
@@ -219,10 +225,15 @@ export default function CakeDetail() {
     if (!files.length || !cake?.id) return;
     setSavingImages(true);
     setImageError("");
+    setUploadProgress({ current: 0, total: files.length });
     try {
       const uploadedUrls = [];
       for (const file of files) {
-        uploadedUrls.push(await uploadImage(file));
+        const url = await uploadImage(file);
+        uploadedUrls.push(url);
+        setUploadProgress((prev) =>
+          prev ? { ...prev, current: prev.current + 1 } : prev,
+        );
       }
       const nextImages = [...(cake.imageUrls ?? []), ...uploadedUrls];
       await persistCakeUpdate({ imageUrls: nextImages });
@@ -236,6 +247,7 @@ export default function CakeDetail() {
       setImageError("Image upload failed.");
     } finally {
       setSavingImages(false);
+      setUploadProgress(null);
       event.target.value = "";
     }
   };
@@ -257,6 +269,32 @@ export default function CakeDetail() {
       }
     } catch (err) {
       setImageError("Unable to delete image.");
+    } finally {
+      setSavingImages(false);
+    }
+  };
+
+  const handleReorderImages = async (fromIndex, toIndex) => {
+    if (!authenticated || fromIndex === toIndex) return;
+    const nextImages = [...images];
+    const [moved] = nextImages.splice(fromIndex, 1);
+    nextImages.splice(toIndex, 0, moved);
+    setSavingImages(true);
+    setImageError("");
+    try {
+      await persistCakeUpdate({ imageUrls: nextImages });
+      setCake((prev) =>
+        prev ? { ...prev, imageUrls: nextImages } : prev,
+      );
+      if (activeIndex === fromIndex) {
+        setActiveIndex(toIndex);
+      } else if (fromIndex < activeIndex && toIndex >= activeIndex) {
+        setActiveIndex((prev) => prev - 1);
+      } else if (fromIndex > activeIndex && toIndex <= activeIndex) {
+        setActiveIndex((prev) => prev + 1);
+      }
+    } catch (err) {
+      setImageError("Unable to reorder images.");
     } finally {
       setSavingImages(false);
     }
@@ -298,6 +336,11 @@ export default function CakeDetail() {
     } finally {
       setSavingFeedback(false);
     }
+  };
+
+  const handleOpenFeedbackLightbox = (index) => {
+    setFeedbackActiveIndex(index);
+    setFeedbackLightboxOpen(true);
   };
 
   const handleStartEdit = (field) => {
@@ -362,7 +405,7 @@ export default function CakeDetail() {
     );
   }
 
-  const maxThumbs = 5;
+  const maxThumbs = 4;
   const visibleThumbs = images.slice(0, maxThumbs);
   const extraThumbs = images.length - visibleThumbs.length;
 
@@ -383,12 +426,13 @@ export default function CakeDetail() {
         <div className="space-y-3">
           <div className="rounded-3xl border border-lavender/40 bg-white p-3 shadow-sm">
             <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 shadow-[0_18px_45px_rgba(83,55,99,0.18)]">
-            {images[activeIndex] ? (
-              <img
-                src={images[activeIndex]}
-                alt={cake.name}
-                className="block w-full max-h-[55vh] object-cover object-center rounded-2xl"
-              />
+              {images[activeIndex] ? (
+                <img
+                  src={images[activeIndex]}
+                  alt={cake.name}
+                  className="block w-full max-h-[55vh] object-cover object-center rounded-2xl cursor-zoom-in"
+                  onClick={() => setLightboxOpen(true)}
+                />
               ) : (
                 <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
                   No image available
@@ -418,32 +462,66 @@ export default function CakeDetail() {
             </div>
 
             {images.length > 1 ? (
-              <div className="mt-3 grid grid-cols-5 gap-3">
+              <div
+                className={
+                  showAllThumbs
+                    ? "mt-3 flex gap-3 overflow-x-auto pb-2"
+                    : "mt-3 grid grid-cols-5 gap-3"
+                }
+              >
                 {visibleThumbs.map((image, index) => (
                   <button
                     key={image}
                     type="button"
                     onClick={() => setActiveIndex(index)}
-                    className={`relative overflow-hidden rounded-xl border ${
+                    draggable={authenticated}
+                    onDragStart={() => {
+                      dragIndexRef.current = index;
+                    }}
+                    onDragOver={(event) => {
+                      if (!authenticated) return;
+                      event.preventDefault();
+                    }}
+                    onDrop={() => {
+                      if (!authenticated) return;
+                      const fromIndex = dragIndexRef.current;
+                      dragIndexRef.current = null;
+                      if (typeof fromIndex === "number") {
+                        handleReorderImages(fromIndex, index);
+                      }
+                    }}
+                    className={`relative overflow-hidden rounded-xl border transition ${
                       index === activeIndex
                         ? "border-brandPink ring-2 ring-brandPink/40 scale-[1.03]"
-                        : "border-transparent hover:border-lavender/60"
+                        : "border-transparent hover:border-lavender/60 hover:scale-[1.01]"
                     }`}
                     aria-label={`View image ${index + 1}`}
                   >
                     <img
                       src={image}
                       alt={`${cake.name} thumbnail ${index + 1}`}
-                      className="h-20 w-full object-cover"
+                      className="h-20 w-20 object-cover"
                     />
                   </button>
                 ))}
                 {extraThumbs > 0 ? (
-                  <div className="flex h-20 items-center justify-center rounded-xl border border-dashed border-lavender/60 bg-softBg text-xs font-semibold text-plum">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAllThumbs(true);
+                      setLightboxOpen(true);
+                    }}
+                    className="flex h-20 items-center justify-center rounded-xl border border-dashed border-lavender/60 bg-softBg text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink"
+                  >
                     +{extraThumbs}
-                  </div>
+                  </button>
                 ) : null}
               </div>
+            ) : null}
+            {savingImages && uploadProgress ? (
+              <p className="mt-2 text-xs text-muted">
+                Uploading {uploadProgress.current}/{uploadProgress.total}
+              </p>
             ) : null}
           </div>
 
@@ -484,18 +562,35 @@ export default function CakeDetail() {
                 </h2>
               )}
               {authenticated ? (
-                <button
-                  type="button"
-                  onClick={() =>
-                    editingField === "name"
-                      ? handleSaveField()
-                      : handleStartEdit("name")
-                  }
-                  className="rounded-full bg-lavender/60 p-1 text-xs"
-                  title="Edit name"
-                >
-                  ✎
-                </button>
+                editingField === "name" ? (
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={handleSaveField}
+                      className="rounded-full bg-emerald-100 px-2 py-1 text-xs text-emerald-700"
+                      title="Save"
+                    >
+                      ✔
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      className="rounded-full bg-rose-100 px-2 py-1 text-xs text-rose-600"
+                      title="Cancel"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleStartEdit("name")}
+                    className="rounded-full bg-lavender/60 p-1 text-xs"
+                    title="Edit name"
+                  >
+                    ✎
+                  </button>
+                )
               ) : null}
             </div>
             <div className="flex items-center gap-2 text-sm text-muted">
@@ -518,21 +613,40 @@ export default function CakeDetail() {
                   ))}
                 </select>
               ) : (
-                <span>{categoryName || "Uncategorized"}</span>
+                <span className="inline-flex items-center rounded-full border border-lavender/60 bg-softBg px-2 py-0.5 text-xs font-semibold text-plum">
+                  {categoryName || "Uncategorized"}
+                </span>
               )}
               {authenticated ? (
-                <button
-                  type="button"
-                  onClick={() =>
-                    editingField === "category"
-                      ? handleSaveField()
-                      : handleStartEdit("category")
-                  }
-                  className="rounded-full bg-lavender/60 p-1 text-xs"
-                  title="Edit category"
-                >
-                  ✎
-                </button>
+                editingField === "category" ? (
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={handleSaveField}
+                      className="rounded-full bg-emerald-100 px-2 py-1 text-xs text-emerald-700"
+                      title="Save"
+                    >
+                      ✔
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      className="rounded-full bg-rose-100 px-2 py-1 text-xs text-rose-600"
+                      title="Cancel"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleStartEdit("category")}
+                    className="rounded-full bg-lavender/60 p-1 text-xs"
+                    title="Edit category"
+                  >
+                    ✎
+                  </button>
+                )
               ) : null}
             </div>
           </div>
@@ -541,18 +655,35 @@ export default function CakeDetail() {
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-ink">Description</h3>
               {authenticated ? (
-                <button
-                  type="button"
-                  onClick={() =>
-                    editingField === "description"
-                      ? handleSaveField()
-                      : handleStartEdit("description")
-                  }
-                  className="rounded-full bg-lavender/60 p-1 text-xs"
-                  title="Edit description"
-                >
-                  ✎
-                </button>
+                editingField === "description" ? (
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={handleSaveField}
+                      className="rounded-full bg-emerald-100 px-2 py-1 text-xs text-emerald-700"
+                      title="Save"
+                    >
+                      ✔
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      className="rounded-full bg-rose-100 px-2 py-1 text-xs text-rose-600"
+                      title="Cancel"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleStartEdit("description")}
+                    className="rounded-full bg-lavender/60 p-1 text-xs"
+                    title="Edit description"
+                  >
+                    ✎
+                  </button>
+                )
               ) : null}
             </div>
             {editingField === "description" ? (
@@ -591,24 +722,6 @@ export default function CakeDetail() {
                 ) : null}
               </div>
             )}
-            {editingField ? (
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={handleSaveField}
-                  className="rounded-full bg-brandPink px-3 py-1 text-xs font-semibold text-white transition hover:bg-brandPink/90"
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancelEdit}
-                  className="rounded-full border border-lavender px-3 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink"
-                >
-                  Cancel
-                </button>
-              </div>
-            ) : null}
             {updateError ? (
               <p className="text-xs text-rose-500">{updateError}</p>
             ) : null}
@@ -641,31 +754,38 @@ export default function CakeDetail() {
             {loadingFeedback ? (
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
-              <div className="flex gap-3 overflow-x-auto pb-2">
-                {feedbackImages.map((image, index) => (
-                  <div
-                    key={image}
-                    className="group relative w-56 flex-none overflow-hidden rounded-2xl"
-                  >
-                    <img
-                      src={image}
-                      alt="Feedback"
-                  className="block aspect-[4/3] w-full object-cover rounded-2xl"
-                />
-                    <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
-                    {authenticated ? (
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteFeedbackImage(index)}
-                        aria-label="Delete feedback image"
-                        className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
-                        disabled={savingFeedback}
-                      >
-                        🗑
-                      </button>
-                    ) : null}
-                  </div>
-                ))}
+              <div className="relative">
+                <div className="flex gap-3 overflow-x-auto pb-2 pr-6">
+                  {feedbackImages.map((image, index) => (
+                    <div
+                      key={image}
+                      className="group relative w-56 flex-none overflow-hidden rounded-2xl"
+                    >
+                      <img
+                        src={image}
+                        alt="Feedback"
+                        className="block aspect-[4/3] w-full object-cover rounded-2xl cursor-zoom-in"
+                        onClick={() => handleOpenFeedbackLightbox(index)}
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
+                      {authenticated ? (
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleDeleteFeedbackImage(index);
+                          }}
+                          aria-label="Delete feedback image"
+                          className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
+                          disabled={savingFeedback}
+                        >
+                          🗑
+                        </button>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+                <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-white via-white/70 to-transparent" />
               </div>
             ) : (
               <p className="text-xs text-muted">No feedback images yet.</p>
@@ -676,6 +796,84 @@ export default function CakeDetail() {
           </div>
         </div>
       </div>
+      {lightboxOpen ? (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <div
+            className="relative max-h-[90vh] max-w-[90vw]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(false)}
+              className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+            >
+              ✕
+            </button>
+            <img
+              src={images[activeIndex]}
+              alt={cake.name}
+              className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain"
+            />
+          </div>
+        </div>
+      ) : null}
+      {feedbackLightboxOpen ? (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setFeedbackLightboxOpen(false)}
+        >
+          <div
+            className="relative max-h-[90vh] max-w-[90vw]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setFeedbackLightboxOpen(false)}
+              className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+            >
+              ✕
+            </button>
+            {feedbackImages.length > 1 ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFeedbackActiveIndex(
+                      (prev) =>
+                        (prev - 1 + feedbackImages.length) %
+                        feedbackImages.length,
+                    )
+                  }
+                  aria-label="Previous feedback image"
+                  className="absolute -left-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFeedbackActiveIndex(
+                      (prev) => (prev + 1) % feedbackImages.length,
+                    )
+                  }
+                  aria-label="Next feedback image"
+                  className="absolute -right-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+                >
+                  ›
+                </button>
+              </>
+            ) : null}
+            <img
+              src={feedbackImages[feedbackActiveIndex]}
+              alt="Feedback"
+              className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain"
+            />
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

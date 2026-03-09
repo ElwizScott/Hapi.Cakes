@@ -3,7 +3,7 @@ import CakeImage from "./CakeImage";
 export default function CakeCard({ cake, variant = "elegant" }) {
   const containerClass =
     variant === "social"
-      ? "bg-white rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden"
+      ? "group relative overflow-hidden rounded-3xl border border-lavender/50 bg-gradient-to-br from-white via-white to-lavender/20 shadow-[0_16px_32px_rgba(200,141,191,0.18)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_28px_56px_rgba(200,141,191,0.3)]"
       : "bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden";
 
   return (
@@ -11,11 +11,17 @@ export default function CakeCard({ cake, variant = "elegant" }) {
       <CakeImage
         src={cake.imageUrls?.[0]}
         alt={cake.name}
-        className="h-56 w-full object-cover"
+        className="h-56 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
       />
 
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-800">{cake.name}</h3>
+        <h3
+          className={`text-lg font-semibold ${
+            variant === "social" ? "font-serif text-ink tracking-tight" : "text-gray-800"
+          }`}
+        >
+          {cake.name}
+        </h3>
         {cake.category ? (
           <p className="text-sm text-gray-500 capitalize mt-1">
             {cake.category}

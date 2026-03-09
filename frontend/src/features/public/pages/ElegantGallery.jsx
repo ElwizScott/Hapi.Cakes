@@ -94,19 +94,32 @@ export default function ElegantGallery() {
 
   return (
     <section
-      className={`bg-softBg px-6 py-12 transition-all duration-500 ease-out ${
+      className={`bg-gradient-to-b from-softBg via-softBg to-white px-4 py-10 transition-all duration-500 ease-out sm:px-6 ${
         visible ? "opacity-100 scale-100" : "opacity-0 scale-[0.98]"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-10">
-        <header className="space-y-2 text-center">
-          <h1 className="text-3xl font-semibold text-ink">Elegant Gallery</h1>
-          <p className="text-sm text-muted">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8">
+        <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-6 text-center shadow-sm backdrop-blur">
+          <div className="pointer-events-none absolute inset-0 opacity-70">
+            <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
+            <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
+          <div className="pointer-events-none absolute right-10 top-8 text-[10px] text-plum/40">
+            ✧ ✦ ✧
+          </div>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
+            Elegant Gallery
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
+            Signature Cakes
+          </h1>
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-muted">
             Explore our signature cakes by category, with interactive cards that
             expand in place.
           </p>
           {authenticated ? (
-            <div className="flex justify-center">
+            <div className="mt-4 flex justify-center">
               <button
                 type="button"
                 onClick={() => navigate("/admin/categories")}
@@ -138,7 +151,7 @@ export default function ElegantGallery() {
             ) : null}
           </div>
         ) : (
-          <div className="space-y-10">
+          <div className="space-y-12">
             {visibleCategories.map((category) => (
               <GalleryCategorySection
                 key={category.id}
