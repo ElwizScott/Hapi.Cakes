@@ -7,6 +7,7 @@ import Loader from "../../../components/common/Loader";
 import Modal from "../../../components/common/Modal";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import EditableText from "../../../components/common/EditableText";
+import { formatVND } from "../../../utils/formatPrice";
 
 export default function Gallery({ variant = "elegant" }) {
   const [searchParams] = useSearchParams();
@@ -210,6 +211,11 @@ export default function Gallery({ variant = "elegant" }) {
                     <h3 className="text-lg font-semibold text-ink tracking-tight">
                       {cake.name}
                     </h3>
+                    {Number.isFinite(cake.price) ? (
+                      <p className="mt-1 text-sm font-semibold text-plum">
+                        {formatVND(cake.price)}
+                      </p>
+                    ) : null}
                     <p className="text-sm text-muted mt-2 line-clamp-3 font-sans">
                       {cake.description}
                     </p>
@@ -248,6 +254,11 @@ export default function Gallery({ variant = "elegant" }) {
                 alt={selectedCake.name}
                 className="h-48 w-full rounded-2xl object-cover"
               />
+            ) : null}
+            {Number.isFinite(selectedCake.price) ? (
+              <p className="text-sm font-semibold text-plum">
+                {formatVND(selectedCake.price)}
+              </p>
             ) : null}
             <p className="text-sm text-muted">{selectedCake.description}</p>
             {selectedCake.feedbackImages?.length ? (

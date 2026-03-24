@@ -1,4 +1,5 @@
 import CakeImage from "./CakeImage";
+import { formatVND } from "../../utils/formatPrice";
 
 export default function CakeCard({ cake, variant = "elegant" }) {
   const containerClass =
@@ -22,6 +23,11 @@ export default function CakeCard({ cake, variant = "elegant" }) {
         >
           {cake.name}
         </h3>
+        {Number.isFinite(cake.price) ? (
+          <p className="mt-1 text-sm font-semibold text-plum">
+            {formatVND(cake.price)}
+          </p>
+        ) : null}
         {cake.category ? (
           <p className="text-sm text-gray-500 capitalize mt-1">
             {cake.category}

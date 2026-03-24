@@ -20,6 +20,7 @@ export default function CakeList() {
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [uploadingCount, setUploadingCount] = useState(0);
 
   const loadCakes = async () => {
     const response = await fetchAdmin("/api/admin/cakes");
@@ -75,6 +76,7 @@ export default function CakeList() {
   const handleImageUpload = async (event, type) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    setUploadingCount((prev) => prev + 1);
     try {
       const url = await uploadImage(file);
       setForm((prev) => ({
@@ -83,6 +85,8 @@ export default function CakeList() {
       }));
     } catch (err) {
       setError("Image upload failed.");
+    } finally {
+      setUploadingCount((prev) => Math.max(0, prev - 1));
     }
   };
 
@@ -288,10 +292,14 @@ export default function CakeList() {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || uploadingCount > 0}
           className="rounded-full bg-brandPink px-5 py-2 text-sm font-semibold text-white transition hover:bg-brandPink/90 disabled:opacity-70"
         >
-          {form.id ? "Update cake" : "Create cake"}
+          {uploadingCount > 0
+            ? "Uploading images..."
+            : form.id
+              ? "Update cake"
+              : "Create cake"}
         </button>
       </form>
 

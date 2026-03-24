@@ -38,6 +38,7 @@ export default function GalleryCategorySection({
             imageUrl={cake.imageUrls?.[0]}
             name={cake.name}
             description={cake.description}
+            price={cake.price}
             feedbackImageUrl={cake.feedbackImages?.[0]}
             showAdminEdit={showAdminEdit}
             onEdit={() => onEdit?.(cake)}

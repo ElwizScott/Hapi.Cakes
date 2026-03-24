@@ -5,6 +5,7 @@ import { fetchCategories } from "../../../api/public/category.api";
 import { fetchAdmin } from "../../../api/http";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import Loader from "../../../components/common/Loader";
+import { formatVND } from "../../../utils/formatPrice";
 
 export default function CakeDetail() {
   const { cakeId } = useParams();
@@ -649,6 +650,11 @@ export default function CakeDetail() {
                 )
               ) : null}
             </div>
+            {Number.isFinite(cake.price) ? (
+              <p className="text-sm font-semibold text-plum">
+                {formatVND(cake.price)}
+              </p>
+            ) : null}
           </div>
 
           <div className="space-y-2 pb-2 border-b border-lavender/30">

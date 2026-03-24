@@ -47,6 +47,20 @@ public class AuthService {
         return new AuthResult(true, "Login successful.", adminUser.getEmail());
     }
 
+    public AuthResult updatePassword(String email, String currentPassword, String newPassword) {
+        AdminUser adminUser = adminUserRepository.findByEmail(email).orElse(null);
+        if (adminUser == null) {
+            return new AuthResult(false, "Account not found.");
+        }
+        if (!passwordEncoder.matches(currentPassword, adminUser.getPasswordHash())) {
+            return new AuthResult(false, "Current password is incorrect.");
+        }
+        String nextHash = passwordEncoder.encode(newPassword);
+        adminUser.setPasswordHash(nextHash);
+        adminUserRepository.save(adminUser);
+        return new AuthResult(true, "Password updated.", adminUser.getEmail());
+    }
+
     private void recordLoginAttempt(String email, boolean success, HttpServletRequest request) {
         String ipAddress = extractClientIp(request);
         String userAgent = request.getHeader("User-Agent");

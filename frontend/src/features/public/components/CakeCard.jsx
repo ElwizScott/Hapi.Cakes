@@ -2,6 +2,7 @@ export default function CakeCard({
   imageUrl,
   name,
   description,
+  price,
   feedbackImageUrl,
   showAdminEdit = false,
   onEdit,
@@ -76,6 +77,15 @@ export default function CakeCard({
     "
         >
           <p className="font-semibold text-sm text-ink">{name}</p>
+          {Number.isFinite(price) ? (
+            <p className="mt-1 text-xs font-semibold text-plum">
+              {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+                maximumFractionDigits: 0,
+              }).format(price)}
+            </p>
+          ) : null}
 
           {description && (
             <p className="mt-1 text-xs text-muted line-clamp-4">

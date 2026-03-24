@@ -8,6 +8,7 @@ import AdminDashboard from "../features/admin/pages/Dashboard";
 import AdminLayout from "../features/admin/components/AdminLayout";
 import AdminCategories from "../features/admin/pages/Categories";
 import AdminCakes from "../features/admin/pages/CakeList";
+import AdminSettings from "../features/admin/pages/Settings";
 import CakeDetail from "../features/public/pages/CakeDetail";
 
 const routes = [
@@ -39,6 +40,14 @@ const routes = [
     element: (
       <AdminLayout>
         <AdminCakes />
+      </AdminLayout>
+    ),
+  },
+  {
+    path: "/admin/settings",
+    element: (
+      <AdminLayout>
+        <AdminSettings />
       </AdminLayout>
     ),
   },

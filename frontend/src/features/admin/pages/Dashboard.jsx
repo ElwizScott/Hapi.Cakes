@@ -39,9 +39,9 @@ export default function Dashboard() {
     {
       title: "Settings",
       description: "Profile details and password updates.",
-      href: "#",
+      href: "/admin/settings",
       icon: "⚙️",
-      enabled: false,
+      enabled: true,
     },
   ];
 

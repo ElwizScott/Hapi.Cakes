@@ -7,6 +7,7 @@ import { fetchPublic } from "../../../api/http";
 import { fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
 import EditableText from "../../../components/common/EditableText";
+import { formatVND } from "../../../utils/formatPrice";
 
 export default function Home() {
   const { authenticated } = useAdminAuth();
@@ -73,7 +74,10 @@ export default function Home() {
   }, [categories]);
 
   const featuredCakes = useMemo(() => {
-    return cakes.filter((cake) => cake.imageUrls?.[0]).slice(0, 2);
+    const withImages = cakes.filter((cake) => cake.imageUrls?.[0]);
+    const featured = withImages.filter((cake) => cake.featured);
+    const list = featured.length ? featured : withImages;
+    return list.slice(0, 10);
   }, [cakes]);
 
   const handleFeaturedUpdate = (url) => {
@@ -114,7 +118,7 @@ export default function Home() {
               />
             </button>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="flex gap-4 overflow-x-auto pb-2 pr-2">
             {featuredCakes.map((cake) => {
               const category = categoryById.get(String(cake.categoryId));
               return (
@@ -130,22 +134,27 @@ export default function Home() {
                       },
                     })
                   }
-                  className="group text-left rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(200,141,191,0.25)]"
+                  className="group min-w-[170px] max-w-[170px] text-left rounded-2xl border border-lavender/40 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_35px_rgba(200,141,191,0.25)]"
                 >
-                  <div className="h-48 overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/20">
+                  <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/20">
                     <img
                       src={cake.imageUrls[0]}
                       alt={cake.name}
                       className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="mt-3 font-serif">
-                    <h3 className="text-lg font-semibold text-ink font-serif">
+                  <div className="mt-2 font-serif">
+                    <h3 className="text-sm font-semibold text-ink font-serif line-clamp-1">
                       {cake.name}
                     </h3>
                     {category?.name ? (
-                      <p className="text-xs text-muted mt-1 font-serif">
+                      <p className="text-[11px] text-muted mt-1 font-serif">
                         {category.name}
+                      </p>
+                    ) : null}
+                    {cake.price ? (
+                      <p className="text-[11px] font-semibold text-plum mt-1 font-serif">
+                        {formatVND(cake.price)}
                       </p>
                     ) : null}
                   </div>
