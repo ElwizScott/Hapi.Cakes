@@ -1,4 +1,5 @@
 import { useState } from "react";
+import EditableText from "../../../components/common/EditableText";
 
 const initialForm = {
   name: "",
@@ -58,14 +59,23 @@ export default function Order() {
           </div>
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
-            Custom Order
+            <EditableText
+              copyKey="order.header.label"
+              defaultText="Custom Order"
+            />
           </p>
           <h1 className="mt-2 text-3xl font-semibold text-ink">
-            Order Your Dream Cake
+            <EditableText
+              copyKey="order.header.title"
+              defaultText="Order Your Dream Cake"
+            />
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Share a few details and we’ll get back with ideas, pricing, and the
-            next steps.
+            <EditableText
+              copyKey="order.header.subtitle"
+              defaultText="Share a few details and we’ll get back with ideas, pricing, and the next steps."
+              multiline
+            />
           </p>
         </header>
 
@@ -81,7 +91,9 @@ export default function Order() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="text-sm font-semibold text-ink">Name</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText copyKey="order.field.name" defaultText="Name" />
+              </label>
               <input
                 name="name"
                 value={form.name}
@@ -94,7 +106,12 @@ export default function Order() {
               ) : null}
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Occasion</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText
+                  copyKey="order.field.occasion"
+                  defaultText="Occasion"
+                />
+              </label>
               <input
                 name="occasion"
                 value={form.occasion}
@@ -107,7 +124,9 @@ export default function Order() {
               ) : null}
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Email</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText copyKey="order.field.email" defaultText="Email" />
+              </label>
               <input
                 type="email"
                 name="email"
@@ -118,7 +137,9 @@ export default function Order() {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Phone</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText copyKey="order.field.phone" defaultText="Phone" />
+              </label>
               <input
                 name="phone"
                 value={form.phone}
@@ -131,7 +152,9 @@ export default function Order() {
               ) : null}
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Date</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText copyKey="order.field.date" defaultText="Date" />
+              </label>
               <input
                 type="date"
                 name="date"
@@ -144,7 +167,12 @@ export default function Order() {
               ) : null}
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Servings</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText
+                  copyKey="order.field.servings"
+                  defaultText="Servings"
+                />
+              </label>
               <input
                 name="servings"
                 value={form.servings}
@@ -154,7 +182,12 @@ export default function Order() {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Flavor</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText
+                  copyKey="order.field.flavor"
+                  defaultText="Flavor"
+                />
+              </label>
               <input
                 name="flavor"
                 value={form.flavor}
@@ -164,7 +197,12 @@ export default function Order() {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold text-ink">Budget</label>
+              <label className="text-sm font-semibold text-ink">
+                <EditableText
+                  copyKey="order.field.budget"
+                  defaultText="Budget"
+                />
+              </label>
               <input
                 name="budget"
                 value={form.budget}
@@ -177,7 +215,10 @@ export default function Order() {
 
           <div className="space-y-3">
             <label className="text-sm font-semibold text-ink">
-              Pickup or Delivery
+              <EditableText
+                copyKey="order.field.fulfillment"
+                defaultText="Pickup or Delivery"
+              />
             </label>
             <div className="flex flex-wrap gap-3">
               {["pickup", "delivery"].map((option) => (
@@ -193,14 +234,27 @@ export default function Order() {
                       : "border-lavender text-plum hover:border-brandPink"
                   }`}
                 >
-                  {option === "pickup" ? "Pickup" : "Delivery"}
+                  {option === "pickup" ? (
+                    <EditableText
+                      copyKey="order.fulfillment.pickup"
+                      defaultText="Pickup"
+                    />
+                  ) : (
+                    <EditableText
+                      copyKey="order.fulfillment.delivery"
+                      defaultText="Delivery"
+                    />
+                  )}
                 </button>
               ))}
             </div>
             {form.fulfillment === "delivery" ? (
               <div>
                 <label className="text-sm font-semibold text-ink">
-                  Delivery Address
+                  <EditableText
+                    copyKey="order.field.address"
+                    defaultText="Delivery Address"
+                  />
                 </label>
                 <input
                   name="address"
@@ -220,7 +274,10 @@ export default function Order() {
 
           <div>
             <label className="text-sm font-semibold text-ink">
-              Inspiration / Reference URL
+              <EditableText
+                copyKey="order.field.reference"
+                defaultText="Inspiration / Reference URL"
+              />
             </label>
             <input
               name="referenceUrl"
@@ -232,7 +289,9 @@ export default function Order() {
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-ink">Notes</label>
+            <label className="text-sm font-semibold text-ink">
+              <EditableText copyKey="order.field.notes" defaultText="Notes" />
+            </label>
             <textarea
               name="notes"
               value={form.notes}
@@ -247,7 +306,10 @@ export default function Order() {
             type="submit"
             className="w-full rounded-full bg-brandPink px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brandPink/90"
           >
-            Send Request
+            <EditableText
+              copyKey="order.cta.submit"
+              defaultText="Send Request"
+            />
           </button>
         </form>
       </div>

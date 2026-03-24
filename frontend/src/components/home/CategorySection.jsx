@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EditableText from "../common/EditableText";
 
 export default function CategorySection({
   categories = [],
@@ -14,7 +15,10 @@ export default function CategorySection({
       className="max-w-7xl mx-auto bg-softBg px-8 py-12 overflow-hidden font-serif"
     >
       <h2 className="font-script text-5xl text-center mb-14 text-plum">
-        Special Events & Occasions
+        <EditableText
+          copyKey="home.categories.title"
+          defaultText="Special Events & Occasions"
+        />
       </h2>
 
       <div className="flex justify-center items-stretch gap-10">

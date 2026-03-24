@@ -1,4 +1,5 @@
 import AdminImageEditOverlay from "../../features/admin/components/AdminImageEditOverlay";
+import EditableText from "../common/EditableText";
 
 export default function HeroSection({
   featuredImageUrl,
@@ -16,12 +17,18 @@ export default function HeroSection({
           {/* LEFT */}
           <div>
             <h1 className="font-script text-5xl leading-tight text-plum">
-              Hapi.Cakes
+              <EditableText
+                copyKey="home.hero.title"
+                defaultText="Hapi.Cakes"
+              />
             </h1>
 
             <p className="mt-6 text-lg font-serif max-w-md text-muted">
-              Custom cakes for birthdays, weddings and special moments. Handmade
-              with love and premium ingredients.
+              <EditableText
+                copyKey="home.hero.subtitle"
+                defaultText="Custom cakes for birthdays, weddings and special moments. Handmade with love and premium ingredients."
+                multiline
+              />
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -30,7 +37,10 @@ export default function HeroSection({
                 onClick={onOrderClick}
                 className="rounded-full font-serif bg-brandPink px-8 py-3 text-white shadow-sm hover:bg-brandPink/90"
               >
-                Order Now
+                <EditableText
+                  copyKey="home.hero.cta_order"
+                  defaultText="Order Now"
+                />
               </button>
 
               <button
@@ -38,7 +48,10 @@ export default function HeroSection({
                 onClick={onGalleryClick}
                 className="rounded-full font-serif border-2 border-brandPink px-8 py-3 text-brandPink transition hover:bg-brandPink hover:text-white"
               >
-                See Gallery
+                <EditableText
+                  copyKey="home.hero.cta_gallery"
+                  defaultText="See Gallery"
+                />
               </button>
             </div>
             <button
@@ -46,18 +59,30 @@ export default function HeroSection({
               onClick={onContactClick}
               className="mt-4 text-sm font-semibold text-plum underline-offset-4 hover:underline"
             >
-              Contact Us
+              <EditableText
+                copyKey="home.hero.cta_contact"
+                defaultText="Contact Us"
+              />
             </button>
 
             <div className="mt-6 flex flex-wrap gap-3 text-xs text-muted">
               <span className="rounded-full border border-lavender bg-white/70 px-3 py-1">
-                100+ happy customers
+                <EditableText
+                  copyKey="home.hero.proof_1"
+                  defaultText="100+ happy customers"
+                />
               </span>
               <span className="rounded-full border border-lavender bg-white/70 px-3 py-1">
-                Custom designs
+                <EditableText
+                  copyKey="home.hero.proof_2"
+                  defaultText="Custom designs"
+                />
               </span>
               <span className="rounded-full border border-lavender bg-white/70 px-3 py-1">
-                Made with love
+                <EditableText
+                  copyKey="home.hero.proof_3"
+                  defaultText="Made with love"
+                />
               </span>
             </div>
           </div>

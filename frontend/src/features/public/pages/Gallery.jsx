@@ -6,6 +6,7 @@ import CakeGrid from "../../../components/cake/CakeGrid";
 import Loader from "../../../components/common/Loader";
 import Modal from "../../../components/common/Modal";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
+import EditableText from "../../../components/common/EditableText";
 
 export default function Gallery({ variant = "elegant" }) {
   const [searchParams] = useSearchParams();
@@ -85,15 +86,31 @@ export default function Gallery({ variant = "elegant" }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
-              {isSocial ? "Social Feed" : "Curated Collection"}
+              <EditableText
+                copyKey={isSocial ? "gallery.social.label" : "gallery.elegant.label"}
+                defaultText={isSocial ? "Social Feed" : "Curated Collection"}
+              />
             </p>
             <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
-              {isSocial ? "Instagram Gallery" : "Elegant Gallery"}
+              <EditableText
+                copyKey={isSocial ? "gallery.social.title" : "gallery.elegant.title"}
+                defaultText={isSocial ? "Instagram Gallery" : "Elegant Gallery"}
+              />
             </h1>
             <p className="mt-2 text-sm text-muted">
-              {isSocial
-                ? "A curated social feed of our latest creations."
-                : "Discover our signature cakes and seasonal favorites."}
+              <EditableText
+                copyKey={
+                  isSocial
+                    ? "gallery.social.subtitle"
+                    : "gallery.elegant.subtitle"
+                }
+                defaultText={
+                  isSocial
+                    ? "A curated social feed of our latest creations."
+                    : "Discover our signature cakes and seasonal favorites."
+                }
+                multiline
+              />
             </p>
           </div>
           <div className="rounded-full border border-lavender/60 bg-white px-3 py-1 text-xs font-semibold text-plum">

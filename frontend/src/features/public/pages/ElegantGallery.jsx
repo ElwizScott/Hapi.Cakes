@@ -5,6 +5,7 @@ import { fetchCategories } from "../../../api/public/category.api";
 import Loader from "../../../components/common/Loader";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import GalleryCategorySection from "../components/GalleryCategorySection";
+import EditableText from "../../../components/common/EditableText";
 
 export default function ElegantGallery() {
   const [searchParams] = useSearchParams();
@@ -109,14 +110,23 @@ export default function ElegantGallery() {
             ✧ ✦ ✧
           </div>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
-            Elegant Gallery
+            <EditableText
+              copyKey="elegant.header.label"
+              defaultText="Elegant Gallery"
+            />
           </p>
           <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
-            Signature Cakes
+            <EditableText
+              copyKey="elegant.header.title"
+              defaultText="Signature Cakes"
+            />
           </h1>
           <p className="mx-auto mt-2 max-w-2xl text-sm text-muted">
-            Explore our signature cakes by category, with interactive cards that
-            expand in place.
+            <EditableText
+              copyKey="elegant.header.subtitle"
+              defaultText="Explore our signature cakes by category, with interactive cards that expand in place."
+              multiline
+            />
           </p>
           {authenticated ? (
             <div className="mt-4 flex justify-center">

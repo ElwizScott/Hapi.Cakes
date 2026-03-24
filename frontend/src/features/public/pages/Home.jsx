@@ -6,15 +6,13 @@ import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import { fetchPublic } from "../../../api/http";
 import { fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
+import EditableText from "../../../components/common/EditableText";
 
 export default function Home() {
   const { authenticated } = useAdminAuth();
   const navigate = useNavigate();
   const [images, setImages] = useState({
     featured: "",
-    wedding: "",
-    birthday: "",
-    event: "",
   });
   const [cakes, setCakes] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -82,9 +80,6 @@ export default function Home() {
     setImages((prev) => ({ ...prev, featured: url }));
   };
 
-  const handleCategoryUpdate = (type, url) => {
-    setImages((prev) => ({ ...prev, [type]: url }));
-  };
   return (
     <div className="bg-softBg min-h-screen text-ink">
       <HeroSection
@@ -103,14 +98,20 @@ export default function Home() {
         <section className="mx-auto max-w-7xl px-8 pb-8 font-serif">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-semibold text-ink font-serif">
-              Featured Today
+              <EditableText
+                copyKey="home.featured.title"
+                defaultText="Featured Today"
+              />
             </h2>
             <button
               type="button"
               onClick={() => navigate("/gallery")}
               className="text-sm font-semibold text-plum underline-offset-4 hover:underline"
             >
-              View all
+              <EditableText
+                copyKey="home.featured.view_all"
+                defaultText="View all"
+              />
             </button>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
@@ -160,17 +161,27 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-8 pb-16 font-serif">
         <div className="rounded-3xl border border-lavender/40 bg-white p-6 text-center shadow-sm">
           <h3 className="text-2xl font-semibold text-ink font-serif">
-            Custom cake in mind?
+            <EditableText
+              copyKey="home.cta.title"
+              defaultText="Custom cake in mind?"
+            />
           </h3>
           <p className="mt-2 text-sm text-muted font-serif">
-            Tell us your idea and we’ll bring it to life.
+            <EditableText
+              copyKey="home.cta.subtitle"
+              defaultText="Tell us your idea and we’ll bring it to life."
+              multiline
+            />
           </p>
           <button
             type="button"
             onClick={() => navigate("/contact")}
             className="mt-4 rounded-full border-2 border-brandPink px-6 py-2 text-sm font-semibold text-brandPink transition hover:bg-brandPink hover:text-white"
           >
-            Contact Us
+            <EditableText
+              copyKey="home.cta.button"
+              defaultText="Contact Us"
+            />
           </button>
         </div>
       </section>

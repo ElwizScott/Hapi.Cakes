@@ -1,3 +1,5 @@
+import EditableText from "../../../components/common/EditableText";
+
 export default function Contact() {
   const socials = [
     {
@@ -66,14 +68,23 @@ export default function Contact() {
           </div>
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
-            Contact
+            <EditableText
+              copyKey="contact.header.label"
+              defaultText="Contact"
+            />
           </p>
           <h1 className="mt-2 text-3xl font-semibold text-ink">
-            Let’s Plan Something Sweet
+            <EditableText
+              copyKey="contact.header.title"
+              defaultText="Let’s Plan Something Sweet"
+            />
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Share your idea, ask a question, or say hello — we’d love to hear
-            from you.
+            <EditableText
+              copyKey="contact.header.subtitle"
+              defaultText="Share your idea, ask a question, or say hello — we’d love to hear from you."
+              multiline
+            />
           </p>
         </header>
 
@@ -96,7 +107,10 @@ export default function Contact() {
                 <p className="text-xs text-muted">{social.handle}</p>
               </div>
               <span className="ml-auto text-sm font-semibold text-plum transition group-hover:text-brandPink">
-                Visit →
+                <EditableText
+                  copyKey="contact.social.visit"
+                  defaultText="Visit →"
+                />
               </span>
             </a>
           ))}

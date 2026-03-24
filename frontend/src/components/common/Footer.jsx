@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import EditableText from "./EditableText";
 
 const quickLinks = [
   { label: "Home", to: "/" },
@@ -11,6 +12,7 @@ const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/hapi.cakes_bymichelle/" },
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61568773922797" },
   { label: "Tiktok", href: "https://www.tiktok.com/@hapi.cakes_bymichelle" },
+  { label: "Threads", href: "https://www.threads.com/@hapi.cakes_bymichelle"}
 ];
 
 export default function Footer() {
@@ -19,15 +21,28 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 py-10">
         <div className="grid gap-8 md:grid-cols-3">
           <div className="space-y-3">
-            <p className="font-script text-2xl text-plum">Hapi.Cakes</p>
+            <p className="font-script text-2xl text-plum">
+              <EditableText
+                copyKey="footer.brand"
+                defaultText="Hapi.Cakes"
+              />
+            </p>
             <p className="text-sm font-serif text-muted">
-              Handcrafted cakes for celebrations, delivered with care and a dash
-              of sweetness.
+              <EditableText
+                copyKey="footer.description"
+                defaultText="Handcrafted cakes for celebrations, delivered with care and a dash of sweetness."
+                multiline
+              />
             </p>
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-ink">Quick Links</p>
+            <p className="text-sm font-semibold text-ink">
+              <EditableText
+                copyKey="footer.quick_links"
+                defaultText="Quick Links"
+              />
+            </p>
             <ul className="mt-3 font-serif space-y-2 text-sm">
               {quickLinks.map((link) => (
                 <li key={link.to}>
@@ -43,7 +58,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-ink">Follow Us</p>
+            <p className="text-sm font-semibold text-ink">
+              <EditableText
+                copyKey="footer.follow_us"
+                defaultText="Follow Us"
+              />
+            </p>
             <ul className="mt-3 font-serif space-y-2 text-sm">
               {socialLinks.map((link) => (
                 <li key={link.href}>
