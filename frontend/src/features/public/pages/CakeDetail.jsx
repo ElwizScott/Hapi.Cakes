@@ -32,7 +32,6 @@ export default function CakeDetail() {
   const [editingField, setEditingField] = useState(null);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [showAllThumbs, setShowAllThumbs] = useState(false);
   const [feedbackLightboxOpen, setFeedbackLightboxOpen] = useState(false);
   const [feedbackActiveIndex, setFeedbackActiveIndex] = useState(0);
   const [fieldDraft, setFieldDraft] = useState({
@@ -406,9 +405,18 @@ export default function CakeDetail() {
     );
   }
 
-  const maxThumbs = 4;
-  const visibleThumbs = images.slice(0, maxThumbs);
-  const extraThumbs = images.length - visibleThumbs.length;
+  const thumbWindowSize = 5;
+  const thumbWindowStart =
+    images.length <= thumbWindowSize
+      ? 0
+      : Math.min(
+          Math.max(activeIndex - Math.floor(thumbWindowSize / 2), 0),
+          images.length - thumbWindowSize,
+        );
+  const visibleThumbs = images.slice(
+    thumbWindowStart,
+    thumbWindowStart + thumbWindowSize,
+  );
 
   return (
     <section className="mx-auto flex h-full w-full max-w-6xl flex-col gap-3">
@@ -463,21 +471,17 @@ export default function CakeDetail() {
             </div>
 
             {images.length > 1 ? (
-              <div
-                className={
-                  showAllThumbs
-                    ? "mt-3 flex gap-3 overflow-x-auto pb-2"
-                    : "mt-3 grid grid-cols-5 gap-3"
-                }
-              >
-                {visibleThumbs.map((image, index) => (
+              <div className="mt-5 grid grid-cols-5 gap-3">
+                {visibleThumbs.map((image, index) => {
+                  const realIndex = thumbWindowStart + index;
+                  return (
                   <button
                     key={image}
                     type="button"
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => setActiveIndex(realIndex)}
                     draggable={authenticated}
                     onDragStart={() => {
-                      dragIndexRef.current = index;
+                      dragIndexRef.current = realIndex;
                     }}
                     onDragOver={(event) => {
                       if (!authenticated) return;
@@ -488,35 +492,24 @@ export default function CakeDetail() {
                       const fromIndex = dragIndexRef.current;
                       dragIndexRef.current = null;
                       if (typeof fromIndex === "number") {
-                        handleReorderImages(fromIndex, index);
+                        handleReorderImages(fromIndex, realIndex);
                       }
                     }}
                     className={`relative overflow-hidden rounded-xl border transition ${
-                      index === activeIndex
+                      realIndex === activeIndex
                         ? "border-brandPink ring-2 ring-brandPink/40 scale-[1.03]"
                         : "border-transparent hover:border-lavender/60 hover:scale-[1.01]"
                     }`}
-                    aria-label={`View image ${index + 1}`}
+                    aria-label={`View image ${realIndex + 1}`}
                   >
                     <img
                       src={image}
-                      alt={`${cake.name} thumbnail ${index + 1}`}
+                      alt={`${cake.name} thumbnail ${realIndex + 1}`}
                       className="h-20 w-20 object-cover"
                     />
                   </button>
-                ))}
-                {extraThumbs > 0 ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowAllThumbs(true);
-                      setLightboxOpen(true);
-                    }}
-                    className="flex h-20 items-center justify-center rounded-xl border border-dashed border-lavender/60 bg-softBg text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink"
-                  >
-                    +{extraThumbs}
-                  </button>
-                ) : null}
+                  );
+                })}
               </div>
             ) : null}
             {savingImages && uploadProgress ? (
