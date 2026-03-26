@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
-import CakeGrid from "../../../components/cake/CakeGrid";
 import Loader from "../../../components/common/Loader";
 import Modal from "../../../components/common/Modal";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
@@ -22,6 +21,7 @@ export default function Gallery({ variant = "elegant" }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedCake, setSelectedCake] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [socialSlideIndex, setSocialSlideIndex] = useState({});
 
   useEffect(() => {
     let isActive = true;
@@ -68,6 +68,19 @@ export default function Gallery({ variant = "elegant" }) {
   const filteredCakes = useMemo(() => cakes, [cakes]);
 
   const isSocial = variant === "social";
+
+  const getSlideIndex = (cakeId, max) => {
+    const current = socialSlideIndex[cakeId] ?? 0;
+    if (!max) return 0;
+    return Math.min(Math.max(current, 0), max - 1);
+  };
+
+  const updateSlide = (cakeId, nextIndex, max) => {
+    setSocialSlideIndex((prev) => ({
+      ...prev,
+      [cakeId]: Math.min(Math.max(nextIndex, 0), max - 1),
+    }));
+  };
 
   return (
     <section
@@ -143,7 +156,79 @@ export default function Gallery({ variant = "elegant" }) {
       ) : error ? (
         <p className="text-sm text-rose-500">{error}</p>
       ) : isSocial ? (
-        <CakeGrid cakes={filteredCakes} variant={variant} />
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {filteredCakes.map((cake) => {
+            const images = cake.imageUrls ?? [];
+            const count = images.length;
+            const current = getSlideIndex(cake.id, count);
+            const currentImage = images[current] ?? images[0];
+
+            return (
+              <button
+                key={cake.id ?? cake.name}
+                type="button"
+                onClick={() =>
+                  navigate(`/cakes/${cake.id}`, {
+                    state: {
+                      cake,
+                      scrollY: window.scrollY,
+                    },
+                  })
+                }
+                className="group relative w-full self-start overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
+              >
+                {currentImage ? (
+                  <img
+                    src={currentImage}
+                    alt={cake.name}
+                    className="h-auto w-full"
+                    loading="lazy"
+                  />
+                ) : null}
+
+                {count > 1 ? (
+                  <>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+                    <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 transition group-hover:opacity-100">
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          updateSlide(cake.id, current - 1, count);
+                        }}
+                        className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
+                        aria-label="Previous image"
+                      >
+                        <span className="text-lg leading-none">‹</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          updateSlide(cake.id, current + 1, count);
+                        }}
+                        className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
+                        aria-label="Next image"
+                      >
+                        <span className="text-lg leading-none">›</span>
+                      </button>
+                    </div>
+                    <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-white/80 px-2 py-1">
+                      {images.map((_, idx) => (
+                        <span
+                          key={`${cake.id}-dot-${idx}`}
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            idx === current ? "bg-plum" : "bg-plum/40"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {filteredCakes.map((cake, index) => {
