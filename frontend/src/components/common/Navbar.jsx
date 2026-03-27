@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
 import { fetchPublic } from "../../api/http";
+import logo from "../../assets/logo.jpg";
 
 const linkClass =
   "px-3 py-2 rounded-md text-sm font-medium font-script transition-colors";
@@ -24,9 +25,15 @@ export default function Navbar() {
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4">
+        
         <div className="flex h-16 items-center justify-between">
-          <NavLink to="/" className="font-script text-2xl text-plum">
-            Hapi.Cakes
+          <NavLink to="/" className="flex items-center gap-2 font-script text-2xl text-plum">
+            <img
+              src={logo}
+              alt="Hapi.Cakes"
+              className="h-10 w-auto"
+            />
+            <span> Hapi.Cakes</span>
           </NavLink>
 
           <div className="flex items-center gap-2">

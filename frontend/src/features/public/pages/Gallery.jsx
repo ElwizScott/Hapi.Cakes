@@ -22,6 +22,7 @@ export default function Gallery({ variant = "elegant" }) {
   const [selectedCake, setSelectedCake] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [socialSlideIndex, setSocialSlideIndex] = useState({});
+  const [masonrySpans, setMasonrySpans] = useState({});
 
   useEffect(() => {
     let isActive = true;
@@ -68,6 +69,9 @@ export default function Gallery({ variant = "elegant" }) {
   const filteredCakes = useMemo(() => cakes, [cakes]);
 
   const isSocial = variant === "social";
+  const masonryRowHeight = 8;
+  const masonryGap = 16;
+  const masonryRowUnit = masonryRowHeight + masonryGap;
 
   const getSlideIndex = (cakeId, max) => {
     const current = socialSlideIndex[cakeId] ?? 0;
@@ -156,16 +160,18 @@ export default function Gallery({ variant = "elegant" }) {
       ) : error ? (
         <p className="text-sm text-rose-500">{error}</p>
       ) : isSocial ? (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {filteredCakes.map((cake) => {
+        <div className="grid grid-cols-2 auto-rows-[8px] gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {filteredCakes.map((cake, index) => {
             const images = cake.imageUrls ?? [];
             const count = images.length;
             const current = getSlideIndex(cake.id, count);
             const currentImage = images[current] ?? images[0];
+            const masonryKey = cake.id ?? `${cake.name}-${index}`;
+            const span = masonrySpans[masonryKey] ?? 24;
 
             return (
               <button
-                key={cake.id ?? cake.name}
+                key={masonryKey}
                 type="button"
                 onClick={() =>
                   navigate(`/cakes/${cake.id}`, {
@@ -175,14 +181,27 @@ export default function Gallery({ variant = "elegant" }) {
                     },
                   })
                 }
-                className="group relative w-full self-start overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
+                style={{ gridRowEnd: `span ${span}` }}
+                className="group relative w-full overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
               >
                 {currentImage ? (
                   <img
                     src={currentImage}
                     alt={cake.name}
-                    className="h-auto w-full"
+                    className="block h-auto w-full"
                     loading="lazy"
+                    onLoad={(event) => {
+                      const height = event.currentTarget.getBoundingClientRect().height;
+                      const nextSpan = Math.max(
+                        1,
+                        Math.ceil(height / masonryRowUnit),
+                      );
+                      setMasonrySpans((prev) =>
+                        prev[masonryKey] === nextSpan
+                          ? prev
+                          : { ...prev, [masonryKey]: nextSpan },
+                      );
+                    }}
                   />
                 ) : null}
 
