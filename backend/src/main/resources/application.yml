@@ -7,8 +7,9 @@ spring:
   devtools:
     restart:
       enabled: false
-  mongodb:
-    uri: ${MONGODB_URI}
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
   cloudinary:
     cloud-name: ${CLOUDINARY_CLOUD_NAME}
     api-key: ${CLOUDINARY_API_KEY}
