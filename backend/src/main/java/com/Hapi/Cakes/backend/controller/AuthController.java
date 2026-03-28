@@ -24,14 +24,17 @@ public class AuthController {
     private final AuthService authService;
     private final JwtUtil jwtUtil;
     private final boolean secureCookie;
+    private final String sameSite;
 
     public AuthController(
             AuthService authService,
             JwtUtil jwtUtil,
-            @Value("${security.jwt.secureCookie:false}") boolean secureCookie) {
+            @Value("${security.jwt.secureCookie:false}") boolean secureCookie,
+            @Value("${security.jwt.sameSite:Lax}") String sameSite) {
         this.authService = authService;
         this.jwtUtil = jwtUtil;
         this.secureCookie = secureCookie;
+        this.sameSite = sameSite;
     }
 
     @PostMapping("/login")
@@ -53,7 +56,7 @@ public class AuthController {
         ResponseCookie cookie = ResponseCookie.from(JwtAuthenticationFilter.JWT_COOKIE_NAME, token)
                 .httpOnly(true)
                 .secure(secureCookie)
-                .sameSite("Lax")
+                .sameSite(sameSite)
                 .path("/")
                 .build();
 
@@ -67,7 +70,7 @@ public class AuthController {
         ResponseCookie cookie = ResponseCookie.from(JwtAuthenticationFilter.JWT_COOKIE_NAME, "")
                 .httpOnly(true)
                 .secure(secureCookie)
-                .sameSite("Lax")
+                .sameSite(sameSite)
                 .path("/")
                 .maxAge(0)
                 .build();

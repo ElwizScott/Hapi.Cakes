@@ -36,3 +36,4 @@ security:
     secret: ${JWT_SECRET}
     expirationMillis: ${JWT_EXPIRATION_MS}
     secureCookie: ${JWT_SECURE_COOKIE}
+    sameSite: ${JWT_SAMESITE:Lax}
