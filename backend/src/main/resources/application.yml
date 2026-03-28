@@ -2,8 +2,8 @@ server:
   port: ${PORT:8080}
 
 spring:
-  config:
-    import: optional:file:.env[.properties]
+  # config:
+  #   import: optional:file:.env[.properties]
   devtools:
     restart:
       enabled: false
@@ -31,6 +31,6 @@ logging:
 
 security:
   jwt:
-    secret: ${JWT_SECRET:change-me-please-change-32-bytes-minimum}
-    expirationMillis: ${JWT_EXPIRATION_MS:86400000}
-    secureCookie: ${JWT_SECURE_COOKIE:false}
+    secret: ${JWT_SECRET}
+    expirationMillis: ${JWT_EXPIRATION_MS}
+    secureCookie: ${JWT_SECURE_COOKIE}
