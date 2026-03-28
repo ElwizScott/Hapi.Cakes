@@ -1,9 +1,10 @@
 import axios from "axios";
+import { API_BASE_URL } from "../http";
 
-const API_BASE_URL = "http://localhost:8080/api/public";
+const PUBLIC_API_BASE_URL = `${API_BASE_URL}/api/public`;
 
 export const fetchCakes = async (category) => {
-  const res = await axios.get(`${API_BASE_URL}/cakes`, {
+  const res = await axios.get(`${PUBLIC_API_BASE_URL}/cakes`, {
     params: category ? { category } : undefined,
   });
   return res.data;
@@ -11,6 +12,6 @@ export const fetchCakes = async (category) => {
 
 export const fetchCakeFeedbackImages = async (cakeId) => {
   if (!cakeId) return [];
-  const res = await axios.get(`${API_BASE_URL}/cakes/${cakeId}/feedback-images`);
+  const res = await axios.get(`${PUBLIC_API_BASE_URL}/cakes/${cakeId}/feedback-images`);
   return res.data;
 };

@@ -1,8 +1,9 @@
 import axios from "axios";
+import { API_BASE_URL } from "../http";
 
-const API_BASE_URL = "http://localhost:8080/api/public";
+const PUBLIC_API_BASE_URL = `${API_BASE_URL}/api/public`;
 
 export const fetchCategories = async () => {
-  const res = await axios.get(`${API_BASE_URL}/categories`);
+  const res = await axios.get(`${PUBLIC_API_BASE_URL}/categories`);
   return res.data;
 };
