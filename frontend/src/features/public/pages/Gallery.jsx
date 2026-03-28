@@ -23,6 +23,7 @@ export default function Gallery({ variant = "elegant" }) {
   const [isMobile, setIsMobile] = useState(false);
   const [socialSlideIndex, setSocialSlideIndex] = useState({});
   const [masonrySpans, setMasonrySpans] = useState({});
+  const [socialAspectRatios, setSocialAspectRatios] = useState({});
 
   useEffect(() => {
     let isActive = true;
@@ -168,6 +169,7 @@ export default function Gallery({ variant = "elegant" }) {
             const currentImage = images[current] ?? images[0];
             const masonryKey = cake.id ?? `${cake.name}-${index}`;
             const span = masonrySpans[masonryKey] ?? 24;
+            const aspectRatio = socialAspectRatios[masonryKey];
 
             return (
               <button
@@ -185,24 +187,42 @@ export default function Gallery({ variant = "elegant" }) {
                 className="group relative w-full overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
               >
                 {currentImage ? (
-                  <img
-                    src={currentImage}
-                    alt={cake.name}
-                    className="block h-auto w-full"
-                    loading="lazy"
-                    onLoad={(event) => {
-                      const height = event.currentTarget.getBoundingClientRect().height;
-                      const nextSpan = Math.max(
-                        1,
-                        Math.ceil(height / masonryRowUnit),
-                      );
-                      setMasonrySpans((prev) =>
-                        prev[masonryKey] === nextSpan
-                          ? prev
-                          : { ...prev, [masonryKey]: nextSpan },
-                      );
-                    }}
-                  />
+                  <div
+                    className="w-full"
+                    style={aspectRatio ? { aspectRatio } : undefined}
+                  >
+                    <img
+                      src={currentImage}
+                      alt={cake.name}
+                      className="block h-full w-full object-cover object-center"
+                      loading="lazy"
+                      onLoad={(event) => {
+                        if (!socialAspectRatios[masonryKey]) {
+                          const { naturalWidth, naturalHeight } =
+                            event.currentTarget;
+                          if (naturalWidth && naturalHeight) {
+                            setSocialAspectRatios((prev) => ({
+                              ...prev,
+                              [masonryKey]: naturalWidth / naturalHeight,
+                            }));
+                          }
+                        }
+                        const container = event.currentTarget.parentElement;
+                        if (container) {
+                          const height = container.getBoundingClientRect().height;
+                          const nextSpan = Math.max(
+                            1,
+                            Math.ceil(height / masonryRowUnit),
+                          );
+                          setMasonrySpans((prev) =>
+                            prev[masonryKey] === nextSpan
+                              ? prev
+                              : { ...prev, [masonryKey]: nextSpan },
+                          );
+                        }
+                      }}
+                    />
+                  </div>
                 ) : null}
 
                 {count > 1 ? (
