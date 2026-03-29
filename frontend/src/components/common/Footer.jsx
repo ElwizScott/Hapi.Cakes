@@ -36,48 +36,50 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
-            <p className="text-sm font-semibold text-ink">
-              <EditableText
-                copyKey="footer.quick_links"
-                defaultText="Quick Links"
-              />
-            </p>
-            <ul className="mt-3 font-serif space-y-2 text-sm">
-              {quickLinks.map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className="text-muted hover:text-brandPink"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="grid gap-6 sm:grid-cols-2 md:col-span-2">
+            <div>
+              <p className="text-sm font-semibold text-ink">
+                <EditableText
+                  copyKey="footer.quick_links"
+                  defaultText="Quick Links"
+                />
+              </p>
+              <ul className="mt-3 font-serif space-y-2 text-sm">
+                {quickLinks.map((link) => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      className="text-muted hover:text-brandPink"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <p className="text-sm font-semibold text-ink">
-              <EditableText
-                copyKey="footer.follow_us"
-                defaultText="Follow Us"
-              />
-            </p>
-            <ul className="mt-3 font-serif space-y-2 text-sm">
-              {socialLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-muted hover:text-brandPink"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <p className="text-sm font-semibold text-ink">
+                <EditableText
+                  copyKey="footer.follow_us"
+                  defaultText="Follow Us"
+                />
+              </p>
+              <ul className="mt-3 font-serif space-y-2 text-sm">
+                {socialLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-muted hover:text-brandPink"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
