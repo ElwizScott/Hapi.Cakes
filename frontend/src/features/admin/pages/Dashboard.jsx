@@ -50,8 +50,12 @@ export default function Dashboard() {
       {/* Header */}
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-sm text-muted">Welcome back</p>
-          <h1 className="text-3xl font-semibold text-ink">Owner Dashboard</h1>
+          <p className="text-sm text-plum/70 font-semibold tracking-wide uppercase">
+            Welcome back
+          </p>
+          <h1 className="text-4xl font-serif font-semibold text-plum">
+            Owner Dashboard
+          </h1>
           <p className="text-sm text-muted mt-2">
             Signed in as {email || "admin"}.
           </p>
