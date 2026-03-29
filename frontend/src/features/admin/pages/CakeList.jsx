@@ -74,20 +74,26 @@ export default function CakeList() {
   };
 
   const handleImageUpload = async (event, type) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    setUploadingCount((prev) => prev + 1);
-    try {
-      const url = await uploadImage(file);
-      setForm((prev) => ({
-        ...prev,
-        [type]: [...prev[type], url],
-      }));
-    } catch (err) {
-      setError("Image upload failed.");
-    } finally {
-      setUploadingCount((prev) => Math.max(0, prev - 1));
+    const files = Array.from(event.target.files ?? []);
+    if (files.length === 0) return;
+    setUploadingCount((prev) => prev + files.length);
+    setError("");
+
+    for (const file of files) {
+      try {
+        const url = await uploadImage(file);
+        setForm((prev) => ({
+          ...prev,
+          [type]: [...prev[type], url],
+        }));
+      } catch (err) {
+        setError("One or more images failed to upload.");
+      } finally {
+        setUploadingCount((prev) => Math.max(0, prev - 1));
+      }
     }
+
+    event.target.value = "";
   };
 
   const removeImage = (type, url) => {
@@ -239,6 +245,7 @@ export default function CakeList() {
             <input
               type="file"
               accept="image/*"
+              multiple
               onChange={(event) => handleImageUpload(event, "imageUrls")}
               className="w-full text-sm"
             />
@@ -266,6 +273,7 @@ export default function CakeList() {
             <input
               type="file"
               accept="image/*"
+              multiple
               onChange={(event) => handleImageUpload(event, "feedbackImages")}
               className="w-full text-sm"
             />
