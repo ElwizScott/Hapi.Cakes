@@ -15,7 +15,7 @@ export default function CakeCard({
         group relative overflow-hidden
         rounded-2xl bg-white border border-transparent shadow-sm
         transition-[flex-basis,box-shadow,border-color] duration-[700ms] ease-out
-        w-full flex-[0_0_85%] sm:flex-[0_0_70%] md:flex-[0_0_280px] md:hover:flex-[0_0_660px]
+        w-full md:w-auto flex-[0_0_85%] sm:flex-[0_0_70%] md:flex-[0_0_280px] md:hover:flex-[0_0_660px]
         hover:border-brandPink
         hover:shadow-[0_18px_36px_rgba(200,141,191,0.25)]
         cursor-pointer
@@ -55,18 +55,11 @@ export default function CakeCard({
           />
 
           {/* NAME (slides down & disappears) */}
-          <div
-            className="
-              absolute bottom-0 right-4 w-full text-center
-              transition-all duration-700 ease-out
-              md:group-hover:translate-y-12 md:group-hover:opacity-0
-            "
-          >
-            <p className="text-sm font-semibold text-ink hidden md:block">
-              {name}
-            </p>
-          </div>
         </div>
+
+        <p className="hidden text-sm font-semibold text-ink md:block transition-opacity duration-500 md:group-hover:opacity-0">
+          {name}
+        </p>
 
         {/* RIGHT DETAILS */}
         <div
