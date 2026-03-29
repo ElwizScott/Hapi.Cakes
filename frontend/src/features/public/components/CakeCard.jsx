@@ -62,7 +62,9 @@ export default function CakeCard({
               md:group-hover:translate-y-12 md:group-hover:opacity-0
             "
           >
-            <p className="text-sm font-semibold text-ink md:hidden">{name}</p>
+            <p className="text-sm font-semibold text-ink hidden md:block">
+              {name}
+            </p>
           </div>
         </div>
 
