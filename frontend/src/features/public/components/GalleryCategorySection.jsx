@@ -8,6 +8,8 @@ export default function GalleryCategorySection({
   onAdd,
   onSelect,
 }) {
+  const orderedCakes = [...cakes].reverse();
+
   return (
     <section className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -32,7 +34,7 @@ export default function GalleryCategorySection({
           </button>
         )}
 
-        {cakes.map((cake) => (
+        {orderedCakes.map((cake) => (
           <CakeCard
             key={cake.id ?? cake.name}
             imageUrl={cake.imageUrls?.[0]}
