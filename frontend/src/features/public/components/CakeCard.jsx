@@ -35,9 +35,9 @@ export default function CakeCard({
 
       {/* MAIN LAYOUT: left stack + right details */}
       {/* MAIN LAYOUT */}
-      <div className="flex flex-col md:flex-row p-4 gap-4">
+      <div className="flex flex-col md:flex-row p-4 md:p-5 gap-4">
         {/* LEFT IMAGE WRAPPER */}
-        <div className="relative w-full md:w-[280px] h-[240px] md:h-[280px] overflow-hidden rounded-xl flex-shrink-0">
+        <div className="relative w-full md:w-[240px] h-[240px] md:h-[240px] overflow-hidden rounded-xl flex-shrink-0 bg-white">
           {/* IMAGE */}
           <img
             src={imageUrl}
