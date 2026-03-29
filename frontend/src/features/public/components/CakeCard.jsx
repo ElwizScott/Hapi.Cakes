@@ -57,10 +57,6 @@ export default function CakeCard({
           {/* NAME (slides down & disappears) */}
         </div>
 
-        <p className="hidden text-sm font-semibold text-ink md:block transition-opacity duration-500 md:group-hover:opacity-0">
-          {name}
-        </p>
-
         {/* RIGHT DETAILS */}
         <div
           className="
