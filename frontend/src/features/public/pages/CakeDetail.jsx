@@ -756,7 +756,7 @@ export default function CakeDetail() {
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
               <div className="relative">
-                <div className="flex gap-3 overflow-x-auto pb-2 pr-6">
+                <div className="flex gap-3 overflow-x-auto pb-2 pr-6 max-w-full">
                   {feedbackImages.map((image, index) => (
                     <div
                       key={image}
