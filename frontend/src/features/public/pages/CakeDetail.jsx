@@ -431,7 +431,7 @@ export default function CakeDetail() {
         <span className="text-xs text-muted">{categoryName}</span>
       </div>
 
-      <div className="grid gap-5 rounded-3xl bg-white p-4 shadow-[0_30px_80px_rgba(83,55,99,0.2)] lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-5 rounded-3xl bg-white p-4 shadow-[0_30px_80px_rgba(83,55,99,0.2)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="space-y-3">
           <div className="rounded-3xl border border-lavender/40 bg-white p-3 shadow-sm">
             <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 shadow-[0_18px_45px_rgba(83,55,99,0.18)]">
@@ -538,7 +538,7 @@ export default function CakeDetail() {
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm">
+        <div className="flex flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm min-w-0">
           <div className="space-y-2 pb-2 border-b border-lavender/30">
             <div className="flex items-center gap-2">
               {editingField === "name" ? (
@@ -756,7 +756,7 @@ export default function CakeDetail() {
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
               <div className="relative">
-                <div className="flex gap-3 overflow-x-auto pb-2 pr-6 max-w-full">
+                <div className="flex flex-nowrap gap-3 overflow-x-auto pb-2 pr-6 w-full max-w-full">
                   {feedbackImages.map((image, index) => (
                     <div
                       key={image}
