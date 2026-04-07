@@ -436,12 +436,14 @@ export default function CakeDetail() {
           <div className="rounded-3xl border border-lavender/40 bg-white p-3 shadow-sm">
             <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 shadow-[0_18px_45px_rgba(83,55,99,0.18)]">
               {images[activeIndex] ? (
-                <img
-                  src={images[activeIndex]}
-                  alt={cake.name}
-                  className="block w-full max-h-[55vh] object-cover object-center rounded-2xl cursor-zoom-in"
-                  onClick={() => setLightboxOpen(true)}
-                />
+                <div className="w-full aspect-[4/5] max-h-[60vh]">
+                  <img
+                    src={images[activeIndex]}
+                    alt={cake.name}
+                    className="block h-full w-full object-cover object-center rounded-2xl cursor-zoom-in"
+                    onClick={() => setLightboxOpen(true)}
+                  />
+                </div>
               ) : (
                 <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
                   No image available
