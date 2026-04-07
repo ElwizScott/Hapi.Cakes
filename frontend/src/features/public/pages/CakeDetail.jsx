@@ -756,35 +756,37 @@ export default function CakeDetail() {
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
               <div className="relative">
-                <div className="flex flex-nowrap gap-3 overflow-x-auto pb-2 pr-6 w-full max-w-full">
-                  {feedbackImages.map((image, index) => (
-                    <div
-                      key={image}
-                      className="group relative w-56 flex-none overflow-hidden rounded-2xl"
-                    >
-                      <img
-                        src={image}
-                        alt="Feedback"
-                        className="block aspect-[4/3] w-full object-cover rounded-2xl cursor-zoom-in"
-                        onClick={() => handleOpenFeedbackLightbox(index)}
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
-                      {authenticated ? (
-                        <button
-                          type="button"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            handleDeleteFeedbackImage(index);
-                          }}
-                          aria-label="Delete feedback image"
-                          className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
-                          disabled={savingFeedback}
-                        >
-                          🗑
-                        </button>
-                      ) : null}
-                    </div>
-                  ))}
+                <div className="w-full max-w-full min-w-0 overflow-x-auto pb-2 pr-6">
+                  <div className="flex w-max gap-3">
+                    {feedbackImages.map((image, index) => (
+                      <div
+                        key={image}
+                        className="group relative w-56 flex-none overflow-hidden rounded-2xl"
+                      >
+                        <img
+                          src={image}
+                          alt="Feedback"
+                          className="block aspect-[4/3] w-full object-cover rounded-2xl cursor-zoom-in"
+                          onClick={() => handleOpenFeedbackLightbox(index)}
+                        />
+                        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
+                        {authenticated ? (
+                          <button
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleDeleteFeedbackImage(index);
+                            }}
+                            aria-label="Delete feedback image"
+                            className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
+                            disabled={savingFeedback}
+                          >
+                            🗑
+                          </button>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-white via-white/70 to-transparent" />
               </div>
