@@ -17,6 +17,7 @@ export default function Feedback() {
   const [aspectRatios, setAspectRatios] = useState({});
   const [lightboxUrl, setLightboxUrl] = useState("");
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const inputRef = useRef(null);
 
   const masonryRowHeight = 8;
@@ -152,6 +153,7 @@ export default function Feedback() {
                 type="button"
                 onClick={() => {
                   setLightboxUrl(url);
+                  setLightboxIndex(index);
                   setLightboxOpen(true);
                 }}
                 style={{ gridRowEnd: `span ${span}` }}
@@ -208,11 +210,44 @@ export default function Feedback() {
         }}
       >
         {lightboxUrl ? (
-          <img
-            src={lightboxUrl}
-            alt="Feedback zoom"
-            className="w-full max-h-[80vh] rounded-2xl object-contain"
-          />
+          <div className="relative">
+            {images.length > 1 ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const prevIndex =
+                      (lightboxIndex - 1 + images.length) % images.length;
+                    const prevUrl = images[prevIndex]?.url ?? images[prevIndex];
+                    setLightboxIndex(prevIndex);
+                    setLightboxUrl(prevUrl);
+                  }}
+                  aria-label="Previous feedback image"
+                  className="absolute -left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const nextIndex = (lightboxIndex + 1) % images.length;
+                    const nextUrl = images[nextIndex]?.url ?? images[nextIndex];
+                    setLightboxIndex(nextIndex);
+                    setLightboxUrl(nextUrl);
+                  }}
+                  aria-label="Next feedback image"
+                  className="absolute -right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+                >
+                  ›
+                </button>
+              </>
+            ) : null}
+            <img
+              src={lightboxUrl}
+              alt="Feedback zoom"
+              className="w-full max-h-[80vh] rounded-2xl object-contain"
+            />
+          </div>
         ) : null}
       </Modal>
     </section>

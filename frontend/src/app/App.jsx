@@ -18,7 +18,7 @@ function App() {
           <main
             className={`mx-auto px-4 py-6 ${
               hideChrome
-                ? "min-h-screen max-w-6xl lg:h-screen lg:overflow-hidden"
+                ? "min-h-screen max-w-6xl"
                 : "max-w-7xl"
             }`}
           >
