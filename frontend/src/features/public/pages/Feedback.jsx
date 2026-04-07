@@ -4,6 +4,7 @@ import { fetchAdmin } from "../../../api/http";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import Loader from "../../../components/common/Loader";
 import EditableText from "../../../components/common/EditableText";
+import Modal from "../../../components/common/Modal";
 
 export default function Feedback() {
   const { authenticated } = useAdminAuth();
@@ -12,7 +13,15 @@ export default function Feedback() {
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [masonrySpans, setMasonrySpans] = useState({});
+  const [aspectRatios, setAspectRatios] = useState({});
+  const [lightboxUrl, setLightboxUrl] = useState("");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const inputRef = useRef(null);
+
+  const masonryRowHeight = 8;
+  const masonryGap = 16;
+  const masonryRowUnit = masonryRowHeight + masonryGap;
 
   const loadImages = async () => {
     setLoading(true);
@@ -133,29 +142,79 @@ export default function Feedback() {
         <div className="mt-8 grid grid-cols-2 auto-rows-[8px] gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {images.map((image, index) => {
             const url = image.url ?? image;
+            const masonryKey = image.id ?? url ?? `feedback-${index}`;
+            const span = masonrySpans[masonryKey] ?? 24;
+            const aspectRatio = aspectRatios[masonryKey];
+
             return (
-              <div
-                key={image.id ?? url ?? index}
+              <button
+                key={masonryKey}
+                type="button"
+                onClick={() => {
+                  setLightboxUrl(url);
+                  setLightboxOpen(true);
+                }}
+                style={{ gridRowEnd: `span ${span}` }}
                 className="group relative w-full overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
               >
-                <img
-                  src={url}
-                  alt="Customer feedback"
-                  className="block h-full w-full object-cover"
-                  loading="lazy"
-                  onLoad={(event) => {
-                    const card = event.currentTarget.parentElement;
-                    if (!card) return;
-                    const height = card.getBoundingClientRect().height;
-                    const span = Math.max(1, Math.ceil(height / 24));
-                    card.style.gridRowEnd = `span ${span}`;
-                  }}
-                />
-              </div>
+                <div
+                  className="w-full"
+                  style={aspectRatio ? { aspectRatio } : undefined}
+                >
+                  <img
+                    src={url}
+                    alt="Customer feedback"
+                    className="block h-full w-full object-cover"
+                    loading="lazy"
+                    onLoad={(event) => {
+                      if (!aspectRatios[masonryKey]) {
+                        const { naturalWidth, naturalHeight } =
+                          event.currentTarget;
+                        if (naturalWidth && naturalHeight) {
+                          setAspectRatios((prev) => ({
+                            ...prev,
+                            [masonryKey]: naturalWidth / naturalHeight,
+                          }));
+                        }
+                      }
+                      const container = event.currentTarget.parentElement;
+                      if (container) {
+                        const height = container.getBoundingClientRect().height;
+                        const nextSpan = Math.max(
+                          1,
+                          Math.ceil(height / masonryRowUnit),
+                        );
+                        setMasonrySpans((prev) =>
+                          prev[masonryKey] === nextSpan
+                            ? prev
+                            : { ...prev, [masonryKey]: nextSpan },
+                        );
+                      }
+                    }}
+                  />
+                </div>
+              </button>
             );
           })}
         </div>
       )}
+
+      <Modal
+        open={lightboxOpen}
+        title="Feedback"
+        onClose={() => {
+          setLightboxOpen(false);
+          setLightboxUrl("");
+        }}
+      >
+        {lightboxUrl ? (
+          <img
+            src={lightboxUrl}
+            alt="Feedback zoom"
+            className="w-full max-h-[80vh] rounded-2xl object-contain"
+          />
+        ) : null}
+      </Modal>
     </section>
   );
 }
