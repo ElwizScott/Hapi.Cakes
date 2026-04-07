@@ -1,6 +1,7 @@
 import Home from "../features/public/pages/Home";
 import Gallery from "../features/public/pages/Gallery";
 import ElegantGallery from "../features/public/pages/ElegantGallery";
+import Feedback from "../features/public/pages/Feedback";
 import Contact from "../features/public/pages/Contact";
 import Order from "../features/public/pages/Order";
 import AdminLogin from "../features/admin/pages/AdminLogin";
@@ -15,6 +16,7 @@ const routes = [
   { path: "/", element: <Home /> },
   { path: "/gallery", element: <ElegantGallery /> },
   { path: "/gallery-social", element: <Gallery variant="social" /> },
+  { path: "/feedback", element: <Feedback /> },
   { path: "/cakes/:cakeId", element: <CakeDetail /> },
   { path: "/order", element: <Order /> },
   { path: "/contact", element: <Contact /> },

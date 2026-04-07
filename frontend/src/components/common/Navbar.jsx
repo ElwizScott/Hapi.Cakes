@@ -85,6 +85,15 @@ export default function Navbar() {
             </NavLink>
 
             <NavLink
+              to="/feedback"
+              className={({ isActive }) =>
+                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+              }
+            >
+              Feedback
+            </NavLink>
+
+            <NavLink
               to="/order"
               className={({ isActive }) =>
                 `${linkClass} ${isActive ? activeClass : inactiveClass}`
@@ -178,6 +187,18 @@ export default function Navbar() {
             }
           >
             Social Gallery
+          </NavLink>
+
+          <NavLink
+            to="/feedback"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `block rounded-full px-4 py-2 font-script text-base ${
+                isActive ? activeClass : inactiveClass
+              }`
+            }
+          >
+            Feedback
           </NavLink>
 
           <NavLink
