@@ -1,4 +1,4 @@
-# 🎂 Hapi.Cakes – Custom Cake Ordering Website
+# Hapi.Cakes – Custom Cake Ordering Website
 
 A full-stack web application for showcasing custom cake designs and handling customer inquiries.
 
@@ -6,7 +6,7 @@ This project is built as a real-world portfolio project using modern backend and
 
 ---
 
-## 🧱 Tech Stack
+## Tech Stack
 
 ### Frontend
 - React
@@ -22,7 +22,7 @@ This project is built as a real-world portfolio project using modern backend and
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 cakehouse/  
 ├── frontend/ # React application  
@@ -30,7 +30,7 @@ cakehouse/
 
 ---
 
-## ✨ Features
+## Features
 - Cake gallery (previous works)
 - Custom cake order form
 - Image upload for design inspiration
@@ -40,5 +40,5 @@ cakehouse/
 
 ---
 
-## 🚀 Status
-🚧 In active development
+## Status
+In active development
