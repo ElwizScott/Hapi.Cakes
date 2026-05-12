@@ -23,25 +23,25 @@ const socialLinks = [
     label: "Instagram",
     href: "https://www.instagram.com/hapi.cakes_bymichelle/",
     icon: "◎",
-    detail: "@hapi.cakes_bymichelle",
+    detail: "",
   },
   {
     label: "Facebook",
     href: "https://www.facebook.com/profile.php?id=61568773922797",
     icon: "◌",
-    detail: "Celebration updates",
+    detail: "",
   },
   {
     label: "Tiktok",
     href: "https://www.tiktok.com/@hapi.cakes_bymichelle",
     icon: "◍",
-    detail: "Cake styling videos",
+    detail: "",
   },
   {
     label: "Threads",
     href: "https://www.threads.com/@hapi.cakes_bymichelle",
     icon: "◐",
-    detail: "Sweet daily notes",
+    detail: "",
   },
 ];
 
