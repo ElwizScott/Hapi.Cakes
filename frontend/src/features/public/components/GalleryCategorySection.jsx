@@ -1,4 +1,5 @@
 import CakeCard from "./CakeCard";
+import PillBadge from "../../../components/common/PillBadge";
 
 export default function GalleryCategorySection({
   category,
@@ -15,9 +16,9 @@ export default function GalleryCategorySection({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <h2 className="text-xl font-semibold text-ink">{category.name}</h2>
-          <span className="rounded-full border border-lavender/60 bg-white px-2.5 py-1 text-xs font-semibold text-plum">
+          <PillBadge className="border-white/70 bg-white/80 px-2.5 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
             {cakes.length} cakes
-          </span>
+          </PillBadge>
         </div>
         <div className="h-px flex-1 bg-lavender/40" aria-hidden="true" />
       </div>
@@ -41,6 +42,7 @@ export default function GalleryCategorySection({
             name={cake.name}
             description={cake.description}
             price={cake.price}
+            categoryName={category.name}
             feedbackImageUrl={cake.feedbackImages?.[0]}
             showAdminEdit={showAdminEdit}
             onEdit={() => onEdit?.(cake)}

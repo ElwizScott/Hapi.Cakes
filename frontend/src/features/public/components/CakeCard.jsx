@@ -1,8 +1,13 @@
+import { formatVND } from "../../../utils/formatPrice";
+import PillBadge from "../../../components/common/PillBadge";
+import { cx } from "../../../components/common/designSystem";
+
 export default function CakeCard({
   imageUrl,
   name,
   description,
   price,
+  categoryName,
   feedbackImageUrl,
   showAdminEdit = false,
   onEdit,
@@ -11,15 +16,12 @@ export default function CakeCard({
   return (
     <div
       onClick={onClick}
-      className="
-        group relative overflow-hidden
-        rounded-2xl bg-white border border-transparent shadow-sm
-        transition-[flex-basis,box-shadow,border-color] duration-[700ms] ease-out
-        w-full md:w-auto flex-[0_0_85%] sm:flex-[0_0_70%] md:flex-[0_0_280px] md:hover:flex-[0_0_660px]
-        hover:border-brandPink
-        hover:shadow-[0_18px_36px_rgba(200,141,191,0.25)]
-        cursor-pointer
-      "
+      className={cx(
+        "group relative w-full cursor-pointer overflow-hidden rounded-card border border-border-soft bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/65 shadow-soft",
+        "transition-[transform,flex-basis,box-shadow,border-color] duration-500 ease-soft",
+        "flex-[0_0_86%] sm:flex-[0_0_72%] md:w-auto md:flex-[0_0_296px] md:hover:flex-[0_0_660px]",
+        "hover:-translate-y-1 hover:border-accent/60 hover:shadow-float",
+      )}
     >
       {showAdminEdit && (
         <button
@@ -27,71 +29,100 @@ export default function CakeCard({
             event.stopPropagation();
             onEdit?.();
           }}
-          className="absolute top-2 right-2 z-10 rounded-full bg-white/90 p-2 opacity-0 transition group-hover:opacity-100"
+          className="absolute right-3 top-3 z-30 rounded-pill border border-white/70 bg-white/88 px-3 py-1.5 text-xs font-semibold text-plum opacity-0 shadow-soft transition duration-300 ease-soft group-hover:opacity-100"
         >
           ✎
         </button>
       )}
 
-      {/* MAIN LAYOUT: left stack + right details */}
-      {/* MAIN LAYOUT */}
-      <div className="flex flex-col md:flex-row p-4 md:p-5 gap-4">
-        {/* LEFT IMAGE WRAPPER */}
-        <div className="relative w-full md:w-[240px] h-[240px] md:h-[240px] overflow-hidden rounded-xl flex-shrink-0 bg-white">
-          {/* IMAGE */}
+      <div className="flex flex-col gap-4 p-4 md:flex-row md:items-stretch md:gap-5 md:p-5">
+        <div className="relative aspect-[4/4.25] w-full overflow-hidden rounded-[1.5rem] border border-white/75 bg-gradient-to-br from-surface via-accent-soft/35 to-lavender/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] md:w-[248px] md:flex-shrink-0">
+          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.45),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(110,85,117,0.12))]" />
           <img
             src={imageUrl}
             alt={name}
-            className="
-              absolute inset-0
-              h-full w-full object-cover
-              rounded-xl
-              transform
-              scale-[0.98]
-              origin-top-left
-              transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)]
-              md:group-hover:scale-[1.0]
-            "
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.06]"
           />
-
-          {/* NAME (slides down & disappears) */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-gradient-to-t from-plum/28 via-plum/6 to-transparent" />
+          {categoryName ? (
+            <div className="absolute left-3 top-3 z-20">
+              <PillBadge className="border-white/70 bg-white/82 px-3 py-1 text-[0.62rem] tracking-[0.18em] text-plum shadow-soft">
+                {categoryName}
+              </PillBadge>
+            </div>
+          ) : null}
         </div>
 
-        {/* RIGHT DETAILS */}
         <div
-          className="
-            flex-1 min-w-0
-            opacity-100 translate-x-0
-            transition-all duration-700 ease-out
-            md:opacity-0 md:translate-x-8
-            md:group-hover:opacity-100 md:group-hover:translate-x-0
-          "
-        >
-          <p className="font-semibold text-sm text-ink">{name}</p>
-          {Number.isFinite(price) ? (
-            <p className="mt-1 text-xs font-semibold text-plum">
-              {new Intl.NumberFormat("vi-VN", {
-                style: "currency",
-                currency: "VND",
-                maximumFractionDigits: 0,
-              }).format(price)}
-            </p>
-          ) : null}
-
-          {description && (
-            <p className="mt-1 text-xs text-muted line-clamp-4">
-              {description}
-            </p>
+          className={cx(
+            "min-w-0 flex-1 rounded-[1.5rem] border border-white/70 bg-white/60 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-sm",
+            "transition-all duration-500 ease-soft md:translate-x-6 md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100",
           )}
+        >
+          <div className="space-y-3">
+            <div className="space-y-1.5">
+              <p className="font-serif text-xl font-semibold tracking-tight text-text-primary">
+                {name}
+              </p>
+              {Number.isFinite(price) ? (
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-plum">
+                  {formatVND(price)}
+                </p>
+              ) : null}
+            </div>
 
-          {feedbackImageUrl && (
+            {description ? (
+              <p className="line-clamp-4 text-sm leading-6 text-text-secondary">
+                {description}
+              </p>
+            ) : (
+              <p className="text-sm leading-6 text-text-secondary">
+                Delicately styled and made to order for celebrations that feel personal and beautifully polished.
+              </p>
+            )}
+
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <PillBadge className="border-white/70 bg-surface-elevated/90 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+                Custom made
+              </PillBadge>
+              <PillBadge className="border-white/70 bg-surface-elevated/90 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+                Pastel finish
+              </PillBadge>
+            </div>
+          </div>
+
+          {Number.isFinite(price) ? (
+            <div className="mt-4 flex items-end justify-between gap-3 border-t border-border-soft/70 pt-4">
+              <div>
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-text-secondary">
+                  Starting at
+                </p>
+                <p className="mt-1 font-serif text-2xl font-semibold text-plum">
+                  {formatVND(price)}
+                </p>
+              </div>
+              <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-plum">
+                View details
+              </div>
+            </div>
+          ) : (
+            <div className="mt-4 border-t border-border-soft/70 pt-4">
+              <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-plum">
+                View details
+              </div>
+            </div>
+          )}
+        </div>
+
+        {feedbackImageUrl ? (
+          <div className="absolute bottom-4 left-4 z-20 rounded-[1.1rem] border border-white/80 bg-white/80 p-1.5 shadow-soft backdrop-blur">
             <img
               src={feedbackImageUrl}
               alt="Feedback"
-              className="mt-3 h-12 w-12 rounded-xl object-cover"
+              className="h-12 w-12 rounded-xl object-cover"
             />
-          )}
-        </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
