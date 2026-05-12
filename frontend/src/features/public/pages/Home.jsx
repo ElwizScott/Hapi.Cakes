@@ -2,12 +2,20 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeroSection from "../../../components/home/HeroSection";
 import CategorySection from "../../../components/home/CategorySection";
+import FeaturedCakes from "../../../components/home/FeaturedCakes";
+import Testimonials from "../../../components/home/Testimonials";
+import OrderingProcess from "../../../components/home/OrderingProcess";
+import SocialGallery from "../../../components/home/SocialGallery";
+import WhyChooseUs from "../../../components/home/WhyChooseUs";
+import RevealSection from "../../../components/home/RevealSection";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import { fetchPublic } from "../../../api/http";
 import { fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
+import { fetchFeedbackImages } from "../../../api/public/feedback.api";
 import EditableText from "../../../components/common/EditableText";
-import { formatVND } from "../../../utils/formatPrice";
+import PrimaryButton from "../../../components/common/PrimaryButton";
+import SecondaryButton from "../../../components/common/SecondaryButton";
 
 export default function Home() {
   const { authenticated } = useAdminAuth();
@@ -17,6 +25,7 @@ export default function Home() {
   });
   const [cakes, setCakes] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [feedbackImages, setFeedbackImages] = useState([]);
 
   useEffect(() => {
     let isActive = true;
@@ -47,6 +56,12 @@ export default function Home() {
       .then((data) => {
         if (!active) return;
         setCategories(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {});
+    fetchFeedbackImages()
+      .then((data) => {
+        if (!active) return;
+        setFeedbackImages(Array.isArray(data) ? data : []);
       })
       .catch(() => {});
     return () => {
@@ -85,7 +100,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-softBg min-h-screen text-ink">
+    <div className="min-h-screen bg-softBg text-ink">
       <HeroSection
         featuredImageUrl={images.featured}
         isAdmin={authenticated}
@@ -98,102 +113,62 @@ export default function Home() {
         }}
         onContactClick={() => navigate("/contact")}
       />
-      {featuredCakes.length ? (
-        <section className="mx-auto max-w-7xl px-8 pb-8 font-serif">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-semibold text-ink font-serif">
-              <EditableText
-                copyKey="home.featured.title"
-                defaultText="Featured Today"
-              />
-            </h2>
-            <button
-              type="button"
-              onClick={() => navigate("/gallery")}
-              className="text-sm font-semibold text-plum underline-offset-4 hover:underline"
-            >
-              <EditableText
-                copyKey="home.featured.view_all"
-                defaultText="View all"
-              />
-            </button>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-2 pr-2">
-            {featuredCakes.map((cake) => {
-              const category = categoryById.get(String(cake.categoryId));
-              return (
-                <button
-                  key={cake.id}
-                  type="button"
-                  onClick={() =>
-                    navigate(`/cakes/${cake.id}`, {
-                      state: {
-                        cake,
-                        categoryName: category?.name ?? "",
-                        scrollY: window.scrollY,
-                      },
-                    })
-                  }
-                  className="group min-w-[170px] max-w-[170px] text-left rounded-2xl border border-lavender/40 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_35px_rgba(200,141,191,0.25)]"
-                >
-                  <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/20">
-                    <img
-                      src={cake.imageUrls[0]}
-                      alt={cake.name}
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div className="mt-2 font-serif">
-                    <h3 className="text-sm font-semibold text-ink font-serif line-clamp-1">
-                      {cake.name}
-                    </h3>
-                    {category?.name ? (
-                      <p className="text-[11px] text-muted mt-1 font-serif">
-                        {category.name}
-                      </p>
-                    ) : null}
-                    {cake.price ? (
-                      <p className="text-[11px] font-semibold text-plum mt-1 font-serif">
-                        {formatVND(cake.price)}
-                      </p>
-                    ) : null}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      ) : null}
+      <FeaturedCakes cakes={featuredCakes} categoryById={categoryById} />
 
       <CategorySection categories={categoriesWithImages} />
+      <WhyChooseUs />
+      <OrderingProcess onOrderClick={() => navigate("/order")} />
+      <Testimonials images={feedbackImages} />
+      <SocialGallery images={feedbackImages} />
 
-      <section className="mx-auto max-w-7xl px-8 pb-16 font-serif">
-        <div className="rounded-3xl border border-lavender/40 bg-white p-6 text-center shadow-sm">
-          <h3 className="text-2xl font-semibold text-ink font-serif">
-            <EditableText
-              copyKey="home.cta.title"
-              defaultText="Custom cake in mind?"
-            />
-          </h3>
-          <p className="mt-2 text-sm text-muted font-serif">
-            <EditableText
-              copyKey="home.cta.subtitle"
-              defaultText="Tell us your idea and we’ll bring it to life."
-              multiline
-            />
-          </p>
-          <button
-            type="button"
-            onClick={() => navigate("/contact")}
-            className="mt-4 rounded-full border-2 border-brandPink px-6 py-2 text-sm font-semibold text-brandPink transition hover:bg-brandPink hover:text-white"
-          >
-            <EditableText
-              copyKey="home.cta.button"
-              defaultText="Contact Us"
-            />
-          </button>
+      <RevealSection className="ds-page-shell pb-16 pt-8 sm:pt-10 lg:pb-20">
+        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.95))] p-6 shadow-soft sm:p-8 lg:p-10">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute left-10 top-0 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
+            <div className="absolute right-0 bottom-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
+          </div>
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-plum/75">
+                Final Touch
+              </p>
+              <h3 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                <EditableText
+                  copyKey="home.cta.title"
+                  defaultText="Custom cake in mind?"
+                />
+              </h3>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-text-secondary">
+                <EditableText
+                  copyKey="home.cta.subtitle"
+                  defaultText="Tell us your mood, colors, and celebration details. We’ll help shape a cake that feels beautiful, personal, and worth remembering."
+                  multiline
+                />
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <PrimaryButton
+                type="button"
+                onClick={() => navigate("/order")}
+                className="px-6 py-3 text-xs uppercase tracking-[0.18em]"
+              >
+                Start order
+              </PrimaryButton>
+              <SecondaryButton
+                type="button"
+                onClick={() => navigate("/contact")}
+                className="border-white/70 bg-white/78 px-6 py-3 text-xs uppercase tracking-[0.18em]"
+              >
+                <EditableText
+                  copyKey="home.cta.button"
+                  defaultText="Contact Us"
+                />
+              </SecondaryButton>
+            </div>
+          </div>
         </div>
-      </section>
+      </RevealSection>
     </div>
   );
 }
