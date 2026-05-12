@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
 import { fetchPublic } from "../../api/http";
@@ -8,15 +8,70 @@ import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 
 const linkClass =
-  "rounded-pill px-4 py-2 text-sm font-medium text-text-secondary transition duration-200 ease-soft hover:bg-accent-soft hover:text-plum";
+  "group relative inline-flex items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
 
 const activeClass = "bg-accent-soft text-plum";
 const inactiveClass = "text-text-secondary hover:text-plum";
+
+const publicLinks = [
+  { to: "/", label: "Home" },
+  { to: "/gallery", label: "Elegant Gallery" },
+  { to: "/gallery-social", label: "Social Gallery" },
+  { to: "/feedback", label: "Feedback" },
+  { to: "/order", label: "Order" },
+  { to: "/contact", label: "Contact" },
+];
+
+function NavItem({ to, children, onClick }) {
+  return (
+    <NavLink
+      to={to}
+      onClick={onClick}
+      className={({ isActive }) =>
+        cx(
+          linkClass,
+          isActive
+            ? cx(
+                activeClass,
+                "shadow-[0_12px_25px_rgba(198,154,199,0.18)] ring-1 ring-white/70",
+              )
+            : inactiveClass,
+        )
+      }
+    >
+      {({ isActive }) => (
+        <>
+          <span className="relative z-10">{children}</span>
+          <span
+            aria-hidden="true"
+            className={cx(
+              "pointer-events-none absolute inset-x-5 bottom-1.5 h-[2px] origin-center rounded-full bg-gradient-to-r from-brandPink/0 via-accent to-brandPink/0 transition-all duration-300 ease-soft",
+              isActive
+                ? "scale-100 opacity-100"
+                : "scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100",
+            )}
+          />
+        </>
+      )}
+    </NavLink>
+  );
+}
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { authenticated, clearSession } = useAdminAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLogout = async () => {
     await fetchPublic("/api/auth/logout", {
@@ -31,90 +86,57 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border-soft bg-surface/90 backdrop-blur">
+    <nav
+      className={cx(
+        "sticky top-0 z-50 transition-all duration-300 ease-soft",
+        isScrolled
+          ? "border-b border-white/40 bg-surface/72 shadow-[0_14px_40px_rgba(110,85,117,0.12)] backdrop-blur-xl"
+          : "border-b border-transparent bg-gradient-to-b from-surface/90 to-surface/65 backdrop-blur-md",
+      )}
+    >
       <div className="ds-page-shell">
-        <div className="flex h-16 items-center justify-between">
-          <NavLink to="/" className="flex items-center gap-2 text-plum">
+        <div className="flex min-h-[4.75rem] items-center justify-between gap-4 py-3">
+          <NavLink
+            to="/"
+            className="group flex items-center gap-3 text-plum transition-transform duration-300 ease-soft hover:translate-y-[-1px]"
+          >
             <img
               src={logo}
               alt="Hapi.Cakes"
-              className="h-10 w-auto rounded-full border border-border-soft/70 object-cover shadow-soft"
+              className={cx(
+                "h-11 w-11 rounded-full border object-cover transition-all duration-300 ease-soft",
+                isScrolled
+                  ? "border-white/70 shadow-[0_10px_24px_rgba(110,85,117,0.12)]"
+                  : "border-border-soft/80 shadow-soft",
+              )}
             />
-            <span className="font-script text-2xl">Hapi.Cakes</span>
+            <div className="flex flex-col">
+              <span className="font-script text-[2rem] leading-none">Hapi.Cakes</span>
+              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-plum/65">
+                Patisserie Studio
+              </span>
+            </div>
           </NavLink>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                cx("rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft", isActive
-                  ? activeClass
-                  : "text-text-secondary hover:bg-accent-soft hover:text-plum")
-              }
-            >
-              Home
-            </NavLink>
+          <div className="hidden items-center gap-2 lg:flex">
+            <div className="flex items-center gap-1 rounded-pill border border-white/55 bg-white/55 p-1.5 shadow-[0_12px_26px_rgba(198,154,199,0.12)] backdrop-blur">
+              {publicLinks.map((link) => (
+                <NavItem key={link.to} to={link.to}>
+                  {link.label}
+                </NavItem>
+              ))}
+            </div>
 
             {authenticated ? (
-              <NavLink
-                to="/admin/dashboard"
-                className={({ isActive }) =>
-                  cx(linkClass, isActive ? activeClass : inactiveClass)
-                }
-              >
+              <NavItem to="/admin/dashboard">
                 Dashboard
-              </NavLink>
+              </NavItem>
             ) : null}
-
-            <NavLink
-              to="/gallery"
-              className={({ isActive }) =>
-                cx(linkClass, isActive ? activeClass : inactiveClass)
-              }
-            >
-              Elegant Gallery
-            </NavLink>
-
-            <NavLink
-              to="/gallery-social"
-              className={({ isActive }) =>
-                cx(linkClass, isActive ? activeClass : inactiveClass)
-              }
-            >
-              Social Gallery
-            </NavLink>
-
-            <NavLink
-              to="/feedback"
-              className={({ isActive }) =>
-                cx(linkClass, isActive ? activeClass : inactiveClass)
-              }
-            >
-              Feedback
-            </NavLink>
-
-            <NavLink
-              to="/order"
-              className={({ isActive }) =>
-                cx(linkClass, isActive ? activeClass : inactiveClass)
-              }
-            >
-              Order
-            </NavLink>
-
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                cx(linkClass, isActive ? activeClass : inactiveClass)
-              }
-            >
-              Contact
-            </NavLink>
 
             {authenticated ? (
               <SecondaryButton
                 onClick={handleLogout}
-                className="ml-2 px-4 py-2 text-xs"
+                className="ml-2 border-white/60 bg-white/70 px-4 py-2.5 text-xs uppercase tracking-[0.2em]"
               >
                 Log out
               </SecondaryButton>
@@ -122,7 +144,7 @@ export default function Navbar() {
           </div>
 
           <PrimaryButton
-            className="px-3 py-2 text-xs md:hidden"
+            className="px-4 py-2.5 text-xs uppercase tracking-[0.2em] lg:hidden"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen((prev) => !prev)}
@@ -134,110 +156,36 @@ export default function Navbar() {
 
       <div
         id="mobile-menu"
-        className={`md:hidden border-t border-border-soft bg-surface ${isOpen ? "block" : "hidden"}`}
+        className={cx(
+          "overflow-hidden border-t border-white/40 bg-surface/88 backdrop-blur-xl transition-all duration-300 ease-soft lg:hidden",
+          isOpen ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0",
+        )}
       >
-        <div className="ds-page-shell space-y-1 py-3">
-          <NavLink
-            to="/"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              cx(
-                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-              )
-            }
-          >
-            Home
-          </NavLink>
+        <div className="ds-page-shell py-4">
+          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-2 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur">
+            <div className="grid gap-1">
+              {publicLinks.map((link) => (
+                <NavItem key={link.to} to={link.to} onClick={closeMenu}>
+                  {link.label}
+                </NavItem>
+              ))}
 
-          {authenticated ? (
-            <NavLink
-              to="/admin/dashboard"
-              onClick={closeMenu}
-              className={({ isActive }) =>
-                cx(
-                  "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                  isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-                )
-              }
-            >
-              Dashboard
-            </NavLink>
-          ) : null}
+              {authenticated ? (
+                <NavItem to="/admin/dashboard" onClick={closeMenu}>
+                  Dashboard
+                </NavItem>
+              ) : null}
+            </div>
 
-          <NavLink
-            to="/gallery"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              cx(
-                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-              )
-            }
-          >
-            Elegant Gallery
-          </NavLink>
-
-          <NavLink
-            to="/gallery-social"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              cx(
-                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-              )
-            }
-          >
-            Social Gallery
-          </NavLink>
-
-          <NavLink
-            to="/feedback"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              cx(
-                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-              )
-            }
-          >
-            Feedback
-          </NavLink>
-
-          <NavLink
-            to="/order"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              cx(
-                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-              )
-            }
-          >
-            Order
-          </NavLink>
-
-          <NavLink
-            to="/contact"
-            onClick={closeMenu}
-            className={({ isActive }) =>
-              cx(
-                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
-                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
-              )
-            }
-          >
-            Contact
-          </NavLink>
-
-          {authenticated ? (
-            <SecondaryButton
-              onClick={handleLogout}
-              className="mt-2 w-full"
-            >
-              Log out
-            </SecondaryButton>
-          ) : null}
+            {authenticated ? (
+              <SecondaryButton
+                onClick={handleLogout}
+                className="mt-3 w-full border-white/60 bg-white/72 uppercase tracking-[0.18em]"
+              >
+                Log out
+              </SecondaryButton>
+            ) : null}
+          </div>
         </div>
       </div>
     </nav>
