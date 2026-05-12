@@ -3,12 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
 import { fetchPublic } from "../../api/http";
 import logo from "../../assets/logo.jpg";
+import { cx } from "./designSystem";
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
 
 const linkClass =
-  "px-3 py-2 rounded-md text-sm font-medium font-script transition-colors";
+  "rounded-pill px-4 py-2 text-sm font-medium text-text-secondary transition duration-200 ease-soft hover:bg-accent-soft hover:text-plum";
 
-const activeClass = "text-[#B895C2]";
-const inactiveClass = "text-gray-700 hover:text-[#B895C2]";
+const activeClass = "bg-accent-soft text-plum";
+const inactiveClass = "text-text-secondary hover:text-plum";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -28,28 +31,25 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4">
-
+    <nav className="sticky top-0 z-50 border-b border-border-soft bg-surface/90 backdrop-blur">
+      <div className="ds-page-shell">
         <div className="flex h-16 items-center justify-between">
-          <NavLink to="/" className="flex items-center gap-2 font-script text-2xl text-plum">
+          <NavLink to="/" className="flex items-center gap-2 text-plum">
             <img
               src={logo}
               alt="Hapi.Cakes"
-              className="h-10 w-auto"
+              className="h-10 w-auto rounded-full border border-border-soft/70 object-cover shadow-soft"
             />
-            <span> Hapi.Cakes</span>
+            <span className="font-script text-2xl">Hapi.Cakes</span>
           </NavLink>
 
           <div className="hidden items-center gap-2 md:flex">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `px-4 py-2 rounded-full font-script ${
-                  isActive
-                    ? "text-[#B895C2]"
-                    : "text-slate-700 hover:text-[#B895C2]"
-                }`
+                cx("rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft", isActive
+                  ? activeClass
+                  : "text-text-secondary hover:bg-accent-soft hover:text-plum")
               }
             >
               Home
@@ -59,7 +59,7 @@ export default function Navbar() {
               <NavLink
                 to="/admin/dashboard"
                 className={({ isActive }) =>
-                  `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                  cx(linkClass, isActive ? activeClass : inactiveClass)
                 }
               >
                 Dashboard
@@ -69,7 +69,7 @@ export default function Navbar() {
             <NavLink
               to="/gallery"
               className={({ isActive }) =>
-                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                cx(linkClass, isActive ? activeClass : inactiveClass)
               }
             >
               Elegant Gallery
@@ -78,7 +78,7 @@ export default function Navbar() {
             <NavLink
               to="/gallery-social"
               className={({ isActive }) =>
-                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                cx(linkClass, isActive ? activeClass : inactiveClass)
               }
             >
               Social Gallery
@@ -87,7 +87,7 @@ export default function Navbar() {
             <NavLink
               to="/feedback"
               className={({ isActive }) =>
-                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                cx(linkClass, isActive ? activeClass : inactiveClass)
               }
             >
               Feedback
@@ -96,7 +96,7 @@ export default function Navbar() {
             <NavLink
               to="/order"
               className={({ isActive }) =>
-                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                cx(linkClass, isActive ? activeClass : inactiveClass)
               }
             >
               Order
@@ -105,47 +105,46 @@ export default function Navbar() {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `${linkClass} ${isActive ? activeClass : inactiveClass}`
+                cx(linkClass, isActive ? activeClass : inactiveClass)
               }
             >
               Contact
             </NavLink>
 
             {authenticated ? (
-              <button
-                type="button"
+              <SecondaryButton
                 onClick={handleLogout}
-                className="ml-2 rounded-full border border-brandPink px-4 py-1.5 text-xs font-semibold text-brandPink transition hover:bg-brandPink hover:text-white"
+                className="ml-2 px-4 py-2 text-xs"
               >
                 Log out
-              </button>
+              </SecondaryButton>
             ) : null}
           </div>
 
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-full border border-brandPink px-3 py-2 text-xs font-semibold text-brandPink transition hover:bg-brandPink hover:text-white"
+          <PrimaryButton
+            className="px-3 py-2 text-xs md:hidden"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen((prev) => !prev)}
           >
             {isOpen ? "Close" : "Menu"}
-          </button>
+          </PrimaryButton>
         </div>
       </div>
 
       <div
         id="mobile-menu"
-        className={`md:hidden border-t border-gray-200 bg-white ${isOpen ? "block" : "hidden"}`}
+        className={`md:hidden border-t border-border-soft bg-surface ${isOpen ? "block" : "hidden"}`}
       >
-        <div className="px-4 py-3 space-y-1">
+        <div className="ds-page-shell space-y-1 py-3">
           <NavLink
             to="/"
             onClick={closeMenu}
             className={({ isActive }) =>
-              `block rounded-full px-4 py-2 font-script text-base ${
-                isActive ? activeClass : inactiveClass
-              }`
+              cx(
+                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+              )
             }
           >
             Home
@@ -156,9 +155,10 @@ export default function Navbar() {
               to="/admin/dashboard"
               onClick={closeMenu}
               className={({ isActive }) =>
-                `block rounded-full px-4 py-2 font-script text-base ${
-                  isActive ? activeClass : inactiveClass
-                }`
+                cx(
+                  "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                  isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+                )
               }
             >
               Dashboard
@@ -169,9 +169,10 @@ export default function Navbar() {
             to="/gallery"
             onClick={closeMenu}
             className={({ isActive }) =>
-              `block rounded-full px-4 py-2 font-script text-base ${
-                isActive ? activeClass : inactiveClass
-              }`
+              cx(
+                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+              )
             }
           >
             Elegant Gallery
@@ -181,9 +182,10 @@ export default function Navbar() {
             to="/gallery-social"
             onClick={closeMenu}
             className={({ isActive }) =>
-              `block rounded-full px-4 py-2 font-script text-base ${
-                isActive ? activeClass : inactiveClass
-              }`
+              cx(
+                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+              )
             }
           >
             Social Gallery
@@ -193,9 +195,10 @@ export default function Navbar() {
             to="/feedback"
             onClick={closeMenu}
             className={({ isActive }) =>
-              `block rounded-full px-4 py-2 font-script text-base ${
-                isActive ? activeClass : inactiveClass
-              }`
+              cx(
+                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+              )
             }
           >
             Feedback
@@ -205,9 +208,10 @@ export default function Navbar() {
             to="/order"
             onClick={closeMenu}
             className={({ isActive }) =>
-              `block rounded-full px-4 py-2 font-script text-base ${
-                isActive ? activeClass : inactiveClass
-              }`
+              cx(
+                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+              )
             }
           >
             Order
@@ -217,22 +221,22 @@ export default function Navbar() {
             to="/contact"
             onClick={closeMenu}
             className={({ isActive }) =>
-              `block rounded-full px-4 py-2 font-script text-base ${
-                isActive ? activeClass : inactiveClass
-              }`
+              cx(
+                "block rounded-pill px-4 py-2 text-sm font-medium transition duration-200 ease-soft",
+                isActive ? activeClass : "text-text-secondary hover:bg-accent-soft hover:text-plum",
+              )
             }
           >
             Contact
           </NavLink>
 
           {authenticated ? (
-            <button
-              type="button"
+            <SecondaryButton
               onClick={handleLogout}
-              className="mt-2 w-full rounded-full border border-brandPink px-4 py-2 text-sm font-semibold text-brandPink transition hover:bg-brandPink hover:text-white"
+              className="mt-2 w-full"
             >
               Log out
-            </button>
+            </SecondaryButton>
           ) : null}
         </div>
       </div>

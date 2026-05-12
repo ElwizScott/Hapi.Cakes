@@ -1,10 +1,32 @@
 @import url("https://fonts.cdnfonts.com/css/magnolia-script");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
 
 :root {
   color-scheme: light;
+  --page-gradient: linear-gradient(
+    180deg,
+    rgba(255, 248, 252, 1) 0%,
+    rgba(255, 250, 245, 1) 48%,
+    rgba(255, 253, 249, 1) 100%
+  );
+}
+
+html {
+  background-color: #fff8fc;
 }
 
 body {
   min-height: 100vh;
-  background-color: #fff7fb;
+  background: var(--page-gradient);
+  color: #463544;
+  font-family: "Inter", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background-color: rgba(214, 165, 199, 0.28);
+  color: #463544;
 }

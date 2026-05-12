@@ -12,7 +12,7 @@ function App() {
   return (
     <AdminAuthProvider>
       <SiteCopyProvider>
-        <div className="min-h-screen bg-hapi-light font-sans text-slate-700">
+        <div className="min-h-screen bg-hapi-light font-sans text-text-primary">
           {hideChrome ? null : <Navbar />}
 
           <main

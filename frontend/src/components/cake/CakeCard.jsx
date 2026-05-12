@@ -1,11 +1,12 @@
 import CakeImage from "./CakeImage";
 import { formatVND } from "../../utils/formatPrice";
+import { cx, surfaceCardClass } from "../common/designSystem";
 
 export default function CakeCard({ cake, variant = "elegant" }) {
   const containerClass =
     variant === "social"
-      ? "group relative overflow-hidden rounded-3xl border border-lavender/50 bg-gradient-to-br from-white via-white to-lavender/20 shadow-[0_16px_32px_rgba(200,141,191,0.18)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_28px_56px_rgba(200,141,191,0.3)]"
-      : "bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden";
+      ? "group relative overflow-hidden rounded-card border border-border-soft bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/70 shadow-soft transition-all duration-300 ease-soft hover:-translate-y-1 hover:shadow-float"
+      : cx(surfaceCardClass, "overflow-hidden rounded-ui transition duration-300 ease-soft hover:-translate-y-0.5 hover:shadow-float");
 
   return (
     <div className={containerClass}>
@@ -18,7 +19,9 @@ export default function CakeCard({ cake, variant = "elegant" }) {
       <div className="p-4">
         <h3
           className={`text-lg font-semibold ${
-            variant === "social" ? "font-serif text-ink tracking-tight" : "text-gray-800"
+            variant === "social"
+              ? "font-serif text-text-primary tracking-tight"
+              : "text-text-primary"
           }`}
         >
           {cake.name}
@@ -29,12 +32,12 @@ export default function CakeCard({ cake, variant = "elegant" }) {
           </p>
         ) : null}
         {cake.category ? (
-          <p className="text-sm text-gray-500 capitalize mt-1">
+          <p className="mt-1 text-sm capitalize text-text-secondary">
             {cake.category}
           </p>
         ) : null}
         {cake.description ? (
-          <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+          <p className="mt-2 text-sm text-text-secondary line-clamp-2">
             {cake.description}
           </p>
         ) : null}

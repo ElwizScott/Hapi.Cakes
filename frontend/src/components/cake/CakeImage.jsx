@@ -5,7 +5,7 @@ export default function CakeImage({ src, alt, className = "" }) {
 
   return (
     <div
-      className={`flex items-center justify-center bg-[#B895C2]/15 text-[#B895C2] ${className}`}
+      className={`flex items-center justify-center bg-accent-soft text-plum ${className}`}
     >
       No Image
     </div>

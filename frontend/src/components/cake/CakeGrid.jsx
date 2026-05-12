@@ -3,7 +3,7 @@ import CakeCard from "./CakeCard";
 export default function CakeGrid({ cakes = [], variant = "elegant" }) {
   if (!cakes.length) {
     return (
-      <p className="text-center text-sm text-slate-500">
+      <p className="text-center text-sm text-text-secondary">
         No cakes available yet.
       </p>
     );

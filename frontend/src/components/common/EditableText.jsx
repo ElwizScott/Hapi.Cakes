@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { useSiteCopy } from "../../features/public/context/SiteCopyContext";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
+import {
+  cx,
+  fieldClass,
+  fieldErrorClass,
+  buttonPrimaryClass,
+  buttonSecondaryClass,
+} from "./designSystem";
 
 export default function EditableText({
   copyKey,
@@ -53,7 +60,7 @@ export default function EditableText({
           <textarea
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            className="w-full rounded-xl border border-lavender bg-softBg px-3 py-2 text-sm text-ink"
+            className={cx(fieldClass, "min-h-[8rem] resize-y")}
             rows={3}
             placeholder={placeholder}
           />
@@ -61,7 +68,7 @@ export default function EditableText({
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            className="w-full rounded-xl border border-lavender bg-softBg px-3 py-2 text-sm text-ink"
+            className={fieldClass}
             placeholder={placeholder}
           />
         )}
@@ -70,18 +77,18 @@ export default function EditableText({
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700"
+            className={cx(buttonPrimaryClass, "px-3 py-1.5 text-xs")}
           >
             {saving ? "Saving..." : "Save"}
           </button>
           <button
             type="button"
             onClick={handleCancel}
-            className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-600"
+            className={cx(buttonSecondaryClass, "px-3 py-1.5 text-xs")}
           >
             Cancel
           </button>
-          {error ? <span className="text-xs text-rose-500">{error}</span> : null}
+          {error ? <span className={fieldErrorClass}>{error}</span> : null}
         </div>
       </div>
     );
@@ -93,7 +100,7 @@ export default function EditableText({
       <button
         type="button"
         onClick={startEdit}
-        className="rounded-full bg-lavender/60 px-2 py-1 text-xs text-ink opacity-0 transition group-hover:opacity-100"
+        className="rounded-pill bg-accent-soft px-2.5 py-1 text-xs text-plum opacity-0 transition duration-200 ease-soft group-hover:opacity-100"
         title="Edit text"
       >
         ✎

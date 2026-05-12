@@ -1,11 +1,14 @@
-const baseClass =
-  "inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold transition";
+import {
+  buttonGhostClass,
+  buttonPrimaryClass,
+  buttonSecondaryClass,
+  cx,
+} from "./designSystem";
 
 const variants = {
-  primary: "bg-[#B895C2] text-white hover:bg-[#B895C2]/90",
-  secondary:
-    "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50",
-  ghost: "text-[#B895C2] hover:bg-hapi-light",
+  primary: buttonPrimaryClass,
+  secondary: buttonSecondaryClass,
+  ghost: buttonGhostClass,
 };
 
 export default function Button({
@@ -15,9 +18,5 @@ export default function Button({
   ...props
 }) {
   const variantClass = variants[variant] ?? variants.primary;
-  return (
-    <button className={`${baseClass} ${variantClass} ${className}`} {...props}>
-      {children}
-    </button>
-  );
+  return <button className={cx(variantClass, className)} {...props}>{children}</button>;
 }
