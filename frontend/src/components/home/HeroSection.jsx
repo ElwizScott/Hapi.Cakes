@@ -13,8 +13,8 @@ export default function HeroSection({
   onContactClick,
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
-      <div className="relative isolate overflow-hidden rounded-[2.25rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.995)_0%,rgba(255,248,252,0.99)_38%,rgba(248,239,250,0.985)_100%)] p-6 shadow-[0_30px_80px_rgba(125,106,121,0.14)] sm:p-8 lg:p-12">
+    <section className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
+      <div className="relative isolate overflow-hidden rounded-[2.25rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.995)_0%,rgba(255,248,252,0.99)_38%,rgba(248,239,250,0.985)_100%)] p-4 shadow-[0_30px_80px_rgba(125,106,121,0.14)] sm:p-8 lg:p-12">
         <div className="pointer-events-none absolute inset-0 z-0">
           <div className="absolute -left-12 top-10 h-32 w-32 animate-float-gentle rounded-full bg-brandPink/12 blur-3xl" />
           <div className="absolute right-12 top-8 h-28 w-28 animate-float-delayed rounded-full bg-lavender/28 blur-3xl" />
@@ -24,7 +24,7 @@ export default function HeroSection({
           <div className="absolute right-[32%] top-[18%] h-10 w-10 rounded-full bg-brandPink/16" />
         </div>
 
-        <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:gap-12">
+        <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:gap-12">
           <div className="relative z-10 max-w-2xl">
             <div className="inline-flex items-center gap-3 rounded-pill border border-white/65 bg-white/60 px-4 py-2 shadow-soft backdrop-blur">
               <span className="h-2.5 w-2.5 rounded-full bg-accent" />
@@ -52,11 +52,11 @@ export default function HeroSection({
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <PrimaryButton
                 type="button"
                 onClick={onOrderClick}
-                className="min-w-[10.5rem] px-7 py-3.5 text-sm uppercase tracking-[0.18em]"
+                className="w-full px-7 py-3.5 text-sm uppercase tracking-[0.18em] sm:w-auto sm:min-w-[10.5rem]"
               >
                 <EditableText
                   copyKey="home.hero.cta_order"
@@ -67,7 +67,7 @@ export default function HeroSection({
               <SecondaryButton
                 type="button"
                 onClick={onGalleryClick}
-                className="min-w-[10.5rem] border-white/70 bg-white/72 px-7 py-3.5 text-sm uppercase tracking-[0.18em]"
+                className="w-full border-white/70 bg-white/72 px-7 py-3.5 text-sm uppercase tracking-[0.18em] sm:w-auto sm:min-w-[10.5rem]"
               >
                 <EditableText
                   copyKey="home.hero.cta_gallery"
@@ -78,7 +78,7 @@ export default function HeroSection({
               <button
                 type="button"
                 onClick={onContactClick}
-                className="inline-flex items-center gap-2 rounded-pill px-2 py-2 text-sm font-medium text-plum transition duration-300 ease-soft hover:translate-x-1 hover:text-text-primary"
+                className="inline-flex min-h-11 items-center gap-2 rounded-pill px-2 py-2 text-sm font-medium text-plum transition duration-300 ease-soft hover:translate-x-1 hover:text-text-primary"
               >
                 <EditableText
                   copyKey="home.hero.cta_contact"

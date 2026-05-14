@@ -5,9 +5,7 @@ import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
 
-export default function CategorySection({
-  categories = [],
-}) {
+export default function CategorySection({ categories = [] }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
@@ -15,33 +13,33 @@ export default function CategorySection({
   return (
     <RevealSection
       id="special-events"
-      className="ds-page-shell relative overflow-hidden py-8 sm:py-10 lg:py-14"
+      className="ds-page-shell relative overflow-hidden py-6 sm:py-10 lg:py-14"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_20%_50%,rgba(216,165,199,0.1),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(232,217,241,0.18),transparent_35%)]" />
       <SectionHeading
         align="center"
-        eyebrow={(
+        eyebrow={
           <EditableText
             copyKey="home.categories.eyebrow"
             defaultText="Celebration Showcase"
           />
-        )}
-        title={(
+        }
+        title={
           <EditableText
             copyKey="home.categories.title"
             defaultText="Special Events & Occasions"
           />
-        )}
-        description={(
+        }
+        description={
           <EditableText
             copyKey="home.categories.subtitle"
             defaultText="Browse our signature styles by occasion and discover the visual mood that fits your sweetest celebration."
             multiline
           />
-        )}
+        }
       />
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {categories.map((c, index) => {
           const isHovered = hovered === index;
           const isOther = hovered !== null && hovered !== index;
@@ -76,12 +74,7 @@ export default function CategorySection({
               `}
               delay={index * 80}
             >
-              <SurfaceCard
-                className="
-                  group h-full overflow-hidden border-white/75 bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/55 p-4 text-left
-                  transition-all duration-500 ease-soft hover:-translate-y-1 hover:border-accent/60 hover:shadow-float
-                "
-              >
+              <SurfaceCard className="group h-full overflow-hidden border-white/75 bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/55 p-3 text-left transition-all duration-500 ease-soft hover:-translate-y-1 hover:border-accent/60 hover:shadow-float sm:p-4">
                 <div className="relative mb-4 overflow-hidden rounded-[1.55rem] border border-white/75 bg-gradient-to-br from-softBg to-lavender">
                   {c.imageUrl ? (
                     <img
@@ -101,11 +94,12 @@ export default function CategorySection({
                   <p className="text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
                     Curated Collection
                   </p>
-                  <p className="font-serif text-2xl text-ink transition-colors duration-300">
+                  <p className="font-serif text-xl text-ink transition-colors duration-300 sm:text-2xl">
                     {c.name}
                   </p>
                   <p className="text-sm leading-6 text-text-secondary">
-                    Explore cakes styled for {c.name.toLowerCase()} with soft palettes, romantic details, and boutique presentation.
+                    Explore cakes styled for {c.name.toLowerCase()} with soft
+                    palettes, romantic details, and boutique presentation.
                   </p>
                 </div>
               </SurfaceCard>

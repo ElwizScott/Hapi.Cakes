@@ -29,34 +29,34 @@ export default function Testimonials({ images = [] }) {
   }));
 
   return (
-    <RevealSection className="ds-page-shell relative py-8 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(232,217,241,0.16),rgba(255,255,255,0))]" />
       <SectionHeading
-        eyebrow={(
+        eyebrow={
           <EditableText
             copyKey="home.testimonials.eyebrow"
             defaultText="Customer Love"
           />
-        )}
-        title={(
+        }
+        title={
           <EditableText
             copyKey="home.testimonials.title"
             defaultText="Testimonials That Feel as Sweet as the Cakes"
           />
-        )}
-        description={(
+        }
+        description={
           <EditableText
             copyKey="home.testimonials.subtitle"
             defaultText="Real celebrations, soft details, and memorable moments shared by customers who wanted their cake to feel extra special."
             multiline
           />
-        )}
+        }
       />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
+      <div className="mt-8 grid gap-4 lg:grid-cols-3">
         {cards.map((item, index) => (
           <RevealSection key={item.name} delay={index * 100}>
-            <SurfaceCard className="h-full border-white/70 bg-[linear-gradient(180deg,rgba(255,252,248,0.96),rgba(250,243,250,0.92))] p-5">
+            <SurfaceCard className="h-full border-white/70 bg-[linear-gradient(180deg,rgba(255,252,248,0.96),rgba(250,243,250,0.92))] p-4 sm:p-5">
               <div className="flex h-full flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <PillBadge className="border-white/70 bg-white/80 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
@@ -67,7 +67,7 @@ export default function Testimonials({ images = [] }) {
                   </span>
                 </div>
 
-                <p className="font-serif text-xl leading-8 text-text-primary">
+                <p className="font-serif text-lg leading-7 text-text-primary sm:text-xl sm:leading-8">
                   {item.quote}
                 </p>
 
@@ -82,7 +82,7 @@ export default function Testimonials({ images = [] }) {
                     ) : null}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-plum">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-plum sm:text-sm sm:tracking-[0.18em]">
                       {item.name}
                     </p>
                     <p className="text-sm text-text-secondary">

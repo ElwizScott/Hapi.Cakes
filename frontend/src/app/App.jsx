@@ -12,11 +12,11 @@ function App() {
   return (
     <AdminAuthProvider>
       <SiteCopyProvider>
-        <div className="min-h-screen bg-hapi-light font-sans text-text-primary">
+        <div className="min-h-screen overflow-x-hidden bg-hapi-light font-sans text-text-primary">
           {hideChrome ? null : <Navbar />}
 
           <main
-            className={`mx-auto px-4 py-6 ${
+            className={`mx-auto px-3 py-4 sm:px-4 sm:py-6 ${
               hideChrome ? "min-h-screen max-w-6xl" : "max-w-7xl"
             }`}
           >

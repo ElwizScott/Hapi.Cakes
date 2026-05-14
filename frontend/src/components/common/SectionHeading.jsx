@@ -1,9 +1,4 @@
-import {
-  bodyClass,
-  cx,
-  eyebrowClass,
-  sectionTitleClass,
-} from "./designSystem";
+import { bodyClass, cx, eyebrowClass, sectionTitleClass } from "./designSystem";
 
 export default function SectionHeading({
   eyebrow,
@@ -18,12 +13,13 @@ export default function SectionHeading({
   return (
     <div
       className={cx(
-        "flex flex-wrap items-end justify-between gap-4",
-        centered && "flex-col items-center text-center",
+        centered
+          ? "flex w-full flex-col items-center justify-center gap-3 text-center sm:flex-col"
+          : "flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end sm:gap-4",
         className,
       )}
     >
-      <div className={cx(centered && "max-w-2xl")}>
+      <div className={cx(centered && "mx-auto max-w-2xl")}> 
         {eyebrow ? <p className={eyebrowClass}>{eyebrow}</p> : null}
         {title ? (
           <h2 className={cx(sectionTitleClass, eyebrow ? "mt-2" : "")}>
@@ -34,7 +30,9 @@ export default function SectionHeading({
           <p className={cx(bodyClass, title ? "mt-2" : "")}>{description}</p>
         ) : null}
       </div>
-      {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
+      {actions ? (
+        <div className="flex w-full flex-wrap gap-3 sm:w-auto">{actions}</div>
+      ) : null}
     </div>
   );
 }

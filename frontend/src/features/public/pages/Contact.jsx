@@ -57,29 +57,27 @@ export default function Contact() {
   ];
 
   return (
-
-  
-    <section className="bg-gradient-to-b from-softBg via-softBg to-white px-4 py-10 sm:px-6">
+    <section className="bg-gradient-to-b from-softBg via-softBg to-white px-3 py-6 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-3xl space-y-6 font-serif text-ink">
-        <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-6 shadow-sm backdrop-blur">
+        <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-5 shadow-sm backdrop-blur sm:p-6">
           <div className="pointer-events-none absolute inset-0 opacity-70">
             <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
             <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
           </div>
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
+          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-plum/70 sm:text-xs sm:tracking-[0.25em]">
             <EditableText
               copyKey="contact.header.label"
               defaultText="Contact"
             />
           </p>
-          <h1 className="mt-2 text-3xl font-semibold text-ink">
+          <h1 className="mt-2 text-2xl font-semibold text-ink sm:text-3xl">
             <EditableText
               copyKey="contact.header.title"
               defaultText="Let’s Plan Something Sweet"
             />
           </h1>
-          <p className="mt-2 text-sm text-muted">
+          <p className="mt-2 text-sm leading-6 text-muted">
             <EditableText
               copyKey="contact.header.subtitle"
               defaultText="Share your idea, ask a question, or say hello — we’d love to hear from you."
@@ -95,15 +93,13 @@ export default function Contact() {
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-4 rounded-3xl border border-lavender/50 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(200,141,191,0.25)]"
+              className="group flex items-center gap-4 rounded-3xl border border-lavender/50 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(200,141,191,0.25)] sm:p-5"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 text-plum shadow-sm">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 text-plum shadow-sm sm:h-12 sm:w-12">
                 {social.icon}
               </div>
               <div>
-                <p className="text-sm font-semibold text-ink">
-                  {social.name}
-                </p>
+                <p className="text-sm font-semibold text-ink">{social.name}</p>
                 <p className="text-xs text-muted">{social.handle}</p>
               </div>
               <span className="ml-auto text-sm font-semibold text-plum transition group-hover:text-brandPink">

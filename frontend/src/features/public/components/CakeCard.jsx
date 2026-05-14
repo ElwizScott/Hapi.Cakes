@@ -19,7 +19,7 @@ export default function CakeCard({
       className={cx(
         "group relative w-full cursor-pointer overflow-hidden rounded-card border border-border-soft bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/65 shadow-soft",
         "transition-[transform,flex-basis,box-shadow,border-color] duration-500 ease-soft",
-        "flex-[0_0_86%] sm:flex-[0_0_72%] md:w-auto md:flex-[0_0_296px] md:hover:flex-[0_0_660px]",
+        "flex-[0_0_84%] sm:flex-[0_0_72%] md:w-auto md:flex-[0_0_296px] md:hover:flex-[0_0_620px]",
         "hover:-translate-y-1 hover:border-accent/60 hover:shadow-float",
       )}
     >
@@ -35,7 +35,7 @@ export default function CakeCard({
         </button>
       )}
 
-      <div className="flex flex-col gap-4 p-4 md:flex-row md:items-stretch md:gap-5 md:p-5">
+      <div className="flex flex-col gap-3 p-3 sm:p-4 md:flex-row md:items-stretch md:gap-5 md:p-5">
         <div className="relative aspect-[4/4.25] w-full overflow-hidden rounded-[1.5rem] border border-white/75 bg-gradient-to-br from-surface via-accent-soft/35 to-lavender/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] md:w-[248px] md:flex-shrink-0">
           <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.45),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(110,85,117,0.12))]" />
           <img
@@ -46,7 +46,7 @@ export default function CakeCard({
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-gradient-to-t from-plum/28 via-plum/6 to-transparent" />
           {categoryName ? (
             <div className="absolute left-3 top-3 z-20">
-              <PillBadge className="border-white/70 bg-white/82 px-3 py-1 text-[0.62rem] tracking-[0.18em] text-plum shadow-soft">
+              <PillBadge className="border-white/70 bg-white/82 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-plum shadow-soft">
                 {categoryName}
               </PillBadge>
             </div>
@@ -55,17 +55,17 @@ export default function CakeCard({
 
         <div
           className={cx(
-            "min-w-0 flex-1 rounded-[1.5rem] border border-white/70 bg-white/60 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-sm",
+            "min-w-0 flex-1 rounded-[1.5rem] border border-white/70 bg-white/60 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-sm sm:p-4",
             "transition-all duration-500 ease-soft md:translate-x-6 md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100",
           )}
         >
           <div className="space-y-3">
             <div className="space-y-1.5">
-              <p className="font-serif text-xl font-semibold tracking-tight text-text-primary">
+              <p className="font-serif text-lg font-semibold tracking-tight text-text-primary sm:text-xl">
                 {name}
               </p>
               {Number.isFinite(price) ? (
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-plum">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-plum sm:text-sm">
                   {formatVND(price)}
                 </p>
               ) : null}
@@ -77,7 +77,8 @@ export default function CakeCard({
               </p>
             ) : (
               <p className="text-sm leading-6 text-text-secondary">
-                Delicately styled and made to order for celebrations that feel personal and beautifully polished.
+                Delicately styled and made to order for celebrations that feel
+                personal and beautifully polished.
               </p>
             )}
 
@@ -92,22 +93,22 @@ export default function CakeCard({
           </div>
 
           {Number.isFinite(price) ? (
-            <div className="mt-4 flex items-end justify-between gap-3 border-t border-border-soft/70 pt-4">
+            <div className="mt-4 flex flex-col gap-3 border-t border-border-soft/70 pt-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-text-secondary">
                   Starting at
                 </p>
-                <p className="mt-1 font-serif text-2xl font-semibold text-plum">
+                <p className="mt-1 font-serif text-xl font-semibold text-plum sm:text-2xl">
                   {formatVND(price)}
                 </p>
               </div>
-              <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-plum">
+              <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-plum sm:text-[0.68rem] sm:tracking-[0.18em]">
                 View details
               </div>
             </div>
           ) : (
             <div className="mt-4 border-t border-border-soft/70 pt-4">
-              <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-plum">
+              <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-center text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-plum sm:text-[0.68rem] sm:tracking-[0.18em]">
                 View details
               </div>
             </div>

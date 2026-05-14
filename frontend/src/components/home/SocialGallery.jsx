@@ -12,7 +12,7 @@ export default function SocialGallery({ images = [] }) {
   if (!galleryImages.length) return null;
 
   return (
-    <RevealSection className="ds-page-shell relative py-8 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <SectionHeading
         eyebrow={
           <EditableText
@@ -61,7 +61,7 @@ export default function SocialGallery({ images = [] }) {
               className={spanClass}
             >
               <SurfaceCard className="group h-full overflow-hidden border-white/70 bg-white/70 p-2 backdrop-blur">
-                <div className="relative h-full min-h-[14rem] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-surface via-accent-soft/20 to-lavender/30">
+                <div className="relative h-full min-h-[11rem] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-surface via-accent-soft/20 to-lavender/30 sm:min-h-[14rem]">
                   <img
                     src={url}
                     alt="Hapi.Cakes social gallery"

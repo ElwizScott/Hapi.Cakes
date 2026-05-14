@@ -26,7 +26,7 @@ export const badgeClass =
   "inline-flex items-center rounded-pill border border-border-soft bg-surface-elevated px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-plum";
 
 export const buttonBaseClass =
-  "inline-flex items-center justify-center rounded-pill text-sm font-semibold transition duration-200 ease-soft focus:outline-none focus:ring-2 active:translate-y-0.5 active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-70";
+  "inline-flex min-h-11 items-center justify-center rounded-pill px-4 text-sm font-semibold transition duration-200 ease-soft focus:outline-none focus:ring-2 active:translate-y-0.5 active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-70";
 
 export const buttonPrimaryClass = cx(
   buttonBaseClass,
@@ -44,7 +44,7 @@ export const buttonGhostClass = cx(
 );
 
 export const fieldClass =
-  "w-full rounded-ui border border-border-soft bg-surface-elevated px-4 py-3 text-sm text-text-primary shadow-insetSoft outline-none transition duration-200 ease-soft placeholder:text-text-secondary/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
+  "w-full min-h-11 rounded-ui border border-border-soft bg-surface-elevated px-4 py-3 text-sm text-text-primary shadow-insetSoft outline-none transition duration-200 ease-soft placeholder:text-text-secondary/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
 
 export const fieldLabelClass =
   "mb-1.5 block text-sm font-medium text-text-primary";

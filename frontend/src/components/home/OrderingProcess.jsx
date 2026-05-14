@@ -24,8 +24,8 @@ const steps = [
 
 export default function OrderingProcess({ onOrderClick }) {
   return (
-    <RevealSection className="ds-page-shell relative py-8 sm:py-10 lg:py-14">
-      <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.96))] p-6 shadow-soft sm:p-8 lg:p-10">
+    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
+      <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.96))] p-4 shadow-soft sm:p-8 lg:p-10">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-8 top-10 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
           <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
@@ -33,26 +33,26 @@ export default function OrderingProcess({ onOrderClick }) {
 
         <div className="relative z-10">
           <SectionHeading
-            eyebrow={(
+            eyebrow={
               <EditableText
                 copyKey="home.process.eyebrow"
                 defaultText="How It Works"
               />
-            )}
-            title={(
+            }
+            title={
               <EditableText
                 copyKey="home.process.title"
                 defaultText="A Custom Cake Process That Feels Easy, Personal, and Premium"
               />
-            )}
-            description={(
+            }
+            description={
               <EditableText
                 copyKey="home.process.subtitle"
                 defaultText="From your first inspiration to the final reveal, every step is designed to make ordering feel calm, collaborative, and beautifully tailored."
                 multiline
               />
-            )}
-            actions={(
+            }
+            actions={
               <PrimaryButton
                 type="button"
                 onClick={onOrderClick}
@@ -60,10 +60,10 @@ export default function OrderingProcess({ onOrderClick }) {
               >
                 Start your order
               </PrimaryButton>
-            )}
+            }
           />
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {steps.map((step, index) => (
               <RevealSection key={step.number} delay={index * 90}>
                 <SurfaceCard className="h-full border-white/70 bg-white/72 p-5 backdrop-blur">

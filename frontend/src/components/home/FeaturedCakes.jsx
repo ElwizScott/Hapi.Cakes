@@ -7,38 +7,35 @@ import SurfaceCard from "../common/SurfaceCard";
 import { formatVND } from "../../utils/formatPrice";
 import RevealSection from "./RevealSection";
 
-export default function FeaturedCakes({
-  cakes = [],
-  categoryById,
-}) {
+export default function FeaturedCakes({ cakes = [], categoryById }) {
   const navigate = useNavigate();
 
   if (!cakes.length) return null;
 
   return (
-    <RevealSection className="ds-page-shell relative py-8 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-10 h-40 bg-[radial-gradient(circle_at_18%_50%,rgba(216,165,199,0.12),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(232,217,241,0.22),transparent_32%)]" />
       <SectionHeading
-        eyebrow={(
+        eyebrow={
           <EditableText
             copyKey="home.featured.eyebrow"
             defaultText="Bakery Bestsellers"
           />
-        )}
-        title={(
+        }
+        title={
           <EditableText
             copyKey="home.featured.title"
             defaultText="Featured Today"
           />
-        )}
-        description={(
+        }
+        description={
           <EditableText
             copyKey="home.featured.subtitle"
             defaultText="A curated edit of our most-loved celebration cakes, chosen for their soft finishes, romantic styling, and premium feel."
             multiline
           />
-        )}
-        actions={(
+        }
+        actions={
           <PrimaryButton
             type="button"
             onClick={() => navigate("/gallery")}
@@ -49,19 +46,17 @@ export default function FeaturedCakes({
               defaultText="View all"
             />
           </PrimaryButton>
-        )}
+        }
         className="relative z-10"
       />
 
-      <div className="relative z-10 mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cakes.slice(0, 4).map((cake, index) => {
           const category = categoryById.get(String(cake.categoryId));
 
           return (
             <RevealSection key={cake.id} delay={index * 80}>
-              <SurfaceCard
-                className="group h-full overflow-hidden border-white/70 bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/60 p-3 transition duration-300 ease-soft hover:-translate-y-1 hover:shadow-float"
-              >
+              <SurfaceCard className="group h-full overflow-hidden border-white/70 bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/60 p-2.5 transition duration-300 ease-soft hover:-translate-y-1 hover:shadow-float sm:p-3">
                 <button
                   type="button"
                   onClick={() =>
@@ -77,7 +72,7 @@ export default function FeaturedCakes({
                 >
                   <div className="relative overflow-hidden rounded-[1.6rem] border border-white/75 bg-gradient-to-br from-surface via-accent-soft/30 to-lavender/30">
                     <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.4),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(110,85,117,0.12))]" />
-                    <div className="aspect-[4/4.25]">
+                    <div className="aspect-[4/4.15] sm:aspect-[4/4.25]">
                       <img
                         src={cake.imageUrls[0]}
                         alt={cake.name}
@@ -95,10 +90,10 @@ export default function FeaturedCakes({
 
                   <div className="space-y-3 px-2 pb-2 pt-4">
                     <div>
-                      <h3 className="font-serif text-2xl font-semibold tracking-tight text-text-primary">
+                      <h3 className="font-serif text-xl font-semibold tracking-tight text-text-primary sm:text-2xl">
                         {cake.name}
                       </h3>
-                      <p className="mt-1 text-sm leading-6 text-text-secondary line-clamp-2">
+                      <p className="mt-1 text-xs leading-5 text-text-secondary line-clamp-2 sm:text-sm sm:leading-6">
                         {cake.description ||
                           "A premium custom cake designed to feel soft, celebratory, and beautifully memorable."}
                       </p>
@@ -109,11 +104,11 @@ export default function FeaturedCakes({
                         <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-text-secondary">
                           Starting at
                         </p>
-                        <p className="mt-1 font-serif text-2xl font-semibold text-plum">
+                        <p className="mt-1 font-serif text-xl font-semibold text-plum sm:text-2xl">
                           {formatVND(cake.price)}
                         </p>
                       </div>
-                      <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-plum transition duration-300 ease-soft group-hover:bg-white">
+                      <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-plum transition duration-300 ease-soft group-hover:bg-white sm:text-[0.65rem] sm:tracking-[0.18em]">
                         Discover
                       </div>
                     </div>

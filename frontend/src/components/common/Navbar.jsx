@@ -8,7 +8,7 @@ import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 
 const linkClass =
-  "group relative inline-flex items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
+  "group relative inline-flex min-h-11 items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
 
 const activeClass = "bg-accent-soft text-plum";
 const inactiveClass = "text-text-secondary hover:text-plum";
@@ -22,7 +22,7 @@ const publicLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-function NavItem({ to, children, onClick }) {
+function NavItem({ to, children, onClick, className = "" }) {
   return (
     <NavLink
       to={to}
@@ -30,6 +30,7 @@ function NavItem({ to, children, onClick }) {
       className={({ isActive }) =>
         cx(
           linkClass,
+          className,
           isActive
             ? cx(
                 activeClass,
@@ -114,7 +115,7 @@ export default function Navbar() {
               <span className="font-script text-[2rem] leading-none">
                 Hapi.Cakes
               </span>
-              <span className="mt-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-plum/65">
+              <span className="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-plum/65 sm:text-[0.65rem] sm:tracking-[0.2em]">
                 Get a taste of happiness
               </span>
             </div>
@@ -144,7 +145,7 @@ export default function Navbar() {
           </div>
 
           <PrimaryButton
-            className="px-4 py-2.5 text-xs uppercase tracking-[0.2em] lg:hidden"
+            className="min-h-11 px-4 py-2.5 text-xs uppercase tracking-[0.2em] lg:hidden"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen((prev) => !prev)}
@@ -161,17 +162,26 @@ export default function Navbar() {
           isOpen ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0",
         )}
       >
-        <div className="ds-page-shell py-4">
-          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-2 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur">
-            <div className="grid gap-1">
+        <div className="ds-page-shell py-3 sm:py-4">
+          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-3 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur">
+            <div className="grid gap-2">
               {publicLinks.map((link) => (
-                <NavItem key={link.to} to={link.to} onClick={closeMenu}>
+                <NavItem
+                  key={link.to}
+                  to={link.to}
+                  onClick={closeMenu}
+                  className="w-full justify-start px-4 py-3 text-sm"
+                >
                   {link.label}
                 </NavItem>
               ))}
 
               {authenticated ? (
-                <NavItem to="/admin/dashboard" onClick={closeMenu}>
+                <NavItem
+                  to="/admin/dashboard"
+                  onClick={closeMenu}
+                  className="w-full justify-start px-4 py-3 text-sm"
+                >
                   Dashboard
                 </NavItem>
               ) : null}

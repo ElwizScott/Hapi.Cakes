@@ -24,8 +24,8 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <RevealSection className="ds-page-shell relative py-8 sm:py-10 lg:py-14">
-      <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,253,249,0.98),rgba(250,242,250,0.94))] p-6 shadow-soft sm:p-8 lg:p-10">
+    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
+      <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,253,249,0.98),rgba(250,242,250,0.94))] p-4 shadow-soft sm:p-8 lg:p-10">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
           <div className="absolute right-8 bottom-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
@@ -33,28 +33,28 @@ export default function WhyChooseUs() {
 
         <div className="relative z-10">
           <SectionHeading
-            eyebrow={(
+            eyebrow={
               <EditableText
                 copyKey="home.why.eyebrow"
                 defaultText="Why Choose Us"
               />
-            )}
-            title={(
+            }
+            title={
               <EditableText
                 copyKey="home.why.title"
                 defaultText="Designed for Celebrations That Deserve More Than a Standard Cake"
               />
-            )}
-            description={(
+            }
+            description={
               <EditableText
                 copyKey="home.why.subtitle"
                 defaultText="Hapi.Cakes combines premium styling, cozy romance, and custom details so each celebration feels polished, personal, and camera-ready."
                 multiline
               />
-            )}
+            }
           />
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             {reasons.map((reason, index) => (
               <RevealSection key={reason.title} delay={index * 80}>
                 <SurfaceCard className="h-full border-white/70 bg-white/72 p-5 backdrop-blur">

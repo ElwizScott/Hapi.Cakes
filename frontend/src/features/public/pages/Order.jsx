@@ -71,21 +71,9 @@ const budgetOptions = [
   { value: "2.5M+", icon: "$$$$" },
 ];
 
-const servingsOptions = [
-  "6 - 10",
-  "10 - 20",
-  "20 - 30",
-  "30 - 50",
-  "50+",
-];
+const servingsOptions = ["6 - 10", "10 - 20", "20 - 30", "30 - 50", "50+"];
 
-function OptionCard({
-  selected,
-  onClick,
-  icon,
-  title,
-  hint,
-}) {
+function OptionCard({ selected, onClick, icon, title, hint }) {
   return (
     <button
       type="button"
@@ -249,29 +237,29 @@ export default function Order() {
   };
 
   return (
-    <section className="bg-gradient-to-b from-softBg via-brandCream/50 to-white px-4 py-10 sm:px-6 lg:px-8">
+    <section className="bg-gradient-to-b from-softBg via-brandCream/50 to-white px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-6">
         <PageHero
-          eyebrow={(
+          eyebrow={
             <EditableText
               copyKey="order.header.label"
               defaultText="Custom Order"
             />
-          )}
-          title={(
+          }
+          title={
             <EditableText
               copyKey="order.header.title"
               defaultText="Build Your Dream Cake"
             />
-          )}
-          description={(
+          }
+          description={
             <EditableText
               copyKey="order.header.subtitle"
               defaultText="A boutique cake builder designed to make your order feel clear, inspiring, and beautifully personal from the very first step."
               multiline
             />
-          )}
-          actions={(
+          }
+          actions={
             <>
               <PillBadge className="border-white/75 bg-white/80 px-4 py-2 text-[0.68rem] tracking-[0.22em] shadow-soft">
                 Soft premium styling
@@ -280,14 +268,14 @@ export default function Order() {
                 Guided 3-step flow
               </PillBadge>
             </>
-          )}
+          }
         />
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_360px]">
           <form onSubmit={handleSubmit} className="space-y-5">
-            <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,253,249,0.98),rgba(250,243,250,0.94))] p-5 sm:p-6">
+            <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,253,249,0.98),rgba(250,243,250,0.94))] p-4 sm:p-6">
               <div className="flex flex-col gap-5">
-                <div className="grid gap-4 lg:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-3">
                   {steps.map((step, index) => (
                     <ProgressStep
                       key={step.id}
@@ -312,11 +300,12 @@ export default function Order() {
 
             {submitted ? (
               <SurfaceCard className="border-success/35 bg-[linear-gradient(180deg,rgba(240,255,248,0.96),rgba(255,253,249,0.96))] p-5 text-sm text-success sm:p-6">
-                Thank you! Your request has been received. We’ll contact you soon.
+                Thank you! Your request has been received. We’ll contact you
+                soon.
               </SurfaceCard>
             ) : null}
 
-            <SurfaceCard className="overflow-hidden border-white/75 bg-white/76 p-5 backdrop-blur sm:p-6">
+            <SurfaceCard className="overflow-hidden border-white/75 bg-white/76 p-4 backdrop-blur sm:p-6">
               <div
                 className="transition-all duration-500 ease-soft"
                 key={steps[currentStep].id}
@@ -325,7 +314,7 @@ export default function Order() {
                   <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
                     {steps[currentStep].label}
                   </p>
-                  <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-text-primary">
+                  <h2 className="mt-2 font-serif text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl">
                     {steps[currentStep].title}
                   </h2>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-text-secondary">
@@ -337,12 +326,12 @@ export default function Order() {
                   <div className="space-y-6">
                     <div className="grid gap-4 md:grid-cols-2">
                       <TextField
-                        label={(
+                        label={
                           <EditableText
                             copyKey="order.field.name"
                             defaultText="Name"
                           />
-                        )}
+                        }
                         name="name"
                         value={form.name}
                         onChange={handleChange}
@@ -379,24 +368,24 @@ export default function Order() {
                     <div className="grid gap-4 md:grid-cols-2">
                       <TextField
                         type="email"
-                        label={(
+                        label={
                           <EditableText
                             copyKey="order.field.email"
                             defaultText="Email"
                           />
-                        )}
+                        }
                         name="email"
                         value={form.email}
                         onChange={handleChange}
                         placeholder="you@example.com"
                       />
                       <TextField
-                        label={(
+                        label={
                           <EditableText
                             copyKey="order.field.phone"
                             defaultText="Phone"
                           />
-                        )}
+                        }
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
@@ -431,12 +420,12 @@ export default function Order() {
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <SelectField
-                        label={(
+                        label={
                           <EditableText
                             copyKey="order.field.servings"
                             defaultText="Servings"
                           />
-                        )}
+                        }
                         name="servings"
                         value={form.servings}
                         onChange={handleChange}
@@ -471,12 +460,12 @@ export default function Order() {
                     </div>
 
                     <TextField
-                      label={(
+                      label={
                         <EditableText
                           copyKey="order.field.reference"
                           defaultText="Inspiration / Reference URL"
                         />
-                      )}
+                      }
                       name="referenceUrl"
                       value={form.referenceUrl}
                       onChange={handleChange}
@@ -490,12 +479,12 @@ export default function Order() {
                     <div className="grid gap-4 md:grid-cols-2">
                       <TextField
                         type="date"
-                        label={(
+                        label={
                           <EditableText
                             copyKey="order.field.date"
                             defaultText="Date"
                           />
-                        )}
+                        }
                         name="date"
                         value={form.date}
                         onChange={handleChange}
@@ -541,12 +530,12 @@ export default function Order() {
 
                     {form.fulfillment === "delivery" ? (
                       <TextField
-                        label={(
+                        label={
                           <EditableText
                             copyKey="order.field.address"
                             defaultText="Delivery Address"
                           />
-                        )}
+                        }
                         name="address"
                         value={form.address}
                         onChange={handleChange}
@@ -556,12 +545,12 @@ export default function Order() {
                     ) : null}
 
                     <TextArea
-                      label={(
+                      label={
                         <EditableText
                           copyKey="order.field.notes"
                           defaultText="Notes"
                         />
-                      )}
+                      }
                       name="notes"
                       value={form.notes}
                       onChange={handleChange}
@@ -612,18 +601,18 @@ export default function Order() {
           </form>
 
           <div className="space-y-5 xl:sticky xl:top-24 xl:self-start">
-            <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,253,250,0.97),rgba(249,241,249,0.95))] p-5 sm:p-6">
+            <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,253,250,0.97),rgba(249,241,249,0.95))] p-4 sm:p-6">
               <div className="space-y-5">
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                   <div>
                     <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
                       Live Preview
                     </p>
-                    <h3 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-text-primary">
+                    <h3 className="mt-2 font-serif text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl">
                       {previewTitle}
                     </h3>
                   </div>
-                  <div className="grid h-14 w-14 place-items-center rounded-[1.3rem] bg-accent-soft text-2xl text-plum">
+                  <div className="grid h-12 w-12 place-items-center rounded-[1.3rem] bg-accent-soft text-xl text-plum sm:h-14 sm:w-14 sm:text-2xl">
                     🍰
                   </div>
                 </div>
@@ -634,11 +623,11 @@ export default function Order() {
                   <div className="relative overflow-hidden rounded-[1.6rem] border border-white/75 bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(238,220,241,0.78))] p-6">
                     <div className="mx-auto flex aspect-[4/4.8] max-w-[16rem] items-center justify-center rounded-[1.8rem] border border-white/70 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.9),rgba(255,247,252,0.6)_45%,rgba(227,205,232,0.7)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
                       <div className="text-center">
-                        <div className="text-5xl">🎂</div>
-                        <p className="mt-3 font-serif text-2xl text-plum">
+                        <div className="text-4xl sm:text-5xl">🎂</div>
+                        <p className="mt-3 font-serif text-xl text-plum sm:text-2xl">
                           {form.flavor || "Dream flavor"}
                         </p>
-                        <p className="mt-1 text-sm text-text-secondary">
+                        <p className="mt-1 text-xs text-text-secondary sm:text-sm">
                           {form.servings || "Select size"} • {form.fulfillment}
                         </p>
                       </div>

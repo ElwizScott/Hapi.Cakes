@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { fetchCakeFeedbackImages, fetchCakes } from "../../../api/public/cake.api";
+import {
+  fetchCakeFeedbackImages,
+  fetchCakes,
+} from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
 import { fetchAdmin } from "../../../api/http";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
@@ -52,8 +55,7 @@ export default function CakeDetail() {
     setLoading(true);
     setError("");
 
-    const loadFromPublic = () =>
-      Promise.all([fetchCakes(), fetchCategories()]);
+    const loadFromPublic = () => Promise.all([fetchCakes(), fetchCategories()]);
 
     const loadFromAdmin = async () => {
       const [cakesResponse, categoriesResponse] = await Promise.all([
@@ -196,7 +198,7 @@ export default function CakeDetail() {
     imageUrls = cake?.imageUrls ?? [],
     feedbackImages: nextFeedbackImages = feedbackImages.length
       ? feedbackImages
-      : cake?.feedbackImages ?? [],
+      : (cake?.feedbackImages ?? []),
     featured = cake?.featured ?? false,
   }) => {
     const payload = {
@@ -237,9 +239,7 @@ export default function CakeDetail() {
       }
       const nextImages = [...(cake.imageUrls ?? []), ...uploadedUrls];
       await persistCakeUpdate({ imageUrls: nextImages });
-      setCake((prev) =>
-        prev ? { ...prev, imageUrls: nextImages } : prev,
-      );
+      setCake((prev) => (prev ? { ...prev, imageUrls: nextImages } : prev));
       if (!images.length && uploadedUrls.length) {
         setActiveIndex(0);
       }
@@ -259,9 +259,7 @@ export default function CakeDetail() {
     setImageError("");
     try {
       await persistCakeUpdate({ imageUrls: nextImages });
-      setCake((prev) =>
-        prev ? { ...prev, imageUrls: nextImages } : prev,
-      );
+      setCake((prev) => (prev ? { ...prev, imageUrls: nextImages } : prev));
       if (nextImages.length === 0) {
         setActiveIndex(0);
       } else if (activeIndex >= nextImages.length) {
@@ -283,9 +281,7 @@ export default function CakeDetail() {
     setImageError("");
     try {
       await persistCakeUpdate({ imageUrls: nextImages });
-      setCake((prev) =>
-        prev ? { ...prev, imageUrls: nextImages } : prev,
-      );
+      setCake((prev) => (prev ? { ...prev, imageUrls: nextImages } : prev));
       if (activeIndex === fromIndex) {
         setActiveIndex(toIndex);
       } else if (fromIndex < activeIndex && toIndex >= activeIndex) {
@@ -420,7 +416,7 @@ export default function CakeDetail() {
 
   return (
     <section className="mx-auto flex w-full max-w-6xl flex-col gap-3 pb-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -431,7 +427,7 @@ export default function CakeDetail() {
         <span className="text-xs text-muted">{categoryName}</span>
       </div>
 
-      <div className="grid gap-5 rounded-3xl bg-white p-4 shadow-[0_30px_80px_rgba(83,55,99,0.2)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="grid gap-5 rounded-3xl bg-white p-3 shadow-[0_30px_80px_rgba(83,55,99,0.2)] sm:p-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div className="space-y-3">
           <div className="rounded-3xl border border-lavender/40 bg-white p-3 shadow-sm">
             <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 shadow-[0_18px_45px_rgba(83,55,99,0.18)]">
@@ -473,43 +469,43 @@ export default function CakeDetail() {
             </div>
 
             {images.length > 1 ? (
-              <div className="mt-5 grid grid-cols-5 gap-3">
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
                 {visibleThumbs.map((image, index) => {
                   const realIndex = thumbWindowStart + index;
                   return (
-                  <button
-                    key={image}
-                    type="button"
-                    onClick={() => setActiveIndex(realIndex)}
-                    draggable={authenticated}
-                    onDragStart={() => {
-                      dragIndexRef.current = realIndex;
-                    }}
-                    onDragOver={(event) => {
-                      if (!authenticated) return;
-                      event.preventDefault();
-                    }}
-                    onDrop={() => {
-                      if (!authenticated) return;
-                      const fromIndex = dragIndexRef.current;
-                      dragIndexRef.current = null;
-                      if (typeof fromIndex === "number") {
-                        handleReorderImages(fromIndex, realIndex);
-                      }
-                    }}
-                    className={`relative overflow-hidden rounded-xl border transition ${
-                      realIndex === activeIndex
-                        ? "border-brandPink ring-2 ring-brandPink/40 scale-[1.03]"
-                        : "border-transparent hover:border-lavender/60 hover:scale-[1.01]"
-                    }`}
-                    aria-label={`View image ${realIndex + 1}`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${cake.name} thumbnail ${realIndex + 1}`}
-                      className="h-20 w-20 object-cover"
-                    />
-                  </button>
+                    <button
+                      key={image}
+                      type="button"
+                      onClick={() => setActiveIndex(realIndex)}
+                      draggable={authenticated}
+                      onDragStart={() => {
+                        dragIndexRef.current = realIndex;
+                      }}
+                      onDragOver={(event) => {
+                        if (!authenticated) return;
+                        event.preventDefault();
+                      }}
+                      onDrop={() => {
+                        if (!authenticated) return;
+                        const fromIndex = dragIndexRef.current;
+                        dragIndexRef.current = null;
+                        if (typeof fromIndex === "number") {
+                          handleReorderImages(fromIndex, realIndex);
+                        }
+                      }}
+                      className={`relative overflow-hidden rounded-xl border transition ${
+                        realIndex === activeIndex
+                          ? "border-brandPink ring-2 ring-brandPink/40 scale-[1.03]"
+                          : "border-transparent hover:border-lavender/60 hover:scale-[1.01]"
+                      }`}
+                      aria-label={`View image ${realIndex + 1}`}
+                    >
+                      <img
+                        src={image}
+                        alt={`${cake.name} thumbnail ${realIndex + 1}`}
+                        className="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                      />
+                    </button>
                   );
                 })}
               </div>
@@ -538,7 +534,7 @@ export default function CakeDetail() {
           ) : null}
         </div>
 
-        <div className="flex flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm min-w-0">
+        <div className="flex min-w-0 flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm">
           <div className="space-y-2 pb-2 border-b border-lavender/30">
             <div className="flex items-center gap-2">
               {editingField === "name" ? (
@@ -713,9 +709,7 @@ export default function CakeDetail() {
                 {cake.description && cake.description.length > 180 ? (
                   <button
                     type="button"
-                    onClick={() =>
-                      setShowFullDescription((prev) => !prev)
-                    }
+                    onClick={() => setShowFullDescription((prev) => !prev)}
                     className="mt-2 text-xs font-semibold text-plum transition hover:text-brandPink"
                   >
                     {showFullDescription ? "See less" : "See more"}
@@ -756,12 +750,12 @@ export default function CakeDetail() {
               <p className="text-xs text-muted">Loading feedback...</p>
             ) : feedbackImages.length ? (
               <div className="relative">
-                <div className="w-full max-w-full min-w-0 overflow-x-auto pb-2 pr-6">
+                <div className="w-full max-w-full min-w-0 overflow-x-auto pb-2 pr-2 sm:pr-6">
                   <div className="flex w-max gap-3">
                     {feedbackImages.map((image, index) => (
                       <div
                         key={image}
-                        className="group relative w-56 flex-none overflow-hidden rounded-2xl"
+                        className="group relative w-44 flex-none overflow-hidden rounded-2xl sm:w-56"
                       >
                         <img
                           src={image}

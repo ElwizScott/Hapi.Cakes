@@ -89,34 +89,38 @@ export default function Gallery({ variant = "elegant" }) {
 
   return (
     <section
-      className={`px-4 py-6 space-y-6 transition-all duration-500 ease-out sm:px-6 ${
+      className={`space-y-6 px-3 py-5 transition-all duration-500 ease-out sm:px-6 sm:py-6 ${
         visible ? "opacity-100 scale-100" : "opacity-0 scale-[0.98]"
       }`}
     >
       <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-6 shadow-sm backdrop-blur">
-          <div className="pointer-events-none absolute inset-0 opacity-70">
-            <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
-            <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
-          </div>
+        <div className="pointer-events-none absolute inset-0 opacity-70">
+          <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
+          <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
+        </div>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
         <div className="pointer-events-none absolute right-10 top-8 text-[10px] text-plum/40">
           ✧ ✦ ✧
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-plum/70 sm:text-xs sm:tracking-[0.25em]">
               <EditableText
-                copyKey={isSocial ? "gallery.social.label" : "gallery.elegant.label"}
+                copyKey={
+                  isSocial ? "gallery.social.label" : "gallery.elegant.label"
+                }
                 defaultText={isSocial ? "Social Feed" : "Curated Collection"}
               />
             </p>
-            <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
+            <h1 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
               <EditableText
-                copyKey={isSocial ? "gallery.social.title" : "gallery.elegant.title"}
+                copyKey={
+                  isSocial ? "gallery.social.title" : "gallery.elegant.title"
+                }
                 defaultText={isSocial ? "Instagram Gallery" : "Elegant Gallery"}
               />
             </h1>
-            <p className="mt-2 text-sm text-muted">
+            <p className="mt-2 text-sm leading-6 text-muted">
               <EditableText
                 copyKey={
                   isSocial
@@ -139,12 +143,12 @@ export default function Gallery({ variant = "elegant" }) {
       </header>
 
       {!isSocial ? (
-        <div className="flex flex-wrap gap-2">
+        <div className="-mx-3 flex flex-nowrap gap-2 overflow-x-auto px-3 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           {categories.map((category) => (
             <a
               key={category.id}
               href={`/gallery?category=${category.slug}`}
-              className={`rounded-full border px-3 py-1 text-xs transition ${
+              className={`whitespace-nowrap rounded-full border px-3 py-2 text-xs transition ${
                 category.slug === categoryParam
                   ? "border-brandPink bg-brandPink/10 text-brandPink"
                   : "border-lavender bg-white text-muted hover:border-brandPink hover:text-brandPink"
@@ -161,7 +165,7 @@ export default function Gallery({ variant = "elegant" }) {
       ) : error ? (
         <p className="text-sm text-rose-500">{error}</p>
       ) : isSocial ? (
-        <div className="grid grid-cols-2 auto-rows-[8px] gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-1 auto-rows-[8px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {filteredCakes.map((cake, index) => {
             const images = cake.imageUrls ?? [];
             const count = images.length;
@@ -209,7 +213,8 @@ export default function Gallery({ variant = "elegant" }) {
                         }
                         const container = event.currentTarget.parentElement;
                         if (container) {
-                          const height = container.getBoundingClientRect().height;
+                          const height =
+                            container.getBoundingClientRect().height;
                           const nextSpan = Math.max(
                             1,
                             Math.ceil(height / masonryRowUnit),
@@ -269,7 +274,7 @@ export default function Gallery({ variant = "elegant" }) {
           })}
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {filteredCakes.map((cake, index) => {
             const isHovered = hoveredIndex === index;
             const isOther = hoveredIndex !== null && hoveredIndex !== index;
@@ -287,9 +292,7 @@ export default function Gallery({ variant = "elegant" }) {
                 className={`group relative overflow-hidden rounded-[28px] border border-lavender/50 bg-gradient-to-br from-white via-white to-lavender/20 p-4 shadow-[0_18px_36px_rgba(200,141,191,0.22)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(200,141,191,0.32)] ${
                   isOther ? "scale-[0.985] opacity-90" : "scale-100"
                 } ${
-                  isHovered
-                    ? "md:origin-left md:scale-x-[1.06] md:z-10"
-                    : ""
+                  isHovered ? "md:origin-left md:scale-x-[1.06] md:z-10" : ""
                 }`}
               >
                 <div className="pointer-events-none absolute right-4 top-4 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold text-plum shadow-sm">
