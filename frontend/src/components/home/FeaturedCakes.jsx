@@ -99,7 +99,7 @@ export default function FeaturedCakes({ cakes = [], categoryById }) {
                       </p>
                     </div>
 
-                    <div className="flex items-end justify-between gap-3 border-t border-border-soft/70 pt-3">
+                    {/* <div className="flex items-end justify-between gap-3 border-t border-border-soft/70 pt-3">
                       <div>
                         <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-text-secondary">
                           Starting at
@@ -111,7 +111,7 @@ export default function FeaturedCakes({ cakes = [], categoryById }) {
                       <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-plum transition duration-300 ease-soft group-hover:bg-white sm:text-[0.65rem] sm:tracking-[0.18em]">
                         Discover
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </button>
               </SurfaceCard>
