@@ -4,6 +4,8 @@ import { fetchCakes } from "../../../api/public/cake.api";
 import { fetchCategories } from "../../../api/public/category.api";
 import Loader from "../../../components/common/Loader";
 import Modal from "../../../components/common/Modal";
+import PageHero from "../../../components/common/PageHero";
+import PillBadge from "../../../components/common/PillBadge";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import EditableText from "../../../components/common/EditableText";
 import { formatVND } from "../../../utils/formatPrice";
@@ -89,284 +91,276 @@ export default function Gallery({ variant = "elegant" }) {
 
   return (
     <section
-      className={`space-y-6 px-3 py-5 transition-all duration-500 ease-out sm:px-6 sm:py-6 ${
+      className={`space-y-6 bg-[linear-gradient(180deg,rgba(255,246,251,0.98),rgba(250,243,250,0.96),rgba(255,248,252,0.98))] px-3 py-6 transition-all duration-500 ease-out sm:px-6 sm:py-10 lg:px-8 ${
         visible ? "opacity-100 scale-100" : "opacity-0 scale-[0.98]"
       }`}
     >
-      <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-6 shadow-sm backdrop-blur">
-        <div className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
-          <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
-        </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
-        <div className="pointer-events-none absolute right-10 top-8 text-[10px] text-plum/40">
-          ✧ ✦ ✧
-        </div>
-        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-          <div>
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-plum/70 sm:text-xs sm:tracking-[0.25em]">
-              <EditableText
-                copyKey={
-                  isSocial ? "gallery.social.label" : "gallery.elegant.label"
-                }
-                defaultText={isSocial ? "Social Feed" : "Curated Collection"}
-              />
-            </p>
-            <h1 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
-              <EditableText
-                copyKey={
-                  isSocial ? "gallery.social.title" : "gallery.elegant.title"
-                }
-                defaultText={isSocial ? "Instagram Gallery" : "Elegant Gallery"}
-              />
-            </h1>
-            <p className="mt-2 text-sm leading-6 text-muted">
-              <EditableText
-                copyKey={
-                  isSocial
-                    ? "gallery.social.subtitle"
-                    : "gallery.elegant.subtitle"
-                }
-                defaultText={
-                  isSocial
-                    ? "A curated social feed of our latest creations."
-                    : "Discover our signature cakes and seasonal favorites."
-                }
-                multiline
-              />
-            </p>
-          </div>
-          <div className="rounded-full border border-lavender/60 bg-white px-3 py-1 text-xs font-semibold text-plum">
-            {filteredCakes.length} cakes
-          </div>
-        </div>
-      </header>
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-8">
+        <PageHero
+          eyebrow={
+            <EditableText
+              copyKey={
+                isSocial ? "gallery.social.label" : "gallery.elegant.label"
+              }
+              defaultText={isSocial ? "Social Feed" : "Curated Collection"}
+            />
+          }
+          title={
+            <EditableText
+              copyKey={
+                isSocial ? "gallery.social.title" : "gallery.elegant.title"
+              }
+              defaultText={isSocial ? "Instagram Gallery" : "Elegant Gallery"}
+            />
+          }
+          description={
+            <EditableText
+              copyKey={
+                isSocial
+                  ? "gallery.social.subtitle"
+                  : "gallery.elegant.subtitle"
+              }
+              defaultText={
+                isSocial
+                  ? "A curated social feed of our latest creations."
+                  : "Discover our signature cakes and seasonal favorites."
+              }
+              multiline
+            />
+          }
+          actions={
+            <PillBadge className="border-white/75 bg-surface-elevated/90 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+              {filteredCakes.length} cakes
+            </PillBadge>
+          }
+        />
 
-      {!isSocial ? (
-        <div className="-mx-3 flex flex-nowrap gap-2 overflow-x-auto px-3 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
-          {categories.map((category) => (
-            <a
-              key={category.id}
-              href={`/gallery?category=${category.slug}`}
-              className={`whitespace-nowrap rounded-full border px-3 py-2 text-xs transition ${
-                category.slug === categoryParam
-                  ? "border-brandPink bg-brandPink/10 text-brandPink"
-                  : "border-lavender bg-white text-muted hover:border-brandPink hover:text-brandPink"
-              }`}
-            >
-              {category.name}
-            </a>
-          ))}
-        </div>
-      ) : null}
-
-      {loading ? (
-        <Loader label="Loading cakes..." />
-      ) : error ? (
-        <p className="text-sm text-rose-500">{error}</p>
-      ) : isSocial ? (
-        <div className="grid grid-cols-1 auto-rows-[8px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {filteredCakes.map((cake, index) => {
-            const images = cake.imageUrls ?? [];
-            const count = images.length;
-            const current = getSlideIndex(cake.id, count);
-            const currentImage = images[current] ?? images[0];
-            const masonryKey = cake.id ?? `${cake.name}-${index}`;
-            const span = masonrySpans[masonryKey] ?? 24;
-            const aspectRatio = socialAspectRatios[masonryKey];
-
-            return (
-              <button
-                key={masonryKey}
-                type="button"
-                onClick={() =>
-                  navigate(`/cakes/${cake.id}`, {
-                    state: {
-                      cake,
-                      scrollY: window.scrollY,
-                    },
-                  })
-                }
-                style={{ gridRowEnd: `span ${span}` }}
-                className="group relative w-full overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
-              >
-                {currentImage ? (
-                  <div
-                    className="w-full"
-                    style={aspectRatio ? { aspectRatio } : undefined}
-                  >
-                    <img
-                      src={currentImage}
-                      alt={cake.name}
-                      className="block h-full w-full object-cover object-center"
-                      loading="lazy"
-                      onLoad={(event) => {
-                        if (!socialAspectRatios[masonryKey]) {
-                          const { naturalWidth, naturalHeight } =
-                            event.currentTarget;
-                          if (naturalWidth && naturalHeight) {
-                            setSocialAspectRatios((prev) => ({
-                              ...prev,
-                              [masonryKey]: naturalWidth / naturalHeight,
-                            }));
-                          }
-                        }
-                        const container = event.currentTarget.parentElement;
-                        if (container) {
-                          const height =
-                            container.getBoundingClientRect().height;
-                          const nextSpan = Math.max(
-                            1,
-                            Math.ceil(height / masonryRowUnit),
-                          );
-                          setMasonrySpans((prev) =>
-                            prev[masonryKey] === nextSpan
-                              ? prev
-                              : { ...prev, [masonryKey]: nextSpan },
-                          );
-                        }
-                      }}
-                    />
-                  </div>
-                ) : null}
-
-                {count > 1 ? (
-                  <>
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
-                    <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 transition group-hover:opacity-100">
-                      <button
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          updateSlide(cake.id, current - 1, count);
-                        }}
-                        className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
-                        aria-label="Previous image"
-                      >
-                        <span className="text-lg leading-none">‹</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          updateSlide(cake.id, current + 1, count);
-                        }}
-                        className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
-                        aria-label="Next image"
-                      >
-                        <span className="text-lg leading-none">›</span>
-                      </button>
-                    </div>
-                    <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-white/80 px-2 py-1">
-                      {images.map((_, idx) => (
-                        <span
-                          key={`${cake.id}-dot-${idx}`}
-                          className={`h-1.5 w-1.5 rounded-full ${
-                            idx === current ? "bg-plum" : "bg-plum/40"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </>
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {filteredCakes.map((cake, index) => {
-            const isHovered = hoveredIndex === index;
-            const isOther = hoveredIndex !== null && hoveredIndex !== index;
-
-            const handleClick = () => {
-              if (isMobile) setSelectedCake(cake);
-            };
-
-            return (
-              <div
-                key={cake.id || `${cake.name}-${index}`}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={handleClick}
-                className={`group relative overflow-hidden rounded-[28px] border border-lavender/50 bg-gradient-to-br from-white via-white to-lavender/20 p-4 shadow-[0_18px_36px_rgba(200,141,191,0.22)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(200,141,191,0.32)] ${
-                  isOther ? "scale-[0.985] opacity-90" : "scale-100"
-                } ${
-                  isHovered ? "md:origin-left md:scale-x-[1.06] md:z-10" : ""
+        {!isSocial ? (
+          <div className="-mx-3 flex flex-nowrap gap-2 overflow-x-auto px-3 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+            {categories.map((category) => (
+              <a
+                key={category.id}
+                href={`/gallery?category=${category.slug}`}
+                className={`whitespace-nowrap rounded-full border px-3 py-2 text-xs transition ${
+                  category.slug === categoryParam
+                    ? "border-brandPink bg-brandPink/10 text-brandPink"
+                    : "border-lavender bg-white text-muted hover:border-brandPink hover:text-brandPink"
                 }`}
               >
-                <div className="pointer-events-none absolute right-4 top-4 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold text-plum shadow-sm">
-                  ✦
-                </div>
-                {authenticated ? (
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      navigate(`/admin/cakes?edit=${cake.id ?? ""}`);
-                    }}
-                    className="absolute right-4 top-4 z-20 rounded-full bg-white/90 p-2 text-plum opacity-0 transition group-hover:opacity-100"
-                    aria-label={`Edit ${cake.name}`}
-                  >
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path d="M12 20h9" />
-                      <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                  </button>
-                ) : null}
-                <div className="flex flex-col gap-4 md:flex-row">
-                  <div className="relative h-56 w-full overflow-hidden rounded-2xl bg-white/70 md:h-48 md:w-48">
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brandPink/10 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
-                    {cake.imageUrls?.[0] ? (
-                      <img
-                        src={cake.imageUrls[0]}
-                        alt={cake.name}
-                        className={`h-full w-full object-cover transition-transform duration-500 ease-out ${
-                          isHovered ? "md:scale-[1.04]" : "scale-100"
-                        }`}
-                      />
-                    ) : null}
-                  </div>
-                  <div className="flex-1 font-serif">
-                    <h3 className="text-lg font-semibold text-ink tracking-tight">
-                      {cake.name}
-                    </h3>
-                    {Number.isFinite(cake.price) ? (
-                      <p className="mt-1 text-sm font-semibold text-plum">
-                        {formatVND(cake.price)}
-                      </p>
-                    ) : null}
-                    <p className="text-sm text-muted mt-2 line-clamp-3 font-sans">
-                      {cake.description}
-                    </p>
+                {category.name}
+              </a>
+            ))}
+          </div>
+        ) : null}
+
+        {loading ? (
+          <Loader label="Loading cakes..." />
+        ) : error ? (
+          <p className="text-sm text-rose-500">{error}</p>
+        ) : isSocial ? (
+          <div className="grid grid-cols-1 auto-rows-[8px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {filteredCakes.map((cake, index) => {
+              const images = cake.imageUrls ?? [];
+              const count = images.length;
+              const current = getSlideIndex(cake.id, count);
+              const currentImage = images[current] ?? images[0];
+              const masonryKey = cake.id ?? `${cake.name}-${index}`;
+              const span = masonrySpans[masonryKey] ?? 24;
+              const aspectRatio = socialAspectRatios[masonryKey];
+
+              return (
+                <button
+                  key={masonryKey}
+                  type="button"
+                  onClick={() =>
+                    navigate(`/cakes/${cake.id}`, {
+                      state: {
+                        cake,
+                        scrollY: window.scrollY,
+                      },
+                    })
+                  }
+                  style={{ gridRowEnd: `span ${span}` }}
+                  className="group relative w-full overflow-hidden rounded-3xl bg-white/80 shadow-[0_16px_34px_rgba(200,141,191,0.2)] transition-transform hover:scale-[1.02] hover:shadow-[0_24px_45px_rgba(200,141,191,0.28)]"
+                >
+                  {currentImage ? (
                     <div
-                      className={`mt-4 flex gap-2 transition-all duration-500 ease-out ${
-                        isHovered ? "md:opacity-100" : "md:opacity-0"
-                      }`}
+                      className="w-full"
+                      style={aspectRatio ? { aspectRatio } : undefined}
                     >
-                      {cake.feedbackImages?.slice(0, 3).map((image) => (
+                      <img
+                        src={currentImage}
+                        alt={cake.name}
+                        className="block h-full w-full object-cover object-center"
+                        loading="lazy"
+                        onLoad={(event) => {
+                          if (!socialAspectRatios[masonryKey]) {
+                            const { naturalWidth, naturalHeight } =
+                              event.currentTarget;
+                            if (naturalWidth && naturalHeight) {
+                              setSocialAspectRatios((prev) => ({
+                                ...prev,
+                                [masonryKey]: naturalWidth / naturalHeight,
+                              }));
+                            }
+                          }
+                          const container = event.currentTarget.parentElement;
+                          if (container) {
+                            const height =
+                              container.getBoundingClientRect().height;
+                            const nextSpan = Math.max(
+                              1,
+                              Math.ceil(height / masonryRowUnit),
+                            );
+                            setMasonrySpans((prev) =>
+                              prev[masonryKey] === nextSpan
+                                ? prev
+                                : { ...prev, [masonryKey]: nextSpan },
+                            );
+                          }
+                        }}
+                      />
+                    </div>
+                  ) : null}
+
+                  {count > 1 ? (
+                    <>
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+                      <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 transition group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            updateSlide(cake.id, current - 1, count);
+                          }}
+                          className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
+                          aria-label="Previous image"
+                        >
+                          <span className="text-lg leading-none">‹</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            updateSlide(cake.id, current + 1, count);
+                          }}
+                          className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
+                          aria-label="Next image"
+                        >
+                          <span className="text-lg leading-none">›</span>
+                        </button>
+                      </div>
+                      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-white/80 px-2 py-1">
+                        {images.map((_, idx) => (
+                          <span
+                            key={`${cake.id}-dot-${idx}`}
+                            className={`h-1.5 w-1.5 rounded-full ${
+                              idx === current ? "bg-plum" : "bg-plum/40"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+            {filteredCakes.map((cake, index) => {
+              const isHovered = hoveredIndex === index;
+              const isOther = hoveredIndex !== null && hoveredIndex !== index;
+
+              const handleClick = () => {
+                if (isMobile) setSelectedCake(cake);
+              };
+
+              return (
+                <div
+                  key={cake.id || `${cake.name}-${index}`}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  onClick={handleClick}
+                  className={`group relative overflow-hidden rounded-[28px] border border-lavender/50 bg-gradient-to-br from-white via-white to-lavender/20 p-4 shadow-[0_18px_36px_rgba(200,141,191,0.22)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(200,141,191,0.32)] ${
+                    isOther ? "scale-[0.985] opacity-90" : "scale-100"
+                  } ${
+                    isHovered ? "md:origin-left md:scale-x-[1.06] md:z-10" : ""
+                  }`}
+                >
+                  <div className="pointer-events-none absolute right-4 top-4 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold text-plum shadow-sm">
+                    ✦
+                  </div>
+                  {authenticated ? (
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(`/admin/cakes?edit=${cake.id ?? ""}`);
+                      }}
+                      className="absolute right-4 top-4 z-20 rounded-full bg-white/90 p-2 text-plum opacity-0 transition group-hover:opacity-100"
+                      aria-label={`Edit ${cake.name}`}
+                    >
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+                      </svg>
+                    </button>
+                  ) : null}
+                  <div className="flex flex-col gap-4 md:flex-row">
+                    <div className="relative h-56 w-full overflow-hidden rounded-2xl bg-white/70 md:h-48 md:w-48">
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brandPink/10 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+                      {cake.imageUrls?.[0] ? (
                         <img
-                          key={image}
-                          src={image}
-                          alt="Customer feedback"
-                          className="h-14 w-14 rounded-xl object-cover"
+                          src={cake.imageUrls[0]}
+                          alt={cake.name}
+                          className={`h-full w-full object-cover transition-transform duration-500 ease-out ${
+                            isHovered ? "md:scale-[1.04]" : "scale-100"
+                          }`}
                         />
-                      ))}
+                      ) : null}
+                    </div>
+                    <div className="flex-1 font-serif">
+                      <h3 className="text-lg font-semibold text-ink tracking-tight">
+                        {cake.name}
+                      </h3>
+                      {Number.isFinite(cake.price) ? (
+                        <p className="mt-1 text-sm font-semibold text-plum">
+                          {formatVND(cake.price)}
+                        </p>
+                      ) : null}
+                      <p className="text-sm text-muted mt-2 line-clamp-3 font-sans">
+                        {cake.description}
+                      </p>
+                      <div
+                        className={`mt-4 flex gap-2 transition-all duration-500 ease-out ${
+                          isHovered ? "md:opacity-100" : "md:opacity-0"
+                        }`}
+                      >
+                        {cake.feedbackImages?.slice(0, 3).map((image) => (
+                          <img
+                            key={image}
+                            src={image}
+                            alt="Customer feedback"
+                            className="h-14 w-14 rounded-xl object-cover"
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       <Modal
         open={Boolean(selectedCake)}

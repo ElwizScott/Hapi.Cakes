@@ -5,9 +5,9 @@
   color-scheme: light;
   --page-gradient: linear-gradient(
     180deg,
-    rgba(255, 248, 252, 1) 0%,
-    rgba(255, 250, 245, 1) 48%,
-    rgba(255, 253, 249, 1) 100%
+    rgba(255, 246, 251, 1) 0%,
+    rgba(250, 243, 250, 1) 46%,
+    rgba(255, 248, 252, 1) 100%
   );
 }
 
@@ -16,7 +16,7 @@ html {
 }
 
 html {
-  background-color: #fff8fc;
+  background-color: #fff6fb;
 }
 
 body {

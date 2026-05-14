@@ -237,7 +237,7 @@ export default function Order() {
   };
 
   return (
-    <section className="bg-gradient-to-b from-softBg via-brandCream/50 to-white px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <section className="bg-[linear-gradient(180deg,rgba(255,246,251,0.98),rgba(250,243,250,0.96),rgba(255,248,252,0.98))] px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-6">
         <PageHero
           eyebrow={

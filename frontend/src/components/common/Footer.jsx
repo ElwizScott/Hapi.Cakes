@@ -80,7 +80,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-border-soft bg-[linear-gradient(180deg,rgba(255,251,247,0.98),rgba(250,243,250,0.94))] backdrop-blur">
+    <footer className="relative overflow-hidden border-t border-border-soft bg-[linear-gradient(180deg,rgba(255,246,251,0.98),rgba(250,243,250,0.96),rgba(255,248,252,0.98))] backdrop-blur">
       {/* Ambient blobs — kept subtle */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-8 top-6 h-32 w-32 animate-float-gentle rounded-full bg-brandPink/10 blur-3xl" />
@@ -91,7 +91,7 @@ export default function Footer() {
       <div className="relative ds-page-shell py-7 sm:py-9">
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_0.85fr]">
           {/* ── Left card: brand + links + socials ── */}
-          <SurfaceCard className="overflow-hidden border-white/75 bg-white/72 p-4 backdrop-blur sm:p-5">
+          <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,252,248,0.9),rgba(251,245,250,0.9))] p-4 backdrop-blur sm:p-5">
             <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_1fr]">
               {/* Brand blurb */}
               <div className="space-y-3">
@@ -185,7 +185,7 @@ export default function Footer() {
           </SurfaceCard>
 
           {/* ── Right card: newsletter ── */}
-          <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,252,248,0.96),rgba(250,241,249,0.94))] p-4 sm:p-5">
+          <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,252,248,0.96),rgba(250,241,249,0.96))] p-4 sm:p-5">
             <div className="space-y-3.5">
               <div>
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">

@@ -5,6 +5,8 @@ import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import Loader from "../../../components/common/Loader";
 import EditableText from "../../../components/common/EditableText";
 import Modal from "../../../components/common/Modal";
+import PageHero from "../../../components/common/PageHero";
+import PrimaryButton from "../../../components/common/PrimaryButton";
 
 export default function Feedback() {
   const { authenticated } = useAdminAuth();
@@ -69,41 +71,30 @@ export default function Feedback() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-8">
-      <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-6 shadow-sm backdrop-blur">
-        <div className="pointer-events-none absolute inset-0 opacity-70">
-          <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
-          <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
-        </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
-        <div className="pointer-events-none absolute right-10 top-8 text-[10px] text-plum/40">
-          ✧ ✦ ✧
-        </div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
-              <EditableText
-                copyKey="feedback.header.label"
-                defaultText="Customer Love"
-              />
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
-              <EditableText
-                copyKey="feedback.header.title"
-                defaultText="Feedback Gallery"
-              />
-            </h1>
-            <p className="mt-2 text-sm text-muted">
-              <EditableText
-                copyKey="feedback.header.subtitle"
-                defaultText="Sweet moments shared by our customers."
-                multiline
-              />
-            </p>
-          </div>
-
-          {authenticated ? (
-            <div className="flex items-center gap-3">
+    <section className="mx-auto w-full max-w-6xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
+      <PageHero
+        eyebrow={
+          <EditableText
+            copyKey="feedback.header.label"
+            defaultText="Customer Love"
+          />
+        }
+        title={
+          <EditableText
+            copyKey="feedback.header.title"
+            defaultText="Feedback Gallery"
+          />
+        }
+        description={
+          <EditableText
+            copyKey="feedback.header.subtitle"
+            defaultText="Sweet moments shared by our customers."
+            multiline
+          />
+        }
+        actions={
+          authenticated ? (
+            <>
               <input
                 ref={inputRef}
                 type="file"
@@ -112,18 +103,18 @@ export default function Feedback() {
                 className="hidden"
                 onChange={handleUpload}
               />
-              <button
+              <PrimaryButton
                 type="button"
                 onClick={() => inputRef.current?.click()}
-                className="rounded-full border border-brandPink px-4 py-2 text-xs font-semibold text-brandPink transition hover:bg-brandPink hover:text-white disabled:opacity-60"
+                className="px-5 py-3 text-xs uppercase tracking-[0.18em] disabled:opacity-60"
                 disabled={uploading}
               >
                 {uploading ? "Uploading..." : "Add Feedback Images"}
-              </button>
-            </div>
-          ) : null}
-        </div>
-      </header>
+              </PrimaryButton>
+            </>
+          ) : null
+        }
+      />
 
       {uploadError ? (
         <p className="mt-4 text-sm text-rose-500">{uploadError}</p>

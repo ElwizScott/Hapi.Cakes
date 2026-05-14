@@ -1,4 +1,5 @@
 import EditableText from "../../../components/common/EditableText";
+import PageHero from "../../../components/common/PageHero";
 
 export default function Contact() {
   const socials = [
@@ -57,34 +58,29 @@ export default function Contact() {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-softBg via-softBg to-white px-3 py-6 sm:px-6 sm:py-10">
+    <section className="bg-[linear-gradient(180deg,rgba(255,246,251,0.98),rgba(250,243,250,0.96),rgba(255,248,252,0.98))] px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
       <div className="mx-auto max-w-3xl space-y-6 font-serif text-ink">
-        <header className="relative overflow-hidden rounded-3xl border border-lavender/50 bg-white/70 p-5 shadow-sm backdrop-blur sm:p-6">
-          <div className="pointer-events-none absolute inset-0 opacity-70">
-            <div className="absolute -left-6 -top-8 h-24 w-24 rounded-full bg-brandPink/20 blur-2xl" />
-            <div className="absolute right-6 top-10 h-16 w-16 rounded-full bg-lavender/30 blur-xl" />
-          </div>
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,213,233,0.6),transparent_55%),radial-gradient(circle_at_80%_0%,rgba(225,203,235,0.5),transparent_45%)]" />
-          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-plum/70 sm:text-xs sm:tracking-[0.25em]">
+        <PageHero
+          eyebrow={
             <EditableText
               copyKey="contact.header.label"
               defaultText="Contact"
             />
-          </p>
-          <h1 className="mt-2 text-2xl font-semibold text-ink sm:text-3xl">
+          }
+          title={
             <EditableText
               copyKey="contact.header.title"
               defaultText="Let’s Plan Something Sweet"
             />
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-muted">
+          }
+          description={
             <EditableText
               copyKey="contact.header.subtitle"
               defaultText="Share your idea, ask a question, or say hello — we’d love to hear from you."
               multiline
             />
-          </p>
-        </header>
+          }
+        />
 
         <div className="grid gap-4 md:grid-cols-2">
           {socials.map((social) => (
