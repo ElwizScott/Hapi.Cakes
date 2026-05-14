@@ -3,10 +3,10 @@ export function cx(...values) {
 }
 
 export const surfaceCardClass =
-  "rounded-card border border-border-soft bg-surface shadow-soft";
+  "rounded-card border border-border-soft bg-surface shadow-soft transition-all duration-300 ease-soft hover:-translate-y-1 hover:shadow-float will-change-transform";
 
 export const surfaceElevatedClass =
-  "rounded-card border border-border-soft bg-surface-elevated shadow-float";
+  "rounded-card border border-border-soft bg-surface-elevated shadow-float transition-all duration-300 ease-soft hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(110,85,117,0.16)] will-change-transform";
 
 export const frostedSurfaceClass =
   "rounded-card border border-border-soft/80 bg-gradient-to-br from-surface-elevated via-surface to-accent-soft/70 shadow-soft backdrop-blur";
@@ -26,16 +26,16 @@ export const badgeClass =
   "inline-flex items-center rounded-pill border border-border-soft bg-surface-elevated px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-plum";
 
 export const buttonBaseClass =
-  "inline-flex items-center justify-center rounded-pill text-sm font-semibold transition duration-200 ease-soft focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-70";
+  "inline-flex items-center justify-center rounded-pill text-sm font-semibold transition duration-200 ease-soft focus:outline-none focus:ring-2 active:translate-y-0.5 active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-70";
 
 export const buttonPrimaryClass = cx(
   buttonBaseClass,
-  "bg-accent px-5 py-3 text-white shadow-soft hover:-translate-y-0.5 hover:bg-plum focus:ring-accent/25",
+  "bg-accent px-5 py-3 text-white shadow-soft hover:-translate-y-0.5 hover:bg-plum hover:shadow-float focus:ring-accent/25",
 );
 
 export const buttonSecondaryClass = cx(
   buttonBaseClass,
-  "border border-border-soft bg-surface-elevated px-5 py-3 text-text-primary shadow-soft hover:-translate-y-0.5 hover:border-accent hover:text-plum focus:ring-accent/20",
+  "border border-border-soft bg-surface-elevated px-5 py-3 text-text-primary shadow-soft hover:-translate-y-0.5 hover:border-accent hover:text-plum hover:shadow-float focus:ring-accent/20",
 );
 
 export const buttonGhostClass = cx(

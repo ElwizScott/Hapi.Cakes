@@ -17,20 +17,20 @@ function App() {
 
           <main
             className={`mx-auto px-4 py-6 ${
-              hideChrome
-                ? "min-h-screen max-w-6xl"
-                : "max-w-7xl"
+              hideChrome ? "min-h-screen max-w-6xl" : "max-w-7xl"
             }`}
           >
-            <Routes>
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))}
-            </Routes>
+            <div key={location.pathname} className="animate-fade-in-up">
+              <Routes>
+                {routes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+            </div>
           </main>
 
           {hideChrome ? null : <Footer />}

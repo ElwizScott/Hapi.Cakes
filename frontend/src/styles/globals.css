@@ -12,6 +12,10 @@
 }
 
 html {
+  scroll-behavior: smooth;
+}
+
+html {
   background-color: #fff8fc;
 }
 
@@ -25,6 +29,71 @@ body {
 #root {
   min-height: 100vh;
 }
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-8px) translateX(4px);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes shimmer-soft {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 700ms ease-out both;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-gentle 9.5s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 3.8s ease-in-out infinite;
+}
+
+.animate-shimmer-soft {
+  background-size: 200% 100%;
+  animation: shimmer-soft 2.2s linear infinite;
+}
+
 
 ::selection {
   background-color: rgba(214, 165, 199, 0.28);

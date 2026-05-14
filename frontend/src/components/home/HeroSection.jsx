@@ -16,9 +16,9 @@ export default function HeroSection({
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
       <div className="relative isolate overflow-hidden rounded-[2.25rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.995)_0%,rgba(255,248,252,0.99)_38%,rgba(248,239,250,0.985)_100%)] p-6 shadow-[0_30px_80px_rgba(125,106,121,0.14)] sm:p-8 lg:p-12">
         <div className="pointer-events-none absolute inset-0 z-0">
-          <div className="absolute -left-12 top-10 h-32 w-32 animate-pulse rounded-full bg-brandPink/12 blur-3xl" />
-          <div className="absolute right-12 top-8 h-28 w-28 animate-pulse rounded-full bg-lavender/28 blur-3xl [animation-delay:900ms]" />
-          <div className="absolute bottom-8 left-[42%] h-20 w-20 animate-pulse rounded-full bg-accent-soft/70 blur-2xl [animation-delay:1400ms]" />
+          <div className="absolute -left-12 top-10 h-32 w-32 animate-float-gentle rounded-full bg-brandPink/12 blur-3xl" />
+          <div className="absolute right-12 top-8 h-28 w-28 animate-float-delayed rounded-full bg-lavender/28 blur-3xl" />
+          <div className="absolute bottom-8 left-[42%] h-20 w-20 animate-soft-pulse rounded-full bg-accent-soft/70 blur-2xl" />
           <div className="absolute -bottom-8 right-8 h-40 w-40 rounded-full border border-white/35 bg-white/12 blur-2xl" />
           <div className="absolute left-8 top-8 h-14 w-14 rounded-[40%] border border-white/55 bg-white/24 rotate-12" />
           <div className="absolute right-[32%] top-[18%] h-10 w-10 rounded-full bg-brandPink/16" />

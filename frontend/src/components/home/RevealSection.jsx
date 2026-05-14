@@ -32,8 +32,10 @@ export default function RevealSection({
     <Component
       ref={ref}
       className={cx(
-        "transition-all duration-700 ease-soft",
-        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+        "transition-all duration-700 ease-soft will-change-transform",
+        visible
+          ? "translate-y-0 opacity-100 blur-0"
+          : "translate-y-6 opacity-0 blur-[1px]",
         className,
       )}
       style={{ transitionDelay: `${delay}ms` }}

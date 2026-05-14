@@ -83,9 +83,9 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-border-soft bg-[linear-gradient(180deg,rgba(255,251,247,0.98),rgba(250,243,250,0.94))] backdrop-blur">
       {/* Ambient blobs — kept subtle */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-8 top-6 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
-        <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-20 w-20 rounded-full bg-accent-soft/70 blur-2xl" />
+        <div className="absolute -left-8 top-6 h-32 w-32 animate-float-gentle rounded-full bg-brandPink/10 blur-3xl" />
+        <div className="absolute right-0 top-0 h-36 w-36 animate-float-delayed rounded-full bg-lavender/18 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-20 w-20 animate-soft-pulse rounded-full bg-accent-soft/70 blur-2xl" />
       </div>
 
       <div className="relative ds-page-shell py-7 sm:py-9">
@@ -105,7 +105,6 @@ export default function Footer() {
                   <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-plum/60">
                     Get a taste of happiness
                   </p>
-
                 </div>
 
                 <p
