@@ -450,7 +450,12 @@ export default function CakeDetail() {
           </PillBadge>
         </div>
 
-        <div className={cx(surfaceElevatedClass, "grid gap-4 p-3 sm:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:p-5")}>
+        <div
+          className={cx(
+            surfaceElevatedClass,
+            "grid gap-4 p-3 sm:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:p-5",
+          )}
+        >
           <div className="space-y-3">
             <div className={cx(surfaceCardClass, "p-3 sm:p-4")}>
               <div className="group relative overflow-hidden rounded-card border border-border-soft/80 bg-gradient-to-br from-surface via-surface to-accent-soft/40 shadow-soft">
@@ -465,7 +470,12 @@ export default function CakeDetail() {
                     <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(83,55,99,0.08))]" />
                   </div>
                 ) : (
-                  <div className={cx("flex h-72 items-center justify-center md:h-[420px]", bodyClass)}>
+                  <div
+                    className={cx(
+                      "flex h-72 items-center justify-center md:h-[420px]",
+                      bodyClass,
+                    )}
+                  >
                     No image available
                   </div>
                 )}
@@ -574,12 +584,19 @@ export default function CakeDetail() {
                   className="hidden"
                   onChange={handleAddImages}
                 />
-                {imageError ? <span className={fieldErrorClass}>{imageError}</span> : null}
+                {imageError ? (
+                  <span className={fieldErrorClass}>{imageError}</span>
+                ) : null}
               </div>
             ) : null}
           </div>
 
-          <div className={cx(surfaceCardClass, "flex min-w-0 flex-col gap-4 p-4 sm:p-5")}>
+          <div
+            className={cx(
+              surfaceCardClass,
+              "flex min-w-0 flex-col gap-4 p-4 sm:p-5",
+            )}
+          >
             <div className="space-y-3 border-b border-border-soft/80 pb-4">
               <div className="flex flex-wrap items-center gap-2">
                 {editingField === "name" ? (
@@ -594,9 +611,7 @@ export default function CakeDetail() {
                     className={fieldClass}
                   />
                 ) : (
-                  <h2 className={cx(titleClass, "sm:text-4xl")}>
-                    {cake.name}
-                  </h2>
+                  <h2 className={cx(titleClass, "sm:text-4xl")}>{cake.name}</h2>
                 )}
                 {authenticated ? (
                   editingField === "name" ? (
@@ -604,7 +619,10 @@ export default function CakeDetail() {
                       <button
                         type="button"
                         onClick={handleSaveField}
-                        className={cx(buttonPrimaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        className={cx(
+                          buttonPrimaryClass,
+                          "min-h-9 px-3 py-1.5 text-xs",
+                        )}
                         title="Save"
                       >
                         ✔
@@ -612,7 +630,10 @@ export default function CakeDetail() {
                       <button
                         type="button"
                         onClick={handleCancelEdit}
-                        className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        className={cx(
+                          buttonSecondaryClass,
+                          "min-h-9 px-3 py-1.5 text-xs",
+                        )}
                         title="Cancel"
                       >
                         ✕
@@ -622,7 +643,10 @@ export default function CakeDetail() {
                     <button
                       type="button"
                       onClick={() => handleStartEdit("name")}
-                      className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                      className={cx(
+                        buttonSecondaryClass,
+                        "min-h-9 px-3 py-1.5 text-xs",
+                      )}
                       title="Edit name"
                     >
                       ✎
@@ -660,7 +684,10 @@ export default function CakeDetail() {
                       <button
                         type="button"
                         onClick={handleSaveField}
-                        className={cx(buttonPrimaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        className={cx(
+                          buttonPrimaryClass,
+                          "min-h-9 px-3 py-1.5 text-xs",
+                        )}
                         title="Save"
                       >
                         ✔
@@ -668,7 +695,10 @@ export default function CakeDetail() {
                       <button
                         type="button"
                         onClick={handleCancelEdit}
-                        className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        className={cx(
+                          buttonSecondaryClass,
+                          "min-h-9 px-3 py-1.5 text-xs",
+                        )}
                         title="Cancel"
                       >
                         ✕
@@ -678,7 +708,10 @@ export default function CakeDetail() {
                     <button
                       type="button"
                       onClick={() => handleStartEdit("category")}
-                      className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                      className={cx(
+                        buttonSecondaryClass,
+                        "min-h-9 px-3 py-1.5 text-xs",
+                      )}
                       title="Edit category"
                     >
                       ✎
@@ -704,7 +737,10 @@ export default function CakeDetail() {
                       <button
                         type="button"
                         onClick={handleSaveField}
-                        className={cx(buttonPrimaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        className={cx(
+                          buttonPrimaryClass,
+                          "min-h-9 px-3 py-1.5 text-xs",
+                        )}
                         title="Save"
                       >
                         ✔
@@ -712,7 +748,10 @@ export default function CakeDetail() {
                       <button
                         type="button"
                         onClick={handleCancelEdit}
-                        className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        className={cx(
+                          buttonSecondaryClass,
+                          "min-h-9 px-3 py-1.5 text-xs",
+                        )}
                         title="Cancel"
                       >
                         ✕
@@ -722,7 +761,10 @@ export default function CakeDetail() {
                     <button
                       type="button"
                       onClick={() => handleStartEdit("description")}
-                      className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                      className={cx(
+                        buttonSecondaryClass,
+                        "min-h-9 px-3 py-1.5 text-xs",
+                      )}
                       title="Edit description"
                     >
                       ✎
@@ -739,13 +781,19 @@ export default function CakeDetail() {
                       description: event.target.value,
                     }))
                   }
-                  className={cx(fieldClass, "min-h-32 rounded-card px-4 py-4 leading-7")}
+                  className={cx(
+                    fieldClass,
+                    "min-h-32 rounded-card px-4 py-4 leading-7",
+                  )}
                   rows={3}
                 />
               ) : (
                 <div className="rounded-card border border-border-soft bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(250,243,250,0.92))] p-4 text-sm text-text-secondary shadow-soft">
                   <div
-                    className={cx(bodyClass, "whitespace-pre-line tracking-[0.01em]")}
+                    className={cx(
+                      bodyClass,
+                      "whitespace-pre-line tracking-[0.01em]",
+                    )}
                     style={{
                       maxHeight: showFullDescription ? "14rem" : "6.5rem",
                       overflowY: showFullDescription ? "auto" : "hidden",
@@ -767,7 +815,9 @@ export default function CakeDetail() {
                   ) : null}
                 </div>
               )}
-              {updateError ? <p className={fieldErrorClass}>{updateError}</p> : null}
+              {updateError ? (
+                <p className={fieldErrorClass}>{updateError}</p>
+              ) : null}
             </div>
 
             <div className="space-y-3">
@@ -840,7 +890,9 @@ export default function CakeDetail() {
               ) : (
                 <p className={bodyClass}>No feedback images yet.</p>
               )}
-              {feedbackError ? <p className={fieldErrorClass}>{feedbackError}</p> : null}
+              {feedbackError ? (
+                <p className={fieldErrorClass}>{feedbackError}</p>
+              ) : null}
             </div>
           </div>
         </div>
