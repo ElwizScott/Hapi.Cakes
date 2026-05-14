@@ -8,7 +8,21 @@ import { fetchCategories } from "../../../api/public/category.api";
 import { fetchAdmin } from "../../../api/http";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import Loader from "../../../components/common/Loader";
+import PillBadge from "../../../components/common/PillBadge";
+import SurfaceCard from "../../../components/common/SurfaceCard";
 import { formatVND } from "../../../utils/formatPrice";
+import {
+  bodyClass,
+  buttonGhostClass,
+  buttonPrimaryClass,
+  buttonSecondaryClass,
+  cx,
+  fieldClass,
+  fieldErrorClass,
+  surfaceCardClass,
+  surfaceElevatedClass,
+  titleClass,
+} from "../../../components/common/designSystem";
 
 export default function CakeDetail() {
   const { cakeId } = useParams();
@@ -395,9 +409,12 @@ export default function CakeDetail() {
 
   if (error || !cake) {
     return (
-      <div className="rounded-2xl bg-white p-8 text-center text-sm text-rose-500 shadow">
+      <SurfaceCard
+        elevated
+        className="mx-auto max-w-xl p-6 text-center text-sm text-text-secondary sm:p-8"
+      >
         {error || "Cake not found."}
-      </div>
+      </SurfaceCard>
     );
   }
 
@@ -415,381 +432,416 @@ export default function CakeDetail() {
   );
 
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-3 pb-6">
-      <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="rounded-full border border-lavender bg-white px-4 py-2 text-xs font-semibold text-plum shadow-sm transition hover:border-brandPink hover:text-brandPink"
-        >
-          ← Back to gallery
-        </button>
-        <span className="text-xs text-muted">{categoryName}</span>
-      </div>
+    <section className="bg-surface px-3 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
+        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className={cx(
+              buttonSecondaryClass,
+              "min-h-11 px-4 py-2 text-xs uppercase tracking-[0.18em]",
+            )}
+          >
+            ← Back to gallery
+          </button>
+          <PillBadge className="px-3 py-1 text-[0.62rem] tracking-[0.18em]">
+            {categoryName}
+          </PillBadge>
+        </div>
 
-      <div className="grid gap-5 rounded-3xl bg-white p-3 shadow-[0_30px_80px_rgba(83,55,99,0.2)] sm:p-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <div className="space-y-3">
-          <div className="rounded-3xl border border-lavender/40 bg-white p-3 shadow-sm">
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 shadow-[0_18px_45px_rgba(83,55,99,0.18)]">
-              {images[activeIndex] ? (
-                <div className="w-full aspect-[4/5] max-h-[60vh]">
-                  <img
-                    src={images[activeIndex]}
-                    alt={cake.name}
-                    className="block h-full w-full object-cover object-center rounded-2xl cursor-zoom-in"
-                    onClick={() => setLightboxOpen(true)}
-                  />
+        <div className={cx(surfaceElevatedClass, "grid gap-4 p-3 sm:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:p-5")}>
+          <div className="space-y-3">
+            <div className={cx(surfaceCardClass, "p-3 sm:p-4")}>
+              <div className="group relative overflow-hidden rounded-card border border-border-soft/80 bg-gradient-to-br from-surface via-surface to-accent-soft/40 shadow-soft">
+                {images[activeIndex] ? (
+                  <div className="relative aspect-[4/5] w-full max-h-[70vh] overflow-hidden sm:aspect-[4/4.8]">
+                    <img
+                      src={images[activeIndex]}
+                      alt={cake.name}
+                      className="block h-full w-full cursor-zoom-in object-cover object-center transition-transform duration-700 ease-soft group-hover:scale-[1.03]"
+                      onClick={() => setLightboxOpen(true)}
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(83,55,99,0.08))]" />
+                  </div>
+                ) : (
+                  <div className={cx("flex h-72 items-center justify-center md:h-[420px]", bodyClass)}>
+                    No image available
+                  </div>
+                )}
+                {images.length > 1 ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      className="absolute left-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition duration-300 ease-soft hover:-translate-y-1/2 hover:bg-white hover:shadow-float"
+                      aria-label="Previous image"
+                    >
+                      <span className="text-lg leading-none">‹</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      className="absolute right-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition duration-300 ease-soft hover:-translate-y-1/2 hover:bg-white hover:shadow-float"
+                      aria-label="Next image"
+                    >
+                      <span className="text-lg leading-none">›</span>
+                    </button>
+                  </>
+                ) : null}
+                <div className="pointer-events-none absolute inset-0 rounded-[1.5rem] bg-black/0 transition duration-300 group-hover:bg-black/18" />
+                {authenticated && images.length ? (
+                  <button
+                    type="button"
+                    onClick={handleDeleteImage}
+                    aria-label="Delete image"
+                    className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition hover:bg-white hover:shadow-float"
+                    disabled={savingImages}
+                  >
+                    🗑
+                  </button>
+                ) : null}
+                {authenticated ? (
+                  <button
+                    type="button"
+                    onClick={() => imageInputRef.current?.click()}
+                    className={cx(
+                      buttonPrimaryClass,
+                      "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 text-xs opacity-0 transition duration-300 group-hover:opacity-100",
+                    )}
+                  >
+                    Add Image
+                  </button>
+                ) : null}
+              </div>
+
+              {images.length > 1 ? (
+                <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
+                  {visibleThumbs.map((image, index) => {
+                    const realIndex = thumbWindowStart + index;
+                    return (
+                      <button
+                        key={image}
+                        type="button"
+                        onClick={() => setActiveIndex(realIndex)}
+                        draggable={authenticated}
+                        onDragStart={() => {
+                          dragIndexRef.current = realIndex;
+                        }}
+                        onDragOver={(event) => {
+                          if (!authenticated) return;
+                          event.preventDefault();
+                        }}
+                        onDrop={() => {
+                          if (!authenticated) return;
+                          const fromIndex = dragIndexRef.current;
+                          dragIndexRef.current = null;
+                          if (typeof fromIndex === "number") {
+                            handleReorderImages(fromIndex, realIndex);
+                          }
+                        }}
+                        className={`relative overflow-hidden rounded-card border transition ${
+                          realIndex === activeIndex
+                            ? "border-accent ring-2 ring-accent/30 scale-[1.03]"
+                            : "border-border-soft hover:border-accent-soft hover:scale-[1.01]"
+                        }`}
+                        aria-label={`View image ${realIndex + 1}`}
+                      >
+                        <img
+                          src={image}
+                          alt={`${cake.name} thumbnail ${realIndex + 1}`}
+                          className="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                        />
+                      </button>
+                    );
+                  })}
                 </div>
-              ) : (
-                <div className="flex h-72 items-center justify-center text-sm text-muted md:h-[420px]">
-                  No image available
-                </div>
-              )}
-              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
-              {authenticated && images.length ? (
-                <button
-                  type="button"
-                  onClick={handleDeleteImage}
-                  aria-label="Delete image"
-                  className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
-                  disabled={savingImages}
-                >
-                  🗑
-                </button>
               ) : null}
-              {authenticated ? (
-                <button
-                  type="button"
-                  onClick={() => imageInputRef.current?.click()}
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-plum shadow opacity-0 transition group-hover:opacity-100"
-                >
-                  Add Image
-                </button>
+              {savingImages && uploadProgress ? (
+                <p className={cx("mt-2 text-xs", bodyClass)}>
+                  Uploading {uploadProgress.current}/{uploadProgress.total}
+                </p>
               ) : null}
             </div>
 
-            {images.length > 1 ? (
-              <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3">
-                {visibleThumbs.map((image, index) => {
-                  const realIndex = thumbWindowStart + index;
-                  return (
-                    <button
-                      key={image}
-                      type="button"
-                      onClick={() => setActiveIndex(realIndex)}
-                      draggable={authenticated}
-                      onDragStart={() => {
-                        dragIndexRef.current = realIndex;
-                      }}
-                      onDragOver={(event) => {
-                        if (!authenticated) return;
-                        event.preventDefault();
-                      }}
-                      onDrop={() => {
-                        if (!authenticated) return;
-                        const fromIndex = dragIndexRef.current;
-                        dragIndexRef.current = null;
-                        if (typeof fromIndex === "number") {
-                          handleReorderImages(fromIndex, realIndex);
-                        }
-                      }}
-                      className={`relative overflow-hidden rounded-xl border transition ${
-                        realIndex === activeIndex
-                          ? "border-brandPink ring-2 ring-brandPink/40 scale-[1.03]"
-                          : "border-transparent hover:border-lavender/60 hover:scale-[1.01]"
-                      }`}
-                      aria-label={`View image ${realIndex + 1}`}
-                    >
-                      <img
-                        src={image}
-                        alt={`${cake.name} thumbnail ${realIndex + 1}`}
-                        className="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                      />
-                    </button>
-                  );
-                })}
+            {authenticated ? (
+              <div className="flex flex-wrap gap-2">
+                <input
+                  ref={imageInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleAddImages}
+                />
+                {imageError ? <span className={fieldErrorClass}>{imageError}</span> : null}
               </div>
-            ) : null}
-            {savingImages && uploadProgress ? (
-              <p className="mt-2 text-xs text-muted">
-                Uploading {uploadProgress.current}/{uploadProgress.total}
-              </p>
             ) : null}
           </div>
 
-          {authenticated ? (
-            <div className="flex flex-wrap gap-2">
+          <div className={cx(surfaceCardClass, "flex min-w-0 flex-col gap-4 p-4 sm:p-5")}>
+            <div className="space-y-3 border-b border-border-soft/80 pb-4">
+              <div className="flex flex-wrap items-center gap-2">
+                {editingField === "name" ? (
+                  <input
+                    value={fieldDraft.name}
+                    onChange={(event) =>
+                      setFieldDraft((prev) => ({
+                        ...prev,
+                        name: event.target.value,
+                      }))
+                    }
+                    className={fieldClass}
+                  />
+                ) : (
+                  <h2 className={cx(titleClass, "sm:text-4xl")}>
+                    {cake.name}
+                  </h2>
+                )}
+                {authenticated ? (
+                  editingField === "name" ? (
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={handleSaveField}
+                        className={cx(buttonPrimaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        title="Save"
+                      >
+                        ✔
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        title="Cancel"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleStartEdit("name")}
+                      className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                      title="Edit name"
+                    >
+                      ✎
+                    </button>
+                  )
+                ) : null}
+              </div>
+              <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
+                {editingField === "category" ? (
+                  <select
+                    value={fieldDraft.categoryId}
+                    onChange={(event) =>
+                      setFieldDraft((prev) => ({
+                        ...prev,
+                        categoryId: event.target.value,
+                      }))
+                    }
+                    className={fieldClass}
+                  >
+                    <option value="">Select category</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <span className="inline-flex items-center rounded-pill border border-border-soft bg-accent-soft px-3 py-1 text-xs font-semibold text-plum shadow-soft">
+                    {categoryName || "Uncategorized"}
+                  </span>
+                )}
+                {authenticated ? (
+                  editingField === "category" ? (
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={handleSaveField}
+                        className={cx(buttonPrimaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        title="Save"
+                      >
+                        ✔
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        title="Cancel"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleStartEdit("category")}
+                      className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                      title="Edit category"
+                    >
+                      ✎
+                    </button>
+                  )
+                ) : null}
+              </div>
+              {Number.isFinite(cake.price) ? (
+                <p className="text-sm font-semibold text-plum sm:text-base">
+                  {formatVND(cake.price)}
+                </p>
+              ) : null}
+            </div>
+
+            <div className="space-y-3 border-b border-border-soft/80 pb-4">
+              <div className="flex items-center gap-2">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-plum/75">
+                  Description
+                </h3>
+                {authenticated ? (
+                  editingField === "description" ? (
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={handleSaveField}
+                        className={cx(buttonPrimaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        title="Save"
+                      >
+                        ✔
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                        title="Cancel"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleStartEdit("description")}
+                      className={cx(buttonSecondaryClass, "min-h-9 px-3 py-1.5 text-xs")}
+                      title="Edit description"
+                    >
+                      ✎
+                    </button>
+                  )
+                ) : null}
+              </div>
+              {editingField === "description" ? (
+                <textarea
+                  value={fieldDraft.description}
+                  onChange={(event) =>
+                    setFieldDraft((prev) => ({
+                      ...prev,
+                      description: event.target.value,
+                    }))
+                  }
+                  className={cx(fieldClass, "min-h-32 rounded-card px-4 py-4 leading-7")}
+                  rows={3}
+                />
+              ) : (
+                <div className="rounded-card border border-border-soft bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(250,243,250,0.92))] p-4 text-sm text-text-secondary shadow-soft">
+                  <div
+                    className={cx(bodyClass, "whitespace-pre-line tracking-[0.01em]")}
+                    style={{
+                      maxHeight: showFullDescription ? "14rem" : "6.5rem",
+                      overflowY: showFullDescription ? "auto" : "hidden",
+                    }}
+                  >
+                    {cake.description || "No description provided."}
+                  </div>
+                  {cake.description && cake.description.length > 180 ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowFullDescription((prev) => !prev)}
+                      className={cx(
+                        buttonGhostClass,
+                        "mt-3 px-3 py-1.5 text-[0.62rem] uppercase tracking-[0.16em]",
+                      )}
+                    >
+                      {showFullDescription ? "See less" : "See more"}
+                    </button>
+                  ) : null}
+                </div>
+              )}
+              {updateError ? <p className={fieldErrorClass}>{updateError}</p> : null}
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-plum/75">
+                  Feedback
+                </h3>
+                {authenticated ? (
+                  <button
+                    type="button"
+                    onClick={() => feedbackInputRef.current?.click()}
+                    className={cx(
+                      buttonSecondaryClass,
+                      "min-h-11 px-3 py-2 text-xs uppercase tracking-[0.16em] disabled:opacity-60",
+                    )}
+                    disabled={savingFeedback}
+                  >
+                    {savingFeedback ? "Uploading..." : "Add Feedback Image"}
+                  </button>
+                ) : null}
+              </div>
+
               <input
-                ref={imageInputRef}
+                ref={feedbackInputRef}
                 type="file"
                 accept="image/*"
                 multiple
                 className="hidden"
-                onChange={handleAddImages}
+                onChange={handleAddFeedbackImages}
               />
-              {imageError ? (
-                <span className="text-xs text-rose-500">{imageError}</span>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
 
-        <div className="flex min-w-0 flex-col gap-4 rounded-3xl border border-lavender/40 bg-white p-4 shadow-sm">
-          <div className="space-y-2 pb-2 border-b border-lavender/30">
-            <div className="flex items-center gap-2">
-              {editingField === "name" ? (
-                <input
-                  value={fieldDraft.name}
-                  onChange={(event) =>
-                    setFieldDraft((prev) => ({
-                      ...prev,
-                      name: event.target.value,
-                    }))
-                  }
-                  className="w-full rounded-xl border border-lavender bg-softBg px-3 py-2 text-sm text-ink"
-                />
-              ) : (
-                <h2 className="text-2xl font-semibold tracking-tight text-ink">
-                  {cake.name}
-                </h2>
-              )}
-              {authenticated ? (
-                editingField === "name" ? (
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={handleSaveField}
-                      className="rounded-full bg-emerald-100 px-2 py-1 text-xs text-emerald-700"
-                      title="Save"
-                    >
-                      ✔
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCancelEdit}
-                      className="rounded-full bg-rose-100 px-2 py-1 text-xs text-rose-600"
-                      title="Cancel"
-                    >
-                      ✕
-                    </button>
+              {loadingFeedback ? (
+                <p className={bodyClass}>Loading feedback...</p>
+              ) : feedbackImages.length ? (
+                <div className="relative">
+                  <div className="w-full max-w-full min-w-0 overflow-x-auto pb-2 pr-2 sm:pr-6">
+                    <div className="flex w-max gap-3">
+                      {feedbackImages.map((image, index) => (
+                        <div
+                          key={image}
+                          className="group relative w-44 flex-none overflow-hidden rounded-card border border-border-soft bg-surface shadow-soft transition duration-300 ease-soft hover:-translate-y-1 hover:shadow-float sm:w-56"
+                        >
+                          <img
+                            src={image}
+                            alt="Feedback"
+                            className="block aspect-[4/3] w-full cursor-zoom-in object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]"
+                            onClick={() => handleOpenFeedbackLightbox(index)}
+                          />
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+                          {authenticated ? (
+                            <button
+                              type="button"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                handleDeleteFeedbackImage(index);
+                              }}
+                              aria-label="Delete feedback image"
+                              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition hover:bg-white hover:shadow-float"
+                              disabled={savingFeedback}
+                            >
+                              🗑
+                            </button>
+                          ) : null}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => handleStartEdit("name")}
-                    className="rounded-full bg-lavender/60 p-1 text-xs"
-                    title="Edit name"
-                  >
-                    ✎
-                  </button>
-                )
-              ) : null}
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted">
-              {editingField === "category" ? (
-                <select
-                  value={fieldDraft.categoryId}
-                  onChange={(event) =>
-                    setFieldDraft((prev) => ({
-                      ...prev,
-                      categoryId: event.target.value,
-                    }))
-                  }
-                  className="w-full rounded-xl border border-lavender bg-softBg px-3 py-2 text-sm text-ink"
-                >
-                  <option value="">Select category</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <span className="inline-flex items-center rounded-full border border-lavender/60 bg-softBg px-2 py-0.5 text-xs font-semibold text-plum">
-                  {categoryName || "Uncategorized"}
-                </span>
-              )}
-              {authenticated ? (
-                editingField === "category" ? (
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={handleSaveField}
-                      className="rounded-full bg-emerald-100 px-2 py-1 text-xs text-emerald-700"
-                      title="Save"
-                    >
-                      ✔
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCancelEdit}
-                      className="rounded-full bg-rose-100 px-2 py-1 text-xs text-rose-600"
-                      title="Cancel"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => handleStartEdit("category")}
-                    className="rounded-full bg-lavender/60 p-1 text-xs"
-                    title="Edit category"
-                  >
-                    ✎
-                  </button>
-                )
-              ) : null}
-            </div>
-            {Number.isFinite(cake.price) ? (
-              <p className="text-sm font-semibold text-plum">
-                {formatVND(cake.price)}
-              </p>
-            ) : null}
-          </div>
-
-          <div className="space-y-2 pb-2 border-b border-lavender/30">
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm font-semibold text-ink">Description</h3>
-              {authenticated ? (
-                editingField === "description" ? (
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={handleSaveField}
-                      className="rounded-full bg-emerald-100 px-2 py-1 text-xs text-emerald-700"
-                      title="Save"
-                    >
-                      ✔
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCancelEdit}
-                      className="rounded-full bg-rose-100 px-2 py-1 text-xs text-rose-600"
-                      title="Cancel"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => handleStartEdit("description")}
-                    className="rounded-full bg-lavender/60 p-1 text-xs"
-                    title="Edit description"
-                  >
-                    ✎
-                  </button>
-                )
-              ) : null}
-            </div>
-            {editingField === "description" ? (
-              <textarea
-                value={fieldDraft.description}
-                onChange={(event) =>
-                  setFieldDraft((prev) => ({
-                    ...prev,
-                    description: event.target.value,
-                  }))
-                }
-                className="w-full rounded-2xl border border-lavender bg-softBg p-3 text-sm text-ink"
-                rows={3}
-              />
-            ) : (
-              <div className="rounded-2xl bg-softBg p-3 text-sm text-muted">
-                <div
-                  className="whitespace-pre-line"
-                  style={{
-                    maxHeight: showFullDescription ? "14rem" : "6.5rem",
-                    overflowY: showFullDescription ? "auto" : "hidden",
-                  }}
-                >
-                  {cake.description || "No description provided."}
+                  <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-white via-white/70 to-transparent" />
                 </div>
-                {cake.description && cake.description.length > 180 ? (
-                  <button
-                    type="button"
-                    onClick={() => setShowFullDescription((prev) => !prev)}
-                    className="mt-2 text-xs font-semibold text-plum transition hover:text-brandPink"
-                  >
-                    {showFullDescription ? "See less" : "See more"}
-                  </button>
-                ) : null}
-              </div>
-            )}
-            {updateError ? (
-              <p className="text-xs text-rose-500">{updateError}</p>
-            ) : null}
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-ink">Feedback</h3>
-              {authenticated ? (
-                <button
-                  type="button"
-                  onClick={() => feedbackInputRef.current?.click()}
-                  className="rounded-full border border-lavender px-3 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink disabled:opacity-60"
-                  disabled={savingFeedback}
-                >
-                  {savingFeedback ? "Uploading..." : "Add Feedback Image"}
-                </button>
-              ) : null}
+              ) : (
+                <p className={bodyClass}>No feedback images yet.</p>
+              )}
+              {feedbackError ? <p className={fieldErrorClass}>{feedbackError}</p> : null}
             </div>
-
-            <input
-              ref={feedbackInputRef}
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden"
-              onChange={handleAddFeedbackImages}
-            />
-
-            {loadingFeedback ? (
-              <p className="text-xs text-muted">Loading feedback...</p>
-            ) : feedbackImages.length ? (
-              <div className="relative">
-                <div className="w-full max-w-full min-w-0 overflow-x-auto pb-2 pr-2 sm:pr-6">
-                  <div className="flex w-max gap-3">
-                    {feedbackImages.map((image, index) => (
-                      <div
-                        key={image}
-                        className="group relative w-44 flex-none overflow-hidden rounded-2xl sm:w-56"
-                      >
-                        <img
-                          src={image}
-                          alt="Feedback"
-                          className="block aspect-[4/3] w-full object-cover rounded-2xl cursor-zoom-in"
-                          onClick={() => handleOpenFeedbackLightbox(index)}
-                        />
-                        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-black/0 transition group-hover:bg-black/35" />
-                        {authenticated ? (
-                          <button
-                            type="button"
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              handleDeleteFeedbackImage(index);
-                            }}
-                            aria-label="Delete feedback image"
-                            className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-rose-500 shadow ring-1 ring-black/10 transition hover:bg-white"
-                            disabled={savingFeedback}
-                          >
-                            🗑
-                          </button>
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-white via-white/70 to-transparent" />
-              </div>
-            ) : (
-              <p className="text-xs text-muted">No feedback images yet.</p>
-            )}
-            {feedbackError ? (
-              <p className="text-xs text-rose-500">{feedbackError}</p>
-            ) : null}
           </div>
         </div>
       </div>
@@ -805,14 +857,14 @@ export default function CakeDetail() {
             <button
               type="button"
               onClick={() => setLightboxOpen(false)}
-              className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+              className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
             >
               ✕
             </button>
             <img
               src={images[activeIndex]}
               alt={cake.name}
-              className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain"
+              className="max-h-[90vh] max-w-[90vw] rounded-card object-contain shadow-soft"
             />
           </div>
         </div>
@@ -829,7 +881,7 @@ export default function CakeDetail() {
             <button
               type="button"
               onClick={() => setFeedbackLightboxOpen(false)}
-              className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+              className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
             >
               ✕
             </button>
@@ -845,7 +897,7 @@ export default function CakeDetail() {
                     )
                   }
                   aria-label="Previous feedback image"
-                  className="absolute -left-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+                  className="absolute -left-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
                 >
                   ‹
                 </button>
@@ -857,7 +909,7 @@ export default function CakeDetail() {
                     )
                   }
                   aria-label="Next feedback image"
-                  className="absolute -right-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
+                  className="absolute -right-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
                 >
                   ›
                 </button>
@@ -866,7 +918,7 @@ export default function CakeDetail() {
             <img
               src={feedbackImages[feedbackActiveIndex]}
               alt="Feedback"
-              className="max-h-[90vh] max-w-[90vw] rounded-2xl object-contain"
+              className="max-h-[90vh] max-w-[90vw] rounded-card object-contain shadow-soft"
             />
           </div>
         </div>
