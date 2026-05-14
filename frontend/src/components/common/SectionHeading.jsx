@@ -19,7 +19,7 @@ export default function SectionHeading({
         className,
       )}
     >
-      <div className={cx(centered && "mx-auto max-w-2xl")}> 
+      <div className={cx(centered && "mx-auto max-w-2xl")}>
         {eyebrow ? <p className={eyebrowClass}>{eyebrow}</p> : null}
         {title ? (
           <h2 className={cx(sectionTitleClass, eyebrow ? "mt-2" : "")}>
