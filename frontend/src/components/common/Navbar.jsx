@@ -111,9 +111,11 @@ export default function Navbar() {
               )}
             />
             <div className="flex flex-col">
-              <span className="font-script text-[2rem] leading-none">Hapi.Cakes</span>
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-plum/65">
-                Patisserie Studio
+              <span className="font-script text-[2rem] leading-none">
+                Hapi.Cakes
+              </span>
+              <span className="mt-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-plum/65">
+                Get a taste of happiness
               </span>
             </div>
           </NavLink>
@@ -128,9 +130,7 @@ export default function Navbar() {
             </div>
 
             {authenticated ? (
-              <NavItem to="/admin/dashboard">
-                Dashboard
-              </NavItem>
+              <NavItem to="/admin/dashboard">Dashboard</NavItem>
             ) : null}
 
             {authenticated ? (

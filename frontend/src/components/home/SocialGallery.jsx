@@ -14,34 +14,34 @@ export default function SocialGallery({ images = [] }) {
   return (
     <RevealSection className="ds-page-shell relative py-8 sm:py-10 lg:py-14">
       <SectionHeading
-        eyebrow={(
+        eyebrow={
           <EditableText
             copyKey="home.social.eyebrow"
             defaultText="Social Gallery"
           />
-        )}
-        title={(
+        }
+        title={
           <EditableText
             copyKey="home.social.title"
             defaultText="A Peek Into the Hapi.Cakes World"
           />
-        )}
-        description={(
+        }
+        description={
           <EditableText
             copyKey="home.social.subtitle"
             defaultText="Pastel cake finishes, celebration tables, and sweet details that make the brand feel like a boutique dessert studio."
             multiline
           />
-        )}
-        actions={(
+        }
+        actions={
           <PrimaryButton
             type="button"
-            onClick={() => navigate("/feedback")}
+            onClick={() => navigate("/gallery-social")}
             className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
           >
             See customer gallery
           </PrimaryButton>
-        )}
+        }
       />
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
@@ -55,7 +55,11 @@ export default function SocialGallery({ images = [] }) {
                 : "lg:col-span-4";
 
           return (
-            <RevealSection key={`${url}-${index}`} delay={index * 70} className={spanClass}>
+            <RevealSection
+              key={`${url}-${index}`}
+              delay={index * 70}
+              className={spanClass}
+            >
               <SurfaceCard className="group h-full overflow-hidden border-white/70 bg-white/70 p-2 backdrop-blur">
                 <div className="relative h-full min-h-[14rem] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-surface via-accent-soft/20 to-lavender/30">
                   <img

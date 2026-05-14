@@ -95,6 +95,15 @@ export default function Home() {
     return list.slice(0, 10);
   }, [cakes]);
 
+  const socialGalleryImages = useMemo(() => {
+    const images = cakes.map((cake) => cake.imageUrls?.[0]).filter(Boolean);
+    for (let i = images.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [images[i], images[j]] = [images[j], images[i]];
+    }
+    return images.slice(0, 12);
+  }, [cakes]);
+
   const handleFeaturedUpdate = (url) => {
     setImages((prev) => ({ ...prev, featured: url }));
   };
@@ -119,7 +128,7 @@ export default function Home() {
       <WhyChooseUs />
       <OrderingProcess onOrderClick={() => navigate("/order")} />
       <Testimonials images={feedbackImages} />
-      <SocialGallery images={feedbackImages} />
+      <SocialGallery images={socialGalleryImages} />
 
       <RevealSection className="ds-page-shell pb-16 pt-8 sm:pt-10 lg:pb-20">
         <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.95))] p-6 shadow-soft sm:p-8 lg:p-10">
