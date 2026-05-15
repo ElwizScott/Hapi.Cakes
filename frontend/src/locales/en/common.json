@@ -1,0 +1,9 @@
+{
+  "buttons": {
+    "menu": "Menu",
+    "close": "Close",
+    "logout": "Log out",
+    "startOrder": "Start order",
+    "contactUs": "Contact us"
+  }
+}

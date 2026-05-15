@@ -1,0 +1,16 @@
+{
+  "links": {
+    "home": "Home",
+    "elegantGallery": "Elegant Gallery",
+    "socialGallery": "Social Gallery",
+    "feedback": "Feedback",
+    "order": "Order",
+    "contact": "Contact"
+  },
+  "brand": {
+    "tagline": "Get a taste of happiness"
+  },
+  "admin": {
+    "dashboard": "Dashboard"
+  }
+}

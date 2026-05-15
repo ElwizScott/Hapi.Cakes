@@ -16,10 +16,12 @@ import { fetchFeedbackImages } from "../../../api/public/feedback.api";
 import EditableText from "../../../components/common/EditableText";
 import PrimaryButton from "../../../components/common/PrimaryButton";
 import SecondaryButton from "../../../components/common/SecondaryButton";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Home() {
   const { authenticated } = useAdminAuth();
   const navigate = useNavigate();
+  const { t } = useAppTranslation("common");
   const [images, setImages] = useState({
     featured: "",
   });
@@ -162,7 +164,7 @@ export default function Home() {
                 onClick={() => navigate("/order")}
                 className="px-6 py-3 text-xs uppercase tracking-[0.18em]"
               >
-                Start order
+                {t("buttons.startOrder")}
               </PrimaryButton>
               <SecondaryButton
                 type="button"
@@ -171,7 +173,7 @@ export default function Home() {
               >
                 <EditableText
                   copyKey="home.cta.button"
-                  defaultText="Contact Us"
+                  defaultText={t("buttons.contactUs")}
                 />
               </SecondaryButton>
             </div>

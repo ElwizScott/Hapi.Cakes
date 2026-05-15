@@ -1,0 +1,16 @@
+{
+  "links": {
+    "home": "Trang chủ",
+    "elegantGallery": "Bộ sưu tập tinh tế",
+    "socialGallery": "Thư viện chia sẻ",
+    "feedback": "Phản hồi",
+    "order": "Đặt bánh",
+    "contact": "Liên hệ"
+  },
+  "brand": {
+    "tagline": "Trao vị ngọt của niềm vui"
+  },
+  "admin": {
+    "dashboard": "Bảng điều khiển"
+  }
+}

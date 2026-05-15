@@ -3,6 +3,7 @@ import EditableText from "../common/EditableText";
 import PillBadge from "../common/PillBadge";
 import PrimaryButton from "../common/PrimaryButton";
 import SecondaryButton from "../common/SecondaryButton";
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function HeroSection({
   featuredImageUrl,
@@ -12,6 +13,8 @@ export default function HeroSection({
   onGalleryClick,
   onContactClick,
 }) {
+  const { t } = useAppTranslation("home");
+
   return (
     <section className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
       <div className="relative isolate overflow-hidden rounded-[2.25rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.995)_0%,rgba(255,248,252,0.99)_38%,rgba(248,239,250,0.985)_100%)] p-4 shadow-[0_30px_80px_rgba(125,106,121,0.14)] sm:p-8 lg:p-12">
@@ -40,13 +43,13 @@ export default function HeroSection({
               <h1 className="max-w-xl font-serif text-4xl font-semibold leading-[1.04] tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
                 <EditableText
                   copyKey="home.hero.title"
-                  defaultText="Hapi.Cakes"
+                  defaultText={t("hero.title")}
                 />
               </h1>
               <p className="max-w-2xl text-base leading-7 text-text-secondary sm:text-lg">
                 <EditableText
                   copyKey="home.hero.subtitle"
-                  defaultText="From soft birthday florals to elegant wedding centerpieces, Hapi.Cakes creates custom cakes that feel romantic, polished, and made just for your sweetest celebration."
+                  defaultText={t("hero.subtitle")}
                   multiline
                 />
               </p>
@@ -60,7 +63,7 @@ export default function HeroSection({
               >
                 <EditableText
                   copyKey="home.hero.cta_order"
-                  defaultText="Order Now"
+                  defaultText={t("hero.ctaOrder")}
                 />
               </PrimaryButton>
 
@@ -71,7 +74,7 @@ export default function HeroSection({
               >
                 <EditableText
                   copyKey="home.hero.cta_gallery"
-                  defaultText="See Gallery"
+                  defaultText={t("hero.ctaGallery")}
                 />
               </SecondaryButton>
 
@@ -82,7 +85,7 @@ export default function HeroSection({
               >
                 <EditableText
                   copyKey="home.hero.cta_contact"
-                  defaultText="Contact Us"
+                  defaultText={t("hero.ctaContact")}
                 />
                 <span aria-hidden="true">→</span>
               </button>
