@@ -4,6 +4,24 @@
     "close": "Close",
     "logout": "Log out",
     "startOrder": "Start order",
-    "contactUs": "Contact us"
+    "contactUs": "Contact us",
+    "back": "Back",
+    "continue": "Continue",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Send request",
+    "logIn": "Log in",
+    "update": "Update"
+  },
+  "states": {
+    "saving": "Saving...",
+    "loading": "Loading..."
+  },
+  "forms": {
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "name": "Your name",
+    "optional": "Optional"
   }
 }

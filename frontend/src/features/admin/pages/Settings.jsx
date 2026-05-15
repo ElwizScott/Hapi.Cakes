@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { fetchAdmin } from "../../../api/http";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Settings() {
+  const { t } = useAppTranslation("auth");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,17 +17,17 @@ export default function Settings() {
     setError("");
 
     if (!currentPassword || !newPassword) {
-      setError("Please fill out all required fields.");
+      setError(t("settings.errors.required"));
       return;
     }
 
     if (newPassword.length < 8) {
-      setError("New password must be at least 8 characters.");
+      setError(t("settings.errors.length"));
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("settings.errors.match"));
       return;
     }
 
@@ -42,16 +44,16 @@ export default function Settings() {
 
       if (!response.ok) {
         const payload = await response.json().catch(() => ({}));
-        setError(payload?.message || "Unable to update password.");
+        setError(payload?.message || t("settings.errors.update"));
         return;
       }
 
-      setMessage("Password updated successfully.");
+      setMessage(t("settings.success"));
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (err) {
-      setError("Unable to update password.");
+      setError(t("settings.errors.update"));
     } finally {
       setSaving(false);
     }
@@ -61,14 +63,12 @@ export default function Settings() {
     <div className="space-y-8">
       <header className="rounded-3xl border border-lavender/50 bg-white/80 p-6 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-plum/70">
-          Settings
+          {t("settings.eyebrow")}
         </p>
         <h1 className="mt-2 text-3xl font-semibold text-ink font-serif">
-          Account & Password
+          {t("settings.title")}
         </h1>
-        <p className="mt-2 text-sm text-muted">
-          Update your admin password to keep your account secure.
-        </p>
+        <p className="mt-2 text-sm text-muted">{t("settings.subtitle")}</p>
       </header>
 
       <form
@@ -88,7 +88,7 @@ export default function Settings() {
 
         <div>
           <label className="text-sm font-semibold text-ink">
-            Current password
+            {t("settings.currentPassword")}
           </label>
           <input
             type="password"
@@ -99,7 +99,7 @@ export default function Settings() {
         </div>
         <div>
           <label className="text-sm font-semibold text-ink">
-            New password
+            {t("settings.newPassword")}
           </label>
           <input
             type="password"
@@ -110,7 +110,7 @@ export default function Settings() {
         </div>
         <div>
           <label className="text-sm font-semibold text-ink">
-            Confirm new password
+            {t("settings.confirmPassword")}
           </label>
           <input
             type="password"
@@ -125,7 +125,7 @@ export default function Settings() {
           disabled={saving}
           className="w-full rounded-full bg-brandPink px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brandPink/90 disabled:opacity-70"
         >
-          {saving ? "Updating..." : "Update Password"}
+          {saving ? t("settings.loading") : t("settings.button")}
         </button>
       </form>
     </div>

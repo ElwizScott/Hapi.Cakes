@@ -1,7 +1,10 @@
 import EditableText from "../../../components/common/EditableText";
 import PageHero from "../../../components/common/PageHero";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Contact() {
+  const { t } = useAppTranslation("contact");
+
   const socials = [
     {
       name: "Instagram",
@@ -64,19 +67,19 @@ export default function Contact() {
           eyebrow={
             <EditableText
               copyKey="contact.header.label"
-              defaultText="Contact"
+              defaultText={t("header.label")}
             />
           }
           title={
             <EditableText
               copyKey="contact.header.title"
-              defaultText="Let’s Plan Something Sweet"
+              defaultText={t("header.title")}
             />
           }
           description={
             <EditableText
               copyKey="contact.header.subtitle"
-              defaultText="Share your idea, ask a question, or say hello — we’d love to hear from you."
+              defaultText={t("header.subtitle")}
               multiline
             />
           }
@@ -101,7 +104,7 @@ export default function Contact() {
               <span className="ml-auto text-sm font-semibold text-plum transition group-hover:text-brandPink">
                 <EditableText
                   copyKey="contact.social.visit"
-                  defaultText="Visit →"
+                  defaultText={t("social.visit")}
                 />
               </span>
             </a>

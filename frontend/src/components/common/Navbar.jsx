@@ -53,7 +53,7 @@ function NavItem({ to, children, onClick, className = "" }) {
 export default function Navbar() {
   const navigate = useNavigate();
   const { authenticated, clearSession } = useAdminAuth();
-  const { t } = useAppTranslation(["navbar", "common"]);
+  const { t } = useAppTranslation("navbar");
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -80,12 +80,12 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   const publicLinks = [
-    { to: "/", label: t("navbar.links.home") },
-    { to: "/gallery", label: t("navbar.links.elegantGallery") },
-    { to: "/gallery-social", label: t("navbar.links.socialGallery") },
-    { to: "/feedback", label: t("navbar.links.feedback") },
-    { to: "/order", label: t("navbar.links.order") },
-    { to: "/contact", label: t("navbar.links.contact") },
+    { to: "/", label: t("links.home") },
+    { to: "/gallery", label: t("links.elegantGallery") },
+    { to: "/gallery-social", label: t("links.socialGallery") },
+    { to: "/feedback", label: t("links.feedback") },
+    { to: "/order", label: t("links.order") },
+    { to: "/contact", label: t("links.contact") },
   ];
 
   return (
@@ -118,7 +118,7 @@ export default function Navbar() {
                 Hapi.Cakes
               </span>
               <span className="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-plum/65 sm:text-[0.65rem] sm:tracking-[0.2em]">
-                {t("navbar.brand.tagline")}
+                {t("brand.tagline")}
               </span>
             </div>
           </NavLink>
@@ -133,9 +133,7 @@ export default function Navbar() {
             </div>
 
             {authenticated ? (
-              <NavItem to="/admin/dashboard">
-                {t("navbar.admin.dashboard")}
-              </NavItem>
+              <NavItem to="/admin/dashboard">{t("admin.dashboard")}</NavItem>
             ) : null}
 
             {authenticated ? (
@@ -143,7 +141,7 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="ml-2 border-white/60 bg-white/70 px-4 py-2.5 text-xs uppercase tracking-[0.2em]"
               >
-                {t("common.buttons.logout")}
+                {t("buttons.logout", { ns: "common" })}
               </SecondaryButton>
             ) : null}
           </div>
@@ -154,7 +152,9 @@ export default function Navbar() {
             aria-controls="mobile-menu"
             onClick={() => setIsOpen((prev) => !prev)}
           >
-            {isOpen ? t("common.buttons.close") : t("common.buttons.menu")}
+            {isOpen
+              ? t("buttons.close", { ns: "common" })
+              : t("buttons.menu", { ns: "common" })}
           </PrimaryButton>
         </div>
       </div>
@@ -186,7 +186,7 @@ export default function Navbar() {
                   onClick={closeMenu}
                   className="w-full justify-start px-4 py-3 text-sm"
                 >
-                  {t("navbar.admin.dashboard")}
+                  {t("admin.dashboard")}
                 </NavItem>
               ) : null}
             </div>
@@ -196,7 +196,7 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="mt-3 w-full border-white/60 bg-white/72 uppercase tracking-[0.18em]"
               >
-                {t("common.buttons.logout")}
+                {t("buttons.logout", { ns: "common" })}
               </SecondaryButton>
             ) : null}
           </div>

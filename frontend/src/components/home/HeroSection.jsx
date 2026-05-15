@@ -32,13 +32,16 @@ export default function HeroSection({
             <div className="inline-flex items-center gap-3 rounded-pill border border-white/65 bg-white/60 px-4 py-2 shadow-soft backdrop-blur">
               <span className="h-2.5 w-2.5 rounded-full bg-accent" />
               <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-plum/75">
-                Custom Celebration Cakes
+                {t("hero.eyebrow")}
               </span>
             </div>
 
             <div className="mt-5 space-y-4">
-              <p className="font-script text-3xl text-plum/80 sm:text-4xl">
-                Sweetly made for your best moments
+              <p
+                className="text-3xl text-plum/80 sm:text-4xl"
+                style={{ fontFamily: '"Fraunces", Georgia, serif' }}
+              >
+                {t("hero.kicker")}
               </p>
               <h1 className="max-w-xl font-serif text-4xl font-semibold leading-[1.04] tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
                 <EditableText
@@ -95,32 +98,42 @@ export default function HeroSection({
               <PillBadge className="justify-center border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft">
                 <EditableText
                   copyKey="home.hero.proof_1"
-                  defaultText="100+ happy customers"
+                  defaultText={t("hero.proof1", {
+                    defaultValue: "100+ happy customers",
+                  })}
                 />
               </PillBadge>
               <PillBadge className="justify-center border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft">
                 <EditableText
                   copyKey="home.hero.proof_2"
-                  defaultText="Custom designs"
+                  defaultText={t("hero.proof2", {
+                    defaultValue: "Custom designs",
+                  })}
                 />
               </PillBadge>
               <PillBadge className="justify-center border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft">
                 <EditableText
                   copyKey="home.hero.proof_3"
-                  defaultText="Made with love"
+                  defaultText={t("hero.proof3", {
+                    defaultValue: "Made with love",
+                  })}
                 />
               </PillBadge>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary">
               <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                Handcrafted in small batches
+                {t("hero.note1", {
+                  defaultValue: "Handcrafted in small batches",
+                })}
               </div>
               <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                Premium ingredients
+                {t("hero.note2", { defaultValue: "Premium ingredients" })}
               </div>
               <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                Personalized celebration styling
+                {t("hero.note3", {
+                  defaultValue: "Personalized celebration styling",
+                })}
               </div>
             </div>
           </div>
@@ -173,7 +186,9 @@ export default function HeroSection({
 
             {isAdmin ? (
               <AdminImageEditOverlay
-                label="Update featured cake"
+                label={t("hero.editFeatured", {
+                  defaultValue: "Update featured cake",
+                })}
                 uploadEndpoint="/api/admin/upload/featured"
                 currentImageUrl={featuredImageUrl}
                 onUploaded={onFeaturedImageUploaded}

@@ -1,0 +1,92 @@
+{
+  "header": {
+    "label": "Đặt bánh riêng",
+    "title": "Tạo chiếc bánh trong mơ của bạn",
+    "subtitle": "Bộ tạo đơn đặt bánh nhỏ xinh giúp bạn gửi yêu cầu thật rõ ràng, thật cảm hứng và thật cá nhân ngay từ bước đầu tiên."
+  },
+  "steps": {
+    "contact": {
+      "label": "Bước 1",
+      "title": "Bữa tiệc của bạn",
+      "description": "Chia sẻ dịp vui và cách chúng mình liên hệ với bạn."
+    },
+    "cake": {
+      "label": "Bước 2",
+      "title": "Thiết kế bánh",
+      "description": "Chọn hương vị, kích cỡ và phong cách mong muốn."
+    },
+    "delivery": {
+      "label": "Bước 3",
+      "title": "Chi tiết nhận bánh",
+      "description": "Chốt thời gian, cách nhận và các ghi chú thêm."
+    }
+  },
+  "badges": {
+    "premium": "Phong cách sang xinh",
+    "guided": "Quy trình 3 bước dễ hiểu"
+  },
+  "fields": {
+    "name": "Tên",
+    "occasion": "Dịp đặt bánh",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "flavor": "Hương vị",
+    "servings": "Khẩu phần",
+    "budget": "Ngân sách",
+    "reference": "Link cảm hứng / tham khảo",
+    "date": "Ngày cần bánh",
+    "fulfillment": "Nhận tại tiệm hay giao tận nơi",
+    "address": "Địa chỉ giao bánh",
+    "notes": "Ghi chú"
+  },
+  "placeholders": {
+    "name": "Tên của bạn",
+    "email": "you@example.com",
+    "phone": "Không bắt buộc",
+    "servings": "Chọn khẩu phần",
+    "reference": "Pinterest, Instagram, hoặc link mood board",
+    "address": "Số nhà, quận/huyện, thành phố",
+    "notes": "Bảng màu, kiểu hoa, lưu ý ăn kiêng, lời nhắn trên bánh..."
+  },
+  "options": {
+    "birthday": {"value": "Sinh nhật", "hint": "Vui tươi, gần gũi và xinh để chụp ảnh"},
+    "wedding": {"value": "Cưới hỏi", "hint": "Tinh tế với hoa mềm và đường nét nhẹ nhàng"},
+    "anniversary": {"value": "Kỷ niệm", "hint": "Lãng mạn và chỉn chu"},
+    "babyShower": {"value": "Baby shower", "hint": "Tông pastel ngọt ngào"},
+    "graduation": {"value": "Tốt nghiệp", "hint": "Điểm nhấn rực rỡ cho ngày vui"},
+    "other": {"value": "Khác", "hint": "Ý tưởng riêng theo mood của bạn"},
+    "vanilla": "Vani",
+    "chocolate": "Socola",
+    "strawberry": "Dâu",
+    "matcha": "Matcha",
+    "redVelvet": "Red velvet",
+    "custom": "Tuỳ chọn",
+    "pickup": {"title": "Tự đến lấy", "hint": "Nhận bánh tại tiệm cho tiện nhé"},
+    "delivery": {"title": "Giao tận nơi", "hint": "Mang bánh đến đúng buổi tiệc"}
+  },
+  "cta": {
+    "submit": "Gửi yêu cầu",
+    "back": "Quay lại",
+    "continue": "Tiếp tục"
+  },
+  "messages": {
+    "review": "Bạn có thể xem lại và gửi sau khi hoàn tất bước cuối.",
+    "ready": "Mọi thứ đã sẵn sàng. Gửi yêu cầu khi bạn thấy ổn nhé.",
+    "submitted": "Cảm ơn bạn! Yêu cầu của bạn đã được nhận. Chúng mình sẽ liên hệ sớm.",
+    "nameRequired": "Vui lòng nhập tên.",
+    "contactRequired": "Email hoặc số điện thoại là bắt buộc.",
+    "occasionRequired": "Vui lòng chọn dịp đặt bánh.",
+    "dateRequired": "Vui lòng chọn ngày cần bánh.",
+    "addressRequired": "Vui lòng nhập địa chỉ giao bánh.",
+    "previewTitle": "Chiếc bánh của bạn",
+    "dreamFlavor": "Hương vị mơ ước",
+    "selectSize": "Chọn kích cỡ",
+    "celebrationType": "Loại dịp vui",
+    "builderNotes": "Ghi chú cho thợ bánh",
+    "builderDescription": "Chọn hương vị, ngân sách và cách nhận để định hình cảm giác cho yêu cầu bánh riêng của bạn.",
+    "received": "Chúng mình sẽ nhận được",
+    "notAdded": "Chưa thêm",
+    "included": "Đã có",
+    "optional": "Tùy chọn"
+  }
+}

@@ -12,5 +12,11 @@
   },
   "admin": {
     "dashboard": "Dashboard"
+  },
+  "linksPlural": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "order": "Order",
+    "contact": "Contact"
   }
 }

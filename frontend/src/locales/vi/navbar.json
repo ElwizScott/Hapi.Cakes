@@ -12,5 +12,11 @@
   },
   "admin": {
     "dashboard": "Bảng điều khiển"
+  },
+  "linksPlural": {
+    "home": "Trang chủ",
+    "gallery": "Bộ sưu tập",
+    "order": "Đặt bánh",
+    "contact": "Liên hệ"
   }
 }

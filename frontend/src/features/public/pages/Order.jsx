@@ -9,6 +9,7 @@ import SurfaceCard from "../../../components/common/SurfaceCard";
 import TextArea from "../../../components/common/TextArea";
 import TextField from "../../../components/common/TextField";
 import { cx } from "../../../components/common/designSystem";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 const initialForm = {
   name: "",
@@ -24,54 +25,6 @@ const initialForm = {
   notes: "",
   referenceUrl: "",
 };
-
-const steps = [
-  {
-    id: "contact",
-    label: "Step 1",
-    title: "Your celebration",
-    description: "Share the occasion and how we should reach you.",
-  },
-  {
-    id: "cake",
-    label: "Step 2",
-    title: "Cake design",
-    description: "Choose the flavors, size, and styling direction.",
-  },
-  {
-    id: "delivery",
-    label: "Step 3",
-    title: "Delivery details",
-    description: "Set timing, fulfillment, and extra notes.",
-  },
-];
-
-const occasionOptions = [
-  { value: "Birthday", icon: "🎂", hint: "Playful, personal, and photo-ready" },
-  { value: "Wedding", icon: "💍", hint: "Elegant florals and soft finishes" },
-  { value: "Anniversary", icon: "💐", hint: "Romantic and polished" },
-  { value: "Baby Shower", icon: "🧸", hint: "Sweet pastel storytelling" },
-  { value: "Graduation", icon: "🎓", hint: "Celebration centerpiece styling" },
-  { value: "Other", icon: "✨", hint: "Custom mood and concept" },
-];
-
-const flavorOptions = [
-  { value: "Vanilla", icon: "🍦" },
-  { value: "Chocolate", icon: "🍫" },
-  { value: "Strawberry", icon: "🍓" },
-  { value: "Matcha", icon: "🍵" },
-  { value: "Red Velvet", icon: "❤️" },
-  { value: "Custom", icon: "🌷" },
-];
-
-const budgetOptions = [
-  { value: "Under 800k", icon: "$" },
-  { value: "800k - 1.5M", icon: "$$" },
-  { value: "1.5M - 2.5M", icon: "$$$" },
-  { value: "2.5M+", icon: "$$$$" },
-];
-
-const servingsOptions = ["6 - 10", "10 - 20", "20 - 30", "30 - 50", "50+"];
 
 function OptionCard({ selected, onClick, icon, title, hint }) {
   return (
@@ -146,13 +99,14 @@ function ProgressStep({ step, index, currentStep, total }) {
 }
 
 export default function Order() {
+  const { t } = useAppTranslation("order");
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [currentStep, setCurrentStep] = useState(0);
 
   const previewTitle = useMemo(() => {
-    return form.occasion || "Your custom cake";
+    return form.occasion || t("messages.previewTitle");
   }, [form.occasion]);
 
   const previewMood = useMemo(() => {
@@ -172,17 +126,90 @@ export default function Order() {
 
   const validate = () => {
     const nextErrors = {};
-    if (!form.name.trim()) nextErrors.name = "Name is required.";
+    if (!form.name.trim()) nextErrors.name = t("messages.nameRequired");
     if (!form.email.trim() && !form.phone.trim()) {
-      nextErrors.contact = "Email or phone is required.";
+      nextErrors.contact = t("messages.contactRequired");
     }
-    if (!form.occasion.trim()) nextErrors.occasion = "Occasion is required.";
-    if (!form.date.trim()) nextErrors.date = "Date is required.";
+    if (!form.occasion.trim())
+      nextErrors.occasion = t("messages.occasionRequired");
+    if (!form.date.trim()) nextErrors.date = t("messages.dateRequired");
     if (form.fulfillment === "delivery" && !form.address.trim()) {
-      nextErrors.address = "Delivery address is required.";
+      nextErrors.address = t("messages.addressRequired");
     }
     return nextErrors;
   };
+
+  const steps = [
+    {
+      id: "contact",
+      label: t("steps.contact.label"),
+      title: t("steps.contact.title"),
+      description: t("steps.contact.description"),
+    },
+    {
+      id: "cake",
+      label: t("steps.cake.label"),
+      title: t("steps.cake.title"),
+      description: t("steps.cake.description"),
+    },
+    {
+      id: "delivery",
+      label: t("steps.delivery.label"),
+      title: t("steps.delivery.title"),
+      description: t("steps.delivery.description"),
+    },
+  ];
+
+  const occasionOptions = [
+    {
+      value: t("options.birthday.value"),
+      icon: "🎂",
+      hint: t("options.birthday.hint"),
+    },
+    {
+      value: t("options.wedding.value"),
+      icon: "💍",
+      hint: t("options.wedding.hint"),
+    },
+    {
+      value: t("options.anniversary.value"),
+      icon: "💐",
+      hint: t("options.anniversary.hint"),
+    },
+    {
+      value: t("options.babyShower.value"),
+      icon: "🧸",
+      hint: t("options.babyShower.hint"),
+    },
+    {
+      value: t("options.graduation.value"),
+      icon: "🎓",
+      hint: t("options.graduation.hint"),
+    },
+    {
+      value: t("options.other.value"),
+      icon: "✨",
+      hint: t("options.other.hint"),
+    },
+  ];
+
+  const flavorOptions = [
+    { value: t("options.vanilla"), icon: "🍦" },
+    { value: t("options.chocolate"), icon: "🍫" },
+    { value: t("options.strawberry"), icon: "🍓" },
+    { value: t("options.matcha"), icon: "🍵" },
+    { value: t("options.redVelvet"), icon: "❤️" },
+    { value: t("options.custom"), icon: "🌷" },
+  ];
+
+  const budgetOptions = [
+    { value: "Under 800k", icon: "$" },
+    { value: "800k - 1.5M", icon: "$$" },
+    { value: "1.5M - 2.5M", icon: "$$$" },
+    { value: "2.5M+", icon: "$$$$" },
+  ];
+
+  const servingsOptions = ["6 - 10", "10 - 20", "20 - 30", "30 - 50", "50+"];
 
   const validateStep = (stepIndex) => {
     const nextErrors = validate();
@@ -243,29 +270,29 @@ export default function Order() {
           eyebrow={
             <EditableText
               copyKey="order.header.label"
-              defaultText="Custom Order"
+              defaultText={t("header.label")}
             />
           }
           title={
             <EditableText
               copyKey="order.header.title"
-              defaultText="Build Your Dream Cake"
+              defaultText={t("header.title")}
             />
           }
           description={
             <EditableText
               copyKey="order.header.subtitle"
-              defaultText="A boutique cake builder designed to make your order feel clear, inspiring, and beautifully personal from the very first step."
+              defaultText={t("header.subtitle")}
               multiline
             />
           }
           actions={
             <>
               <PillBadge className="border-white/75 bg-white/80 px-4 py-2 text-[0.68rem] tracking-[0.22em] shadow-soft">
-                Soft premium styling
+                {t("badges.premium")}
               </PillBadge>
               <PillBadge className="border-white/75 bg-white/80 px-4 py-2 text-[0.68rem] tracking-[0.22em] shadow-soft">
-                Guided 3-step flow
+                {t("badges.guided")}
               </PillBadge>
             </>
           }
@@ -300,8 +327,7 @@ export default function Order() {
 
             {submitted ? (
               <SurfaceCard className="border-success/35 bg-[linear-gradient(180deg,rgba(240,255,248,0.96),rgba(255,253,249,0.96))] p-5 text-sm text-success sm:p-6">
-                Thank you! Your request has been received. We’ll contact you
-                soon.
+                {t("messages.submitted")}
               </SurfaceCard>
             ) : null}
 
@@ -329,20 +355,20 @@ export default function Order() {
                         label={
                           <EditableText
                             copyKey="order.field.name"
-                            defaultText="Name"
+                            defaultText={t("fields.name")}
                           />
                         }
                         name="name"
                         value={form.name}
                         onChange={handleChange}
-                        placeholder="Your name"
+                        placeholder={t("placeholders.name")}
                         error={errors.name}
                       />
                       <div>
                         <p className="mb-1.5 block text-sm font-medium text-text-primary">
                           <EditableText
                             copyKey="order.field.occasion"
-                            defaultText="Occasion"
+                            defaultText={t("fields.occasion")}
                           />
                         </p>
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -371,25 +397,25 @@ export default function Order() {
                         label={
                           <EditableText
                             copyKey="order.field.email"
-                            defaultText="Email"
+                            defaultText={t("fields.email")}
                           />
                         }
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        placeholder="you@example.com"
+                        placeholder={t("placeholders.email")}
                       />
                       <TextField
                         label={
                           <EditableText
                             copyKey="order.field.phone"
-                            defaultText="Phone"
+                            defaultText={t("fields.phone")}
                           />
                         }
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
-                        placeholder="Optional"
+                        placeholder={t("placeholders.phone")}
                         error={errors.contact}
                       />
                     </div>
@@ -402,7 +428,7 @@ export default function Order() {
                       <p className="mb-1.5 block text-sm font-medium text-text-primary">
                         <EditableText
                           copyKey="order.field.flavor"
-                          defaultText="Flavor"
+                          defaultText={t("fields.flavor")}
                         />
                       </p>
                       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -423,14 +449,14 @@ export default function Order() {
                         label={
                           <EditableText
                             copyKey="order.field.servings"
-                            defaultText="Servings"
+                            defaultText={t("fields.servings")}
                           />
                         }
                         name="servings"
                         value={form.servings}
                         onChange={handleChange}
                       >
-                        <option value="">Select servings</option>
+                        <option value="">{t("placeholders.servings")}</option>
                         {servingsOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
@@ -442,7 +468,7 @@ export default function Order() {
                         <p className="mb-1.5 block text-sm font-medium text-text-primary">
                           <EditableText
                             copyKey="order.field.budget"
-                            defaultText="Budget"
+                            defaultText={t("fields.budget")}
                           />
                         </p>
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -463,13 +489,13 @@ export default function Order() {
                       label={
                         <EditableText
                           copyKey="order.field.reference"
-                          defaultText="Inspiration / Reference URL"
+                          defaultText={t("fields.reference")}
                         />
                       }
                       name="referenceUrl"
                       value={form.referenceUrl}
                       onChange={handleChange}
-                      placeholder="Pinterest, Instagram, or mood board link"
+                      placeholder={t("placeholders.reference")}
                     />
                   </div>
                 ) : null}
@@ -482,7 +508,7 @@ export default function Order() {
                         label={
                           <EditableText
                             copyKey="order.field.date"
-                            defaultText="Date"
+                            defaultText={t("fields.date")}
                           />
                         }
                         name="date"
@@ -495,7 +521,7 @@ export default function Order() {
                         <p className="mb-1.5 block text-sm font-medium text-text-primary">
                           <EditableText
                             copyKey="order.field.fulfillment"
-                            defaultText="Pickup or Delivery"
+                            defaultText={t("fields.fulfillment")}
                           />
                         </p>
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -503,14 +529,14 @@ export default function Order() {
                             {
                               value: "pickup",
                               icon: "🏡",
-                              title: "Pickup",
-                              hint: "Simple collection from the bakery",
+                              title: t("options.pickup.title"),
+                              hint: t("options.pickup.hint"),
                             },
                             {
                               value: "delivery",
                               icon: "🛵",
-                              title: "Delivery",
-                              hint: "Bring it straight to the celebration",
+                              title: t("options.delivery.title"),
+                              hint: t("options.delivery.hint"),
                             },
                           ].map((option) => (
                             <OptionCard
@@ -533,13 +559,13 @@ export default function Order() {
                         label={
                           <EditableText
                             copyKey="order.field.address"
-                            defaultText="Delivery Address"
+                            defaultText={t("fields.address")}
                           />
                         }
                         name="address"
                         value={form.address}
                         onChange={handleChange}
-                        placeholder="Street, district, and city"
+                        placeholder={t("placeholders.address")}
                         error={errors.address}
                       />
                     ) : null}
@@ -548,13 +574,13 @@ export default function Order() {
                       label={
                         <EditableText
                           copyKey="order.field.notes"
-                          defaultText="Notes"
+                          defaultText={t("fields.notes")}
                         />
                       }
                       name="notes"
                       value={form.notes}
                       onChange={handleChange}
-                      placeholder="Color palette, floral style, dietary notes, message on cake..."
+                      placeholder={t("placeholders.notes")}
                     />
                   </div>
                 ) : null}
@@ -563,8 +589,8 @@ export default function Order() {
               <div className="mt-8 flex flex-col gap-3 border-t border-border-soft/70 pt-5 sm:flex-row sm:items-center sm:justify-between">
                 <div className="text-sm text-text-secondary">
                   {currentStep < steps.length - 1
-                    ? "You can review and submit after the final step."
-                    : "Everything looks ready. Send your request when you’re happy."}
+                    ? t("messages.review")
+                    : t("messages.ready")}
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   {currentStep > 0 ? (
@@ -573,7 +599,7 @@ export default function Order() {
                       onClick={goBack}
                       className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
                     >
-                      Back
+                      {t("cta.back")}
                     </SecondaryButton>
                   ) : null}
                   {currentStep < steps.length - 1 ? (
@@ -582,7 +608,7 @@ export default function Order() {
                       onClick={goNext}
                       className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
                     >
-                      Continue
+                      {t("cta.continue")}
                     </PrimaryButton>
                   ) : (
                     <PrimaryButton
@@ -591,7 +617,7 @@ export default function Order() {
                     >
                       <EditableText
                         copyKey="order.cta.submit"
-                        defaultText="Send Request"
+                        defaultText={t("cta.submit")}
                       />
                     </PrimaryButton>
                   )}
@@ -606,7 +632,7 @@ export default function Order() {
                 <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                   <div>
                     <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
-                      Live Preview
+                      {t("messages.previewTitle")}
                     </p>
                     <h3 className="mt-2 font-serif text-2xl font-semibold tracking-tight text-text-primary sm:text-3xl">
                       {previewTitle}
@@ -625,10 +651,11 @@ export default function Order() {
                       <div className="text-center">
                         <div className="text-4xl sm:text-5xl">🎂</div>
                         <p className="mt-3 font-serif text-xl text-plum sm:text-2xl">
-                          {form.flavor || "Dream flavor"}
+                          {form.flavor || t("messages.dreamFlavor")}
                         </p>
                         <p className="mt-1 text-xs text-text-secondary sm:text-sm">
-                          {form.servings || "Select size"} • {form.fulfillment}
+                          {form.servings || t("messages.selectSize")} •{" "}
+                          {form.fulfillment}
                         </p>
                       </div>
                     </div>
@@ -637,10 +664,12 @@ export default function Order() {
 
                 <div className="flex flex-wrap gap-2">
                   {[
-                    form.occasion || "Celebration type",
-                    form.flavor || "Flavor",
-                    form.budget || "Budget",
-                    form.servings ? `${form.servings} servings` : "Servings",
+                    form.occasion || t("messages.celebrationType"),
+                    form.flavor || t("fields.flavor"),
+                    form.budget || t("fields.budget"),
+                    form.servings
+                      ? `${form.servings} ${t("fields.servings")}`
+                      : t("fields.servings"),
                   ].map((item) => (
                     <PillBadge
                       key={item}
@@ -653,11 +682,10 @@ export default function Order() {
 
                 <div className="rounded-[1.5rem] border border-white/70 bg-white/70 p-4">
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
-                    Builder Notes
+                    {t("messages.builderNotes")}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-text-secondary">
-                    {previewMood ||
-                      "Choose your flavor, budget, and fulfillment option to shape the feel of your custom cake request."}
+                    {previewMood || t("messages.builderDescription")}
                   </p>
                 </div>
               </div>
@@ -666,37 +694,39 @@ export default function Order() {
             <SurfaceCard className="border-white/75 bg-white/74 p-5 sm:p-6">
               <div className="space-y-4">
                 <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
-                  What we’ll receive
+                  {t("messages.received")}
                 </p>
                 <div className="space-y-3 text-sm text-text-secondary">
                   <div className="flex justify-between gap-3">
-                    <span>Name</span>
+                    <span>{t("fields.name")}</span>
                     <span className="text-right text-text-primary">
-                      {form.name || "Not added"}
+                      {form.name || t("messages.notAdded")}
                     </span>
                   </div>
                   <div className="flex justify-between gap-3">
-                    <span>Occasion</span>
+                    <span>{t("fields.occasion")}</span>
                     <span className="text-right text-text-primary">
-                      {form.occasion || "Not added"}
+                      {form.occasion || t("messages.notAdded")}
                     </span>
                   </div>
                   <div className="flex justify-between gap-3">
-                    <span>Date</span>
+                    <span>{t("fields.date")}</span>
                     <span className="text-right text-text-primary">
-                      {form.date || "Not added"}
+                      {form.date || t("messages.notAdded")}
                     </span>
                   </div>
                   <div className="flex justify-between gap-3">
-                    <span>Fulfillment</span>
+                    <span>{t("fields.fulfillment")}</span>
                     <span className="text-right capitalize text-text-primary">
                       {form.fulfillment}
                     </span>
                   </div>
                   <div className="flex justify-between gap-3">
-                    <span>Reference</span>
+                    <span>{t("fields.reference")}</span>
                     <span className="text-right text-text-primary">
-                      {form.referenceUrl ? "Included" : "Optional"}
+                      {form.referenceUrl
+                        ? t("messages.included")
+                        : t("messages.optional")}
                     </span>
                   </div>
                 </div>

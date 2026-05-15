@@ -4,6 +4,24 @@
     "close": "Đóng",
     "logout": "Đăng xuất",
     "startOrder": "Bắt đầu đặt bánh",
-    "contactUs": "Liên hệ"
+    "contactUs": "Liên hệ",
+    "back": "Quay lại",
+    "continue": "Tiếp tục",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "submit": "Gửi yêu cầu",
+    "logIn": "Đăng nhập",
+    "update": "Cập nhật"
+  },
+  "states": {
+    "saving": "Đang lưu...",
+    "loading": "Đang tải..."
+  },
+  "forms": {
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "password": "Mật khẩu",
+    "name": "Tên của bạn",
+    "optional": "Không bắt buộc"
   }
 }
