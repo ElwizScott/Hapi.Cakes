@@ -145,7 +145,7 @@ export default function Footer() {
                           to={link.to}
                           className={cx(
                             buttonGhostClass,
-                            "inline-flex px-0 py-0.5 text-xs font-medium text-text-secondary hover:bg-transparent hover:text-plum",
+                            "inline-flex min-h-11 px-0 py-2 text-xs font-medium text-text-secondary hover:bg-transparent hover:text-plum",
                           )}
                         >
                           {link.label}
@@ -169,9 +169,9 @@ export default function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="group flex items-center gap-2 rounded-[1rem] border border-transparent bg-white/36 px-2.5 py-1.5 transition duration-300 ease-soft hover:-translate-y-0.5 hover:border-white/75 hover:bg-white/72 hover:shadow-soft"
+                          className="group flex min-h-11 items-center gap-2 rounded-[1rem] border border-transparent bg-white/36 px-3 py-2 transition duration-300 ease-soft hover:-translate-y-0.5 hover:border-white/75 hover:bg-white/72 hover:shadow-soft"
                         >
-                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent-soft/75 text-xs text-plum transition duration-300 ease-soft group-hover:bg-white">
+                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent-soft/75 text-xs text-plum transition duration-300 ease-soft group-hover:bg-white">
                             {link.icon}
                           </span>
                           <span className="text-xs font-semibold text-text-primary">

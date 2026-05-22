@@ -92,7 +92,7 @@ export default function Contact() {
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-4 rounded-3xl border border-lavender/50 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(200,141,191,0.25)] sm:p-5"
+              className="group flex min-h-12 items-center gap-4 rounded-3xl border border-lavender/50 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(200,141,191,0.25)] sm:p-5"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 text-plum shadow-sm sm:h-12 sm:w-12">
                 {social.icon}

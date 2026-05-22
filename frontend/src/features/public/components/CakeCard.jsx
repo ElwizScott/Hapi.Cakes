@@ -36,14 +36,12 @@ export default function CakeCard({
       )}
 
       <div className="flex h-full flex-col p-3 sm:p-4">
-        <div className="relative aspect-[4/3.15] w-full overflow-hidden rounded-card border border-border-soft/80 bg-gradient-to-br from-surface via-accent-soft/30 to-lavender/30 shadow-soft">
-          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.42),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(110,85,117,0.12))]" />
+        <div className="relative aspect-[4/3.15] w-full overflow-hidden rounded-card border border-border-soft/80 bg-surface shadow-soft">
           <img
             src={imageUrl}
             alt={name}
             className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-soft group-hover:scale-[1.04]"
           />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-20 bg-gradient-to-t from-plum/22 via-plum/6 to-transparent" />
           {categoryName ? (
             <div className="absolute left-3 top-3 z-20">
               <PillBadge className="border-white/75 bg-white/84 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-plum shadow-soft">

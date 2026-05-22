@@ -133,8 +133,8 @@ export default function Home() {
       <Testimonials images={feedbackImages} />
       <SocialGallery images={socialGalleryImages} />
 
-      <RevealSection className="ds-page-shell pb-16 pt-8 sm:pt-10 lg:pb-20">
-        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.95))] p-6 shadow-soft sm:p-8 lg:p-10">
+      <RevealSection className="ds-page-shell pb-10 pt-4 sm:pt-10 lg:pb-20">
+        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.95))] p-4 shadow-soft sm:p-8 lg:p-10">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute left-10 top-0 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
             <div className="absolute right-0 bottom-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />

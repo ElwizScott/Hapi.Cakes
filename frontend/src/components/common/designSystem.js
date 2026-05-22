@@ -26,21 +26,21 @@ export const badgeClass =
   "inline-flex items-center rounded-pill border border-border-soft bg-surface-elevated px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-plum";
 
 export const buttonBaseClass =
-  "inline-flex min-h-11 items-center justify-center rounded-pill px-4 text-sm font-semibold transition duration-200 ease-soft focus:outline-none focus:ring-2 active:translate-y-0.5 active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-70";
+  "inline-flex min-h-11 touch-manipulation items-center justify-center rounded-pill px-4 text-sm font-semibold transition duration-200 ease-soft focus-visible:outline-none focus-visible:ring-2 active:translate-y-0.5 active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-70";
 
 export const buttonPrimaryClass = cx(
   buttonBaseClass,
-  "bg-accent px-5 py-3 text-white shadow-soft hover:-translate-y-0.5 hover:bg-plum hover:shadow-float focus:ring-accent/25",
+  "bg-accent px-5 py-3 text-white shadow-soft hover:-translate-y-0.5 hover:bg-plum hover:shadow-float focus-visible:ring-accent/40",
 );
 
 export const buttonSecondaryClass = cx(
   buttonBaseClass,
-  "border border-border-soft bg-surface-elevated px-5 py-3 text-text-primary shadow-soft hover:-translate-y-0.5 hover:border-accent hover:text-plum hover:shadow-float focus:ring-accent/20",
+  "border border-border-soft bg-surface-elevated px-5 py-3 text-text-primary shadow-soft hover:-translate-y-0.5 hover:border-accent hover:text-plum hover:shadow-float focus-visible:ring-accent/30",
 );
 
 export const buttonGhostClass = cx(
   buttonBaseClass,
-  "px-4 py-2 font-medium text-plum hover:bg-accent-soft focus:ring-accent/20",
+  "px-4 py-2 font-medium text-plum hover:bg-accent-soft focus-visible:ring-accent/30",
 );
 
 export const fieldClass =

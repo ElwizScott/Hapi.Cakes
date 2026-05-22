@@ -32,7 +32,7 @@ function OptionCard({ selected, onClick, icon, title, hint }) {
       type="button"
       onClick={onClick}
       className={cx(
-        "group rounded-[1.6rem] border p-4 text-left shadow-soft transition-all duration-300 ease-soft",
+        "group min-h-12 rounded-[1.6rem] border p-4 text-left shadow-soft transition-all duration-300 ease-soft",
         selected
           ? "border-accent bg-accent-soft/80 ring-2 ring-accent/15"
           : "border-white/70 bg-white/72 hover:-translate-y-0.5 hover:border-accent/55 hover:bg-white",

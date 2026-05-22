@@ -9,7 +9,7 @@ import SecondaryButton from "./SecondaryButton";
 import useAppTranslation from "../../i18n/useAppTranslation";
 
 const linkClass =
-  "group relative inline-flex min-h-11 items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
+  "group relative inline-flex min-h-11 touch-manipulation items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
 
 const activeClass = "bg-accent-soft text-plum";
 const inactiveClass = "text-text-secondary hover:text-plum";
@@ -147,7 +147,7 @@ export default function Navbar() {
           </div>
 
           <PrimaryButton
-            className="min-h-11 px-4 py-2.5 text-xs uppercase tracking-[0.2em] lg:hidden"
+            className="min-h-12 px-5 py-3 text-xs uppercase tracking-[0.2em] lg:hidden"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen((prev) => !prev)}
@@ -163,18 +163,20 @@ export default function Navbar() {
         id="mobile-menu"
         className={cx(
           "overflow-hidden border-t border-white/40 bg-surface/88 backdrop-blur-xl transition-all duration-300 ease-soft lg:hidden",
-          isOpen ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0",
+          isOpen
+            ? "max-h-[calc(100vh-5rem)] overflow-y-auto opacity-100"
+            : "max-h-0 opacity-0",
         )}
       >
         <div className="ds-page-shell py-3 sm:py-4">
-          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-3 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur">
-            <div className="grid gap-2">
+          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-3 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur sm:p-4">
+            <div className="grid gap-3">
               {publicLinks.map((link) => (
                 <NavItem
                   key={link.to}
                   to={link.to}
                   onClick={closeMenu}
-                  className="w-full justify-start px-4 py-3 text-sm"
+                  className="w-full justify-start px-4 py-3.5 text-base"
                 >
                   {link.label}
                 </NavItem>
@@ -184,7 +186,7 @@ export default function Navbar() {
                 <NavItem
                   to="/admin/dashboard"
                   onClick={closeMenu}
-                  className="w-full justify-start px-4 py-3 text-sm"
+                  className="w-full justify-start px-4 py-3.5 text-base"
                 >
                   {t("admin.dashboard")}
                 </NavItem>
@@ -194,7 +196,7 @@ export default function Navbar() {
             {authenticated ? (
               <SecondaryButton
                 onClick={handleLogout}
-                className="mt-3 w-full border-white/60 bg-white/72 uppercase tracking-[0.18em]"
+                className="mt-3 w-full border-white/60 bg-white/72 px-4 py-3 uppercase tracking-[0.18em]"
               >
                 {t("buttons.logout", { ns: "common" })}
               </SecondaryButton>

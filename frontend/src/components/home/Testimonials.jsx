@@ -26,7 +26,7 @@ export default function Testimonials({ images = [] }) {
   }));
 
   return (
-    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-4 sm:py-10 lg:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(232,217,241,0.16),rgba(255,255,255,0))]" />
       <SectionHeading
         eyebrow={

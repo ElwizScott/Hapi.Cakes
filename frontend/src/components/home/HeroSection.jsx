@@ -84,7 +84,7 @@ export default function HeroSection({
               <button
                 type="button"
                 onClick={onContactClick}
-                className="inline-flex min-h-11 items-center gap-2 rounded-pill px-2 py-2 text-sm font-medium text-plum transition duration-300 ease-soft hover:translate-x-1 hover:text-text-primary"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-pill px-4 py-3 text-sm font-medium text-plum transition duration-300 ease-soft hover:translate-x-1 hover:text-text-primary sm:w-auto"
               >
                 <EditableText
                   copyKey="home.hero.cta_contact"

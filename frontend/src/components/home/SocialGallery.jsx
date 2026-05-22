@@ -14,7 +14,7 @@ export default function SocialGallery({ images = [] }) {
   if (!galleryImages.length) return null;
 
   return (
-    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-4 sm:py-10 lg:py-14">
       <SectionHeading
         eyebrow={
           <EditableText
@@ -46,7 +46,7 @@ export default function SocialGallery({ images = [] }) {
         }
       />
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
+      <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-4 sm:grid-cols-2 lg:grid-cols-12">
         {galleryImages.map((image, index) => {
           const url = image?.url ?? image;
           const spanClass =

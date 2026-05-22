@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "../common/EditableText";
 import SectionHeading from "../common/SectionHeading";
@@ -11,6 +11,16 @@ export default function CategorySection({ categories = [] }) {
   const { t } = useAppTranslation("home");
   const [hovered, setHovered] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setCanHover(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   return (
     <RevealSection
@@ -42,8 +52,8 @@ export default function CategorySection({ categories = [] }) {
 
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {categories.map((c, index) => {
-          const isHovered = hovered === index;
-          const isOther = hovered !== null && hovered !== index;
+          const isHovered = canHover && hovered === index;
+          const isOther = canHover && hovered !== null && hovered !== index;
           const isClicked = clickedIndex === index;
 
           let translate = "";
@@ -63,11 +73,11 @@ export default function CategorySection({ categories = [] }) {
           return (
             <RevealSection
               key={c.id ?? c.slug}
-              onMouseEnter={() => setHovered(index)}
-              onMouseLeave={() => setHovered(null)}
+              onMouseEnter={canHover ? () => setHovered(index) : undefined}
+              onMouseLeave={canHover ? () => setHovered(null) : undefined}
               onClick={handleClick}
               className={`
-                relative transition-all duration-500 ease-soft
+                relative cursor-pointer transition-all duration-500 ease-soft
                 ${translate}
                 ${isHovered ? "scale-[1.03] z-20" : ""}
                 ${isOther ? "scale-[0.985] opacity-90" : ""}
