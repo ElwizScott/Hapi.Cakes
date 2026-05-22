@@ -6,6 +6,111 @@
     "subtitle": "From soft birthday florals to elegant wedding centerpieces, Hapi.Cakes creates custom cakes that feel romantic, polished, and made just for your sweetest celebration.",
     "ctaOrder": "Order Now",
     "ctaGallery": "See Gallery",
-    "ctaContact": "Contact Us"
+    "ctaContact": "Contact Us",
+    "proof1": "100+ happy customers",
+    "proof2": "Custom designs",
+    "proof3": "Made with love",
+    "note1": "Handcrafted in small batches",
+    "note2": "Premium ingredients",
+    "note3": "Personalized celebration styling",
+    "bestFor": "Best For",
+    "bestForText": "Birthdays, weddings, intimate parties",
+    "signatureStyle": "Signature Style",
+    "signatureStyleText": "Delicate florals, pastel palettes, and bakery-fresh elegance.",
+    "featuredCake": "Featured Cake",
+    "featuredAlt": "Featured Hapi.Cakes cake",
+    "editFeatured": "Update featured cake"
+  },
+  "featured": {
+    "eyebrow": "Bakery Bestsellers",
+    "title": "Featured Today",
+    "subtitle": "A curated edit of our most-loved celebration cakes, chosen for their soft finishes, romantic styling, and premium feel.",
+    "viewAll": "View all",
+    "cardDescription": "A premium custom cake designed to feel soft, celebratory, and beautifully memorable."
+  },
+  "categories": {
+    "eyebrow": "Celebration Showcase",
+    "title": "Special Events & Occasions",
+    "subtitle": "Browse our signature styles by occasion and discover the visual mood that fits your sweetest celebration.",
+    "collection": "Curated Collection",
+    "noImage": "No image yet",
+    "description": "Explore cakes styled for {{name}} with soft palettes, romantic details, and boutique presentation."
+  },
+  "why": {
+    "eyebrow": "Why Choose Us",
+    "title": "Designed for Celebrations That Deserve More Than a Standard Cake",
+    "subtitle": "Hapi.Cakes combines premium styling, cozy romance, and custom details so each celebration feels polished, personal, and camera-ready.",
+    "items": {
+      "refined": {
+        "title": "Refined custom styling",
+        "body": "Every cake is designed with a boutique editorial eye, from color harmony to finishing details."
+      },
+      "celebration": {
+        "title": "Celebration-first approach",
+        "body": "We create pieces that don’t just taste lovely, but elevate the table and the memory around it."
+      },
+      "aesthetic": {
+        "title": "Soft premium aesthetic",
+        "body": "Pastel palettes, floral details, and polished textures inspired by modern Korean and Japanese cafe culture."
+      },
+      "service": {
+        "title": "Warm, personal service",
+        "body": "The process stays collaborative and thoughtful, so your order feels special from inquiry to delivery."
+      }
+    }
+  },
+  "process": {
+    "eyebrow": "How It Works",
+    "title": "A Custom Cake Process That Feels Easy, Personal, and Premium",
+    "subtitle": "From your first inspiration to the final reveal, every step is designed to make ordering feel calm, collaborative, and beautifully tailored.",
+    "orderButton": "Start your order",
+    "steps": {
+      "share": {
+        "title": "Share your inspiration",
+        "body": "Tell us your celebration, palette, mood, and references so we can shape a cake that feels truly personal."
+      },
+      "refine": {
+        "title": "Refine the sweet details",
+        "body": "We align on size, flavor, styling direction, and finishing touches to create a design that feels polished and thoughtful."
+      },
+      "celebrate": {
+        "title": "Celebrate beautifully",
+        "body": "Your cake arrives ready to anchor the table and elevate the whole celebration with a premium boutique feel."
+      }
+    }
+  },
+  "testimonials": {
+    "eyebrow": "Customer Love",
+    "title": "Testimonials That Feel as Sweet as the Cakes",
+    "subtitle": "Real celebrations, soft details, and memorable moments shared by customers who wanted their cake to feel extra special.",
+    "featuredReview": "Featured Review",
+    "tagline": "Loved for the details and finish",
+    "items": {
+      "birthday": {
+        "quote": "The cake looked even softer and prettier in person. It felt like it belonged in a boutique cafe window.",
+        "name": "Birthday Celebration"
+      },
+      "wedding": {
+        "quote": "The design was elegant, the details were thoughtful, and it instantly made the whole table feel more special.",
+        "name": "Wedding Client"
+      },
+      "private": {
+        "quote": "Beautiful styling, lovely textures, and a premium finish that made our celebration feel complete.",
+        "name": "Private Event"
+      }
+    }
+  },
+  "social": {
+    "eyebrow": "Social Gallery",
+    "title": "A Peek Into the Hapi.Cakes World",
+    "subtitle": "Pastel cake finishes, celebration tables, and sweet details that make the brand feel like a boutique dessert studio.",
+    "cta": "See customer gallery",
+    "imageAlt": "Hapi.Cakes social gallery"
+  },
+  "cta": {
+    "eyebrow": "Final touch",
+    "title": "Custom cake in mind?",
+    "subtitle": "Tell us your mood, colors, and celebration details. We’ll help shape a cake that feels beautiful, personal, and worth remembering.",
+    "button": "Contact us"
   }
 }

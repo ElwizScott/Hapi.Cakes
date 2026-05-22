@@ -33,7 +33,7 @@ const socialLinks = [
     ),
   },
   {
-    label: "Tiktok",
+    label: "TikTok",
     href: "https://www.tiktok.com/@hapi.cakes_bymichelle",
     icon: (
       <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">

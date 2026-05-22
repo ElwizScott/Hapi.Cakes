@@ -8,8 +8,10 @@ import PrimaryButton from "../../../components/common/PrimaryButton";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import GalleryCategorySection from "../components/GalleryCategorySection";
 import EditableText from "../../../components/common/EditableText";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function ElegantGallery() {
+  const { t } = useAppTranslation("common");
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,7 +39,7 @@ export default function ElegantGallery() {
       .catch((err) => {
         if (!isActive) return;
         console.error("API ERROR:", err);
-        setError("Unable to load cakes right now.");
+        setError(t("gallery.elegant.unableToLoad"));
         setLoading(false);
       });
 
@@ -105,20 +107,20 @@ export default function ElegantGallery() {
         <PageHero
           eyebrow={
             <EditableText
-              copyKey="elegant.header.label"
-              defaultText="Elegant Gallery"
+              copyKey="gallery.elegant.label"
+              defaultText={t("gallery.elegant.label")}
             />
           }
           title={
             <EditableText
-              copyKey="elegant.header.title"
-              defaultText="Signature Cakes"
+              copyKey="gallery.elegant.title"
+              defaultText={t("gallery.elegant.title")}
             />
           }
           description={
             <EditableText
-              copyKey="elegant.header.subtitle"
-              defaultText="Explore our signature cakes by category, with interactive cards that expand in place."
+              copyKey="gallery.elegant.subtitle"
+              defaultText={t("gallery.elegant.subtitle")}
               multiline
             />
           }
@@ -129,28 +131,28 @@ export default function ElegantGallery() {
                 onClick={() => navigate("/admin/categories")}
                 className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
               >
-                Add Category
+                {t("galleryPage.addCategory")}
               </PrimaryButton>
             ) : null
           }
         />
 
         {loading ? (
-          <Loader label="Loading cakes..." />
+          <Loader label={t("gallery.elegant.loading")} />
         ) : error ? (
           <p className="text-center text-sm text-rose-500">{error}</p>
         ) : categoriesError ? (
           <p className="text-center text-sm text-rose-500">{categoriesError}</p>
         ) : visibleCategories.length === 0 ? (
           <div className="text-center text-sm text-muted space-y-2">
-            <p>No categories available for this selection.</p>
+            <p>{t("galleryPage.noCategories")}</p>
             {authenticated ? (
               <button
                 type="button"
                 onClick={() => navigate("/admin/categories")}
                 className="rounded-full border border-lavender px-4 py-1 text-xs font-semibold text-plum transition hover:border-brandPink hover:text-brandPink"
               >
-                Manage categories
+                {t("galleryPage.manageCategories")}
               </button>
             ) : null}
           </div>

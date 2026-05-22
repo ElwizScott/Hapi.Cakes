@@ -6,9 +6,11 @@ import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import { formatVND } from "../../utils/formatPrice";
 import RevealSection from "./RevealSection";
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function FeaturedCakes({ cakes = [], categoryById }) {
   const navigate = useNavigate();
+  const { t } = useAppTranslation("home");
 
   if (!cakes.length) return null;
 
@@ -19,19 +21,19 @@ export default function FeaturedCakes({ cakes = [], categoryById }) {
         eyebrow={
           <EditableText
             copyKey="home.featured.eyebrow"
-            defaultText="Bakery Bestsellers"
+            defaultText={t("featured.eyebrow")}
           />
         }
         title={
           <EditableText
             copyKey="home.featured.title"
-            defaultText="Featured Today"
+            defaultText={t("featured.title")}
           />
         }
         description={
           <EditableText
             copyKey="home.featured.subtitle"
-            defaultText="A curated edit of our most-loved celebration cakes, chosen for their soft finishes, romantic styling, and premium feel."
+            defaultText={t("featured.subtitle")}
             multiline
           />
         }
@@ -43,7 +45,7 @@ export default function FeaturedCakes({ cakes = [], categoryById }) {
           >
             <EditableText
               copyKey="home.featured.view_all"
-              defaultText="View all"
+              defaultText={t("featured.viewAll")}
             />
           </PrimaryButton>
         }
@@ -94,8 +96,7 @@ export default function FeaturedCakes({ cakes = [], categoryById }) {
                         {cake.name}
                       </h3>
                       <p className="mt-1 text-xs leading-5 text-text-secondary line-clamp-2 sm:text-sm sm:leading-6">
-                        {cake.description ||
-                          "A premium custom cake designed to feel soft, celebratory, and beautifully memorable."}
+                        {cake.description || t("featured.cardDescription")}
                       </p>
                     </div>
 

@@ -7,8 +7,10 @@ import EditableText from "../../../components/common/EditableText";
 import Modal from "../../../components/common/Modal";
 import PageHero from "../../../components/common/PageHero";
 import PrimaryButton from "../../../components/common/PrimaryButton";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Feedback() {
+  const { t } = useAppTranslation("common");
   const { authenticated } = useAdminAuth();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +35,7 @@ export default function Feedback() {
       const data = await fetchFeedbackImages();
       setImages(Array.isArray(data) ? data : []);
     } catch (err) {
-      setError("Unable to load feedback images.");
+      setError(t("gallery.elegant.unableToLoad"));
     } finally {
       setLoading(false);
     }
@@ -63,7 +65,7 @@ export default function Feedback() {
       }
       await loadImages();
     } catch (err) {
-      setUploadError("One or more uploads failed.");
+      setUploadError(t("errors.saveFailed"));
     } finally {
       setUploading(false);
       event.target.value = "";
@@ -76,19 +78,19 @@ export default function Feedback() {
         eyebrow={
           <EditableText
             copyKey="feedback.header.label"
-            defaultText="Customer Love"
+            defaultText={t("feedback.header.label")}
           />
         }
         title={
           <EditableText
             copyKey="feedback.header.title"
-            defaultText="Feedback Gallery"
+            defaultText={t("feedback.header.title")}
           />
         }
         description={
           <EditableText
             copyKey="feedback.header.subtitle"
-            defaultText="Sweet moments shared by our customers."
+            defaultText={t("feedback.header.subtitle")}
             multiline
           />
         }
@@ -109,7 +111,9 @@ export default function Feedback() {
                 className="px-5 py-3 text-xs uppercase tracking-[0.18em] disabled:opacity-60"
                 disabled={uploading}
               >
-                {uploading ? "Uploading..." : "Add Feedback Images"}
+                {uploading
+                  ? t("feedback.header.uploading")
+                  : t("feedback.header.addImages")}
               </PrimaryButton>
             </>
           ) : null
@@ -122,13 +126,13 @@ export default function Feedback() {
 
       {loading ? (
         <div className="mt-10">
-          <Loader label="Loading feedback..." />
+          <Loader label={t("feedback.header.loading")} />
         </div>
       ) : error ? (
         <p className="mt-10 text-center text-sm text-rose-500">{error}</p>
       ) : images.length === 0 ? (
         <p className="mt-10 text-center text-sm text-muted">
-          No feedback images yet.
+          {t("feedback.header.empty")}
         </p>
       ) : (
         <div className="mt-8 grid grid-cols-2 auto-rows-[8px] gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -156,7 +160,7 @@ export default function Feedback() {
                 >
                   <img
                     src={url}
-                    alt="Customer feedback"
+                    alt={t("feedback.imageAlt")}
                     className="block h-full w-full object-cover"
                     loading="lazy"
                     onLoad={(event) => {
@@ -194,7 +198,7 @@ export default function Feedback() {
 
       <Modal
         open={lightboxOpen}
-        title="Feedback"
+        title={t("feedback.header.titleModal")}
         onClose={() => {
           setLightboxOpen(false);
           setLightboxUrl("");

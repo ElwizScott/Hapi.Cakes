@@ -3,26 +3,28 @@ import PrimaryButton from "../common/PrimaryButton";
 import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
-
-const steps = [
-  {
-    number: "01",
-    title: "Share your inspiration",
-    body: "Tell us your celebration, palette, mood, and references so we can shape a cake that feels truly personal.",
-  },
-  {
-    number: "02",
-    title: "Refine the sweet details",
-    body: "We align on size, flavor, styling direction, and finishing touches to create a design that feels polished and thoughtful.",
-  },
-  {
-    number: "03",
-    title: "Celebrate beautifully",
-    body: "Your cake arrives ready to anchor the table and elevate the whole celebration with a premium boutique feel.",
-  },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function OrderingProcess({ onOrderClick }) {
+  const { t } = useAppTranslation("home");
+  const steps = [
+    {
+      number: "01",
+      title: t("process.steps.share.title"),
+      body: t("process.steps.share.body"),
+    },
+    {
+      number: "02",
+      title: t("process.steps.refine.title"),
+      body: t("process.steps.refine.body"),
+    },
+    {
+      number: "03",
+      title: t("process.steps.celebrate.title"),
+      body: t("process.steps.celebrate.body"),
+    },
+  ];
+
   return (
     <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.96))] p-4 shadow-soft sm:p-8 lg:p-10">
@@ -36,19 +38,19 @@ export default function OrderingProcess({ onOrderClick }) {
             eyebrow={
               <EditableText
                 copyKey="home.process.eyebrow"
-                defaultText="How It Works"
+                defaultText={t("process.eyebrow")}
               />
             }
             title={
               <EditableText
                 copyKey="home.process.title"
-                defaultText="A Custom Cake Process That Feels Easy, Personal, and Premium"
+                defaultText={t("process.title")}
               />
             }
             description={
               <EditableText
                 copyKey="home.process.subtitle"
-                defaultText="From your first inspiration to the final reveal, every step is designed to make ordering feel calm, collaborative, and beautifully tailored."
+                defaultText={t("process.subtitle")}
                 multiline
               />
             }
@@ -58,7 +60,7 @@ export default function OrderingProcess({ onOrderClick }) {
                 onClick={onOrderClick}
                 className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
               >
-                Start your order
+                {t("process.orderButton")}
               </PrimaryButton>
             }
           />

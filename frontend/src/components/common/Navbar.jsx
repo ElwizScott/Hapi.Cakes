@@ -105,7 +105,7 @@ export default function Navbar() {
           >
             <img
               src={logo}
-              alt="Hapi.Cakes"
+              alt={t("brand.alt")}
               className={cx(
                 "h-11 w-11 rounded-full border object-cover transition-all duration-300 ease-soft",
                 isScrolled
@@ -115,7 +115,7 @@ export default function Navbar() {
             />
             <div className="flex flex-col">
               <span className="font-script text-[2rem] leading-none">
-                Hapi.Cakes
+                {t("brand.name")}
               </span>
               <span className="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-plum/65 sm:text-[0.65rem] sm:tracking-[0.2em]">
                 {t("brand.tagline")}

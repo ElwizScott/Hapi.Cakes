@@ -9,8 +9,10 @@ import PillBadge from "../../../components/common/PillBadge";
 import useAdminAuth from "../../admin/hooks/useAdminAuth";
 import EditableText from "../../../components/common/EditableText";
 import { formatVND } from "../../../utils/formatPrice";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Gallery({ variant = "elegant" }) {
+  const { t } = useAppTranslation("common");
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { authenticated } = useAdminAuth();
@@ -41,7 +43,7 @@ export default function Gallery({ variant = "elegant" }) {
       .catch((err) => {
         if (!isActive) return;
         console.error("API ERROR:", err);
-        setError("Unable to load cakes right now.");
+        setError(t("gallery.elegant.unableToLoad"));
         setLoading(false);
       });
 
@@ -102,7 +104,11 @@ export default function Gallery({ variant = "elegant" }) {
               copyKey={
                 isSocial ? "gallery.social.label" : "gallery.elegant.label"
               }
-              defaultText={isSocial ? "Social Feed" : "Curated Collection"}
+              defaultText={
+                isSocial
+                  ? t("gallery.social.label")
+                  : t("gallery.elegant.label")
+              }
             />
           }
           title={
@@ -110,7 +116,11 @@ export default function Gallery({ variant = "elegant" }) {
               copyKey={
                 isSocial ? "gallery.social.title" : "gallery.elegant.title"
               }
-              defaultText={isSocial ? "Instagram Gallery" : "Elegant Gallery"}
+              defaultText={
+                isSocial
+                  ? t("gallery.social.title")
+                  : t("gallery.elegant.title")
+              }
             />
           }
           description={
@@ -122,15 +132,15 @@ export default function Gallery({ variant = "elegant" }) {
               }
               defaultText={
                 isSocial
-                  ? "A curated social feed of our latest creations."
-                  : "Discover our signature cakes and seasonal favorites."
+                  ? t("gallery.social.subtitle")
+                  : t("gallery.elegant.subtitle")
               }
               multiline
             />
           }
           actions={
             <PillBadge className="border-white/75 bg-surface-elevated/90 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
-              {filteredCakes.length} cakes
+              {t("gallery.elegant.count", { count: filteredCakes.length })}
             </PillBadge>
           }
         />
@@ -154,7 +164,7 @@ export default function Gallery({ variant = "elegant" }) {
         ) : null}
 
         {loading ? (
-          <Loader label="Loading cakes..." />
+          <Loader label={t("gallery.elegant.loading")} />
         ) : error ? (
           <p className="text-sm text-rose-500">{error}</p>
         ) : isSocial ? (
@@ -234,7 +244,7 @@ export default function Gallery({ variant = "elegant" }) {
                             updateSlide(cake.id, current - 1, count);
                           }}
                           className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
-                          aria-label="Previous image"
+                          aria-label={t("gallery.controls.previousImage")}
                         >
                           <span className="text-lg leading-none">‹</span>
                         </button>
@@ -245,7 +255,7 @@ export default function Gallery({ variant = "elegant" }) {
                             updateSlide(cake.id, current + 1, count);
                           }}
                           className="grid h-8 w-8 place-items-center rounded-full bg-white/90 text-ink shadow-sm"
-                          aria-label="Next image"
+                          aria-label={t("gallery.controls.nextImage")}
                         >
                           <span className="text-lg leading-none">›</span>
                         </button>

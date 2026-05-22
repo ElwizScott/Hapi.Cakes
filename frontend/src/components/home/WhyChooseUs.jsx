@@ -2,27 +2,29 @@ import EditableText from "../common/EditableText";
 import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
-
-const reasons = [
-  {
-    title: "Refined custom styling",
-    body: "Every cake is designed with a boutique editorial eye, from color harmony to finishing details.",
-  },
-  {
-    title: "Celebration-first approach",
-    body: "We create pieces that don’t just taste lovely, but elevate the table and the memory around it.",
-  },
-  {
-    title: "Soft premium aesthetic",
-    body: "Pastel palettes, floral details, and polished textures inspired by modern Korean and Japanese cafe culture.",
-  },
-  {
-    title: "Warm, personal service",
-    body: "The process stays collaborative and thoughtful, so your order feels special from inquiry to delivery.",
-  },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function WhyChooseUs() {
+  const { t } = useAppTranslation("home");
+  const reasons = [
+    {
+      title: t("why.items.refined.title"),
+      body: t("why.items.refined.body"),
+    },
+    {
+      title: t("why.items.celebration.title"),
+      body: t("why.items.celebration.body"),
+    },
+    {
+      title: t("why.items.aesthetic.title"),
+      body: t("why.items.aesthetic.body"),
+    },
+    {
+      title: t("why.items.service.title"),
+      body: t("why.items.service.body"),
+    },
+  ];
+
   return (
     <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,253,249,0.98),rgba(250,242,250,0.94))] p-4 shadow-soft sm:p-8 lg:p-10">
@@ -36,19 +38,19 @@ export default function WhyChooseUs() {
             eyebrow={
               <EditableText
                 copyKey="home.why.eyebrow"
-                defaultText="Why Choose Us"
+                defaultText={t("why.eyebrow")}
               />
             }
             title={
               <EditableText
                 copyKey="home.why.title"
-                defaultText="Designed for Celebrations That Deserve More Than a Standard Cake"
+                defaultText={t("why.title")}
               />
             }
             description={
               <EditableText
                 copyKey="home.why.subtitle"
-                defaultText="Hapi.Cakes combines premium styling, cozy romance, and custom details so each celebration feels polished, personal, and camera-ready."
+                defaultText={t("why.subtitle")}
                 multiline
               />
             }

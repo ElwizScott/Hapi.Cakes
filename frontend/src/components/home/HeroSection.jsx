@@ -98,42 +98,32 @@ export default function HeroSection({
               <PillBadge className="justify-center border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft">
                 <EditableText
                   copyKey="home.hero.proof_1"
-                  defaultText={t("hero.proof1", {
-                    defaultValue: "100+ happy customers",
-                  })}
+                  defaultText={t("hero.proof1")}
                 />
               </PillBadge>
               <PillBadge className="justify-center border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft">
                 <EditableText
                   copyKey="home.hero.proof_2"
-                  defaultText={t("hero.proof2", {
-                    defaultValue: "Custom designs",
-                  })}
+                  defaultText={t("hero.proof2")}
                 />
               </PillBadge>
               <PillBadge className="justify-center border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft">
                 <EditableText
                   copyKey="home.hero.proof_3"
-                  defaultText={t("hero.proof3", {
-                    defaultValue: "Made with love",
-                  })}
+                  defaultText={t("hero.proof3")}
                 />
               </PillBadge>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary">
               <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                {t("hero.note1", {
-                  defaultValue: "Handcrafted in small batches",
-                })}
+                {t("hero.note1")}
               </div>
               <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                {t("hero.note2", { defaultValue: "Premium ingredients" })}
+                {t("hero.note2")}
               </div>
               <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                {t("hero.note3", {
-                  defaultValue: "Personalized celebration styling",
-                })}
+                {t("hero.note3")}
               </div>
             </div>
           </div>
@@ -141,19 +131,19 @@ export default function HeroSection({
           <div className="relative z-20 mx-auto w-full max-w-[32rem] lg:max-w-none">
             <div className="absolute -left-6 top-8 z-30 hidden w-40 rounded-[1.75rem] border border-white/80 bg-[rgba(255,252,249,0.94)] p-4 shadow-[0_20px_45px_rgba(125,106,121,0.14)] backdrop-blur md:block animate-[overlayIn_700ms_ease-out]">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-plum/70">
-                Best For
+                {t("hero.bestFor")}
               </p>
               <p className="mt-2 font-serif text-lg text-text-primary">
-                Birthdays, weddings, intimate parties
+                {t("hero.bestForText")}
               </p>
             </div>
 
             <div className="absolute -right-3 bottom-8 z-30 hidden w-44 rounded-[1.75rem] border border-white/80 bg-[rgba(255,252,249,0.95)] p-4 shadow-[0_20px_45px_rgba(125,106,121,0.15)] backdrop-blur sm:block animate-[overlayIn_700ms_ease-out] [animation-delay:180ms]">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-plum/70">
-                Signature Style
+                {t("hero.signatureStyle")}
               </p>
               <p className="mt-2 text-sm leading-6 text-text-secondary">
-                Delicate florals, pastel palettes, and bakery-fresh elegance.
+                {t("hero.signatureStyleText")}
               </p>
             </div>
 
@@ -167,12 +157,12 @@ export default function HeroSection({
                     {featuredImageUrl ? (
                       <img
                         src={featuredImageUrl}
-                        alt="Featured cake"
+                        alt={t("hero.featuredAlt")}
                         className="h-full w-full object-cover transition-transform duration-700 ease-soft hover:scale-[1.035]"
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center px-8 text-center font-serif text-2xl text-plum">
-                        Featured Cake
+                        {t("hero.featuredCake")}
                       </div>
                     )}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-t from-plum/18 via-plum/4 to-transparent" />
@@ -186,9 +176,7 @@ export default function HeroSection({
 
             {isAdmin ? (
               <AdminImageEditOverlay
-                label={t("hero.editFeatured", {
-                  defaultValue: "Update featured cake",
-                })}
+                label={t("hero.editFeatured")}
                 uploadEndpoint="/api/admin/upload/featured"
                 currentImageUrl={featuredImageUrl}
                 onUploaded={onFeaturedImageUploaded}

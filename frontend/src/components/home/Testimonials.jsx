@@ -3,27 +3,24 @@ import PillBadge from "../common/PillBadge";
 import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
-
-const fallbackTestimonials = [
-  {
-    quote:
-      "The cake looked even softer and prettier in person. It felt like it belonged in a boutique cafe window.",
-    name: "Birthday Celebration",
-  },
-  {
-    quote:
-      "The design was elegant, the details were thoughtful, and it instantly made the whole table feel more special.",
-    name: "Wedding Client",
-  },
-  {
-    quote:
-      "Beautiful styling, lovely textures, and a premium finish that made our celebration feel complete.",
-    name: "Private Event",
-  },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function Testimonials({ images = [] }) {
-  const cards = fallbackTestimonials.map((item, index) => ({
+  const { t } = useAppTranslation("home");
+  const cards = [
+    {
+      quote: t("testimonials.items.birthday.quote"),
+      name: t("testimonials.items.birthday.name"),
+    },
+    {
+      quote: t("testimonials.items.wedding.quote"),
+      name: t("testimonials.items.wedding.name"),
+    },
+    {
+      quote: t("testimonials.items.private.quote"),
+      name: t("testimonials.items.private.name"),
+    },
+  ].map((item, index) => ({
     ...item,
     image: images[index]?.url ?? images[index] ?? "",
   }));
@@ -35,19 +32,19 @@ export default function Testimonials({ images = [] }) {
         eyebrow={
           <EditableText
             copyKey="home.testimonials.eyebrow"
-            defaultText="Customer Love"
+            defaultText={t("testimonials.eyebrow")}
           />
         }
         title={
           <EditableText
             copyKey="home.testimonials.title"
-            defaultText="Testimonials That Feel as Sweet as the Cakes"
+            defaultText={t("testimonials.title")}
           />
         }
         description={
           <EditableText
             copyKey="home.testimonials.subtitle"
-            defaultText="Real celebrations, soft details, and memorable moments shared by customers who wanted their cake to feel extra special."
+            defaultText={t("testimonials.subtitle")}
             multiline
           />
         }
@@ -60,7 +57,7 @@ export default function Testimonials({ images = [] }) {
               <div className="flex h-full flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <PillBadge className="border-white/70 bg-white/80 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
-                    Featured Review
+                    {t("testimonials.featuredReview")}
                   </PillBadge>
                   <span className="font-serif text-3xl leading-none text-plum/35">
                     “
@@ -86,7 +83,7 @@ export default function Testimonials({ images = [] }) {
                       {item.name}
                     </p>
                     <p className="text-sm text-text-secondary">
-                      Loved for the details and finish
+                      {t("testimonials.tagline")}
                     </p>
                   </div>
                 </div>

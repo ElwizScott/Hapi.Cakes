@@ -17,6 +17,65 @@
     "saving": "Đang lưu...",
     "loading": "Đang tải..."
   },
+  "actions": {
+    "editText": "Chỉnh sửa nội dung"
+  },
+  "errors": {
+    "saveFailed": "Lưu thất bại."
+  },
+  "gallery": {
+    "elegant": {
+      "label": "Bộ sưu tập tinh tế",
+      "title": "Bộ sưu tập tinh tế",
+      "subtitle": "Khám phá các mẫu bánh đặc trưng và những lựa chọn theo mùa.",
+      "loading": "Đang tải bánh...",
+      "unableToLoad": "Không thể tải bánh lúc này.",
+      "count": "{{count}} mẫu bánh"
+    },
+    "social": {
+      "label": "Thư viện xã hội",
+      "title": "Instagram Gallery",
+      "subtitle": "Một nguồn cảm hứng ngọt ngào từ những sáng tạo mới nhất."
+    },
+    "controls": {
+      "previousImage": "Ảnh trước",
+      "nextImage": "Ảnh tiếp theo"
+    }
+  },
+  "feedback": {
+    "header": {
+      "label": "Yêu thương từ khách hàng",
+      "title": "Thư viện phản hồi",
+      "subtitle": "Những khoảnh khắc ngọt ngào được khách hàng chia sẻ.",
+      "uploading": "Đang tải...",
+      "addImages": "Thêm ảnh phản hồi",
+      "loading": "Đang tải phản hồi...",
+      "empty": "Chưa có ảnh phản hồi.",
+      "titleModal": "Phản hồi"
+    },
+    "imageAlt": "Ảnh phản hồi của khách hàng",
+    "controls": {
+      "previous": "Ảnh phản hồi trước",
+      "next": "Ảnh phản hồi tiếp theo",
+      "delete": "Xóa ảnh phản hồi"
+    },
+    "description": {
+      "none": "Chưa có mô tả.",
+      "seeLess": "Thu gọn",
+      "seeMore": "Xem thêm"
+    }
+  },
+  "galleryPage": {
+    "addCategory": "Thêm danh mục",
+    "manageCategories": "Quản lý danh mục",
+    "noCategories": "Không có danh mục nào cho lựa chọn này."
+  },
+  "cakeDetail": {
+    "loading": "Đang tải bánh...",
+    "notFound": "Không tìm thấy bánh.",
+    "backToGallery": "← Quay lại bộ sưu tập",
+    "updateFailed": "Không thể cập nhật chi tiết bánh."
+  },
   "forms": {
     "email": "Email",
     "phone": "Số điện thoại",

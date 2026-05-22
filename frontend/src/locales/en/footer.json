@@ -5,6 +5,12 @@
     "order": "Order",
     "contact": "Contact"
   },
+  "social": {
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "tiktok": "TikTok",
+    "threads": "Threads"
+  },
   "brandTagline": "Get a taste of happiness",
   "description": "Handcrafted cakes for celebrations, delivered with care and a touch of sweetness.",
   "quickLinks": "Quick links",
@@ -18,7 +24,7 @@
   "newsletterButton": "Join the newsletter",
   "newsletterError": "Please add a valid email to continue.",
   "newsletterSuccess": "You're on the list — sweet inspiration incoming!",
-  "copyright": "© {year} Hapi.Cakes. All rights reserved.",
+  "copyright": "© {{year}} Hapi.Cakes. All rights reserved.",
   "adminLogin": "Admin login",
   "footerNote": "Softly made for your sweetest moments"
 }

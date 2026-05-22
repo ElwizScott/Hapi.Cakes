@@ -1,4 +1,9 @@
 {
+  "brand": {
+    "name": "Hapi.Cakes",
+    "alt": "Hapi.Cakes logo",
+    "tagline": "Get a taste of happiness"
+  },
   "links": {
     "home": "Home",
     "elegantGallery": "Elegant Gallery",
@@ -6,9 +11,6 @@
     "feedback": "Feedback",
     "order": "Order",
     "contact": "Contact"
-  },
-  "brand": {
-    "tagline": "Get a taste of happiness"
   },
   "admin": {
     "dashboard": "Dashboard"

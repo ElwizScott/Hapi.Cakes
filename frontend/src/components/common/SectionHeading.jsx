@@ -22,7 +22,13 @@ export default function SectionHeading({
       <div className={cx(centered && "mx-auto max-w-2xl")}>
         {eyebrow ? <p className={eyebrowClass}>{eyebrow}</p> : null}
         {title ? (
-          <h2 className={cx(sectionTitleClass, eyebrow ? "mt-2" : "")}>
+          <h2
+            className={cx(
+              sectionTitleClass,
+              centered && "md:whitespace-nowrap",
+              eyebrow ? "mt-2" : "",
+            )}
+          >
             {title}
           </h2>
         ) : null}
