@@ -16,7 +16,6 @@ import { fetchFeedbackImages } from "../../../api/public/feedback.api";
 import { HeartIcon } from "../../../components/common/BakeryIcons";
 import EditableText from "../../../components/common/EditableText";
 import PrimaryButton from "../../../components/common/PrimaryButton";
-import ScallopDivider from "../../../components/common/ScallopDivider";
 import SecondaryButton from "../../../components/common/SecondaryButton";
 import Sprinkles from "../../../components/common/Sprinkles";
 import useAppTranslation from "../../../i18n/useAppTranslation";
@@ -136,60 +135,52 @@ export default function Home() {
       <Testimonials images={feedbackImages} />
       <SocialGallery images={socialGalleryImages} />
 
-      <div className="relative bg-white pb-16 pt-1 sm:pt-2 lg:pb-20">
-        <ScallopDivider
-          fillClassName="text-white"
-          size="md"
-          className="absolute inset-x-0 -top-6 sm:-top-9"
-        />
-
-        <RevealSection className="ds-page-shell pt-8 sm:pt-10">
-          <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.95))] p-6 shadow-soft sm:p-8 lg:p-10">
-            <div className="pointer-events-none absolute inset-0">
-              <div className="absolute left-10 top-0 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
-              <div className="absolute right-0 bottom-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
+      <RevealSection className="ds-page-shell pb-16 pt-8 sm:pt-10 lg:pb-20">
+        <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.98),rgba(251,242,250,0.95))] p-6 shadow-soft sm:p-8 lg:p-10">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute left-10 top-0 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
+            <div className="absolute right-0 bottom-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
+          </div>
+          <Sprinkles variant="section" />
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div>
+              <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-plum/75">
+                <HeartIcon className="h-3.5 w-3.5 text-candy" />
+                {tHome("cta.eyebrow")}
+              </p>
+              <h3 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                <EditableText
+                  copyKey="home.cta.title"
+                  defaultText={tHome("cta.title")}
+                />
+              </h3>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-text-secondary">
+                {tHome("cta.subtitle")}
+              </p>
             </div>
-            <Sprinkles variant="section" />
-            <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-              <div>
-                <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-plum/75">
-                  <HeartIcon className="h-3.5 w-3.5 text-candy" />
-                  {tHome("cta.eyebrow")}
-                </p>
-                <h3 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                  <EditableText
-                    copyKey="home.cta.title"
-                    defaultText={tHome("cta.title")}
-                  />
-                </h3>
-                <p className="mt-3 max-w-2xl text-base leading-7 text-text-secondary">
-                  {tHome("cta.subtitle")}
-                </p>
-              </div>
 
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <PrimaryButton
-                  type="button"
-                  onClick={() => navigate("/order")}
-                  className="px-6 py-3 text-xs uppercase tracking-[0.18em]"
-                >
-                  {tCommon("buttons.startOrder")}
-                </PrimaryButton>
-                <SecondaryButton
-                  type="button"
-                  onClick={() => navigate("/contact")}
-                  className="border-white/70 bg-white/78 px-6 py-3 text-xs uppercase tracking-[0.18em]"
-                >
-                  <EditableText
-                    copyKey="home.cta.button"
-                    defaultText={tHome("cta.button")}
-                  />
-                </SecondaryButton>
-              </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <PrimaryButton
+                type="button"
+                onClick={() => navigate("/order")}
+                className="px-6 py-3 text-xs uppercase tracking-[0.18em]"
+              >
+                {tCommon("buttons.startOrder")}
+              </PrimaryButton>
+              <SecondaryButton
+                type="button"
+                onClick={() => navigate("/contact")}
+                className="border-white/70 bg-white/78 px-6 py-3 text-xs uppercase tracking-[0.18em]"
+              >
+                <EditableText
+                  copyKey="home.cta.button"
+                  defaultText={tHome("cta.button")}
+                />
+              </SecondaryButton>
             </div>
           </div>
-        </RevealSection>
-      </div>
+        </div>
+      </RevealSection>
     </div>
   );
 }
