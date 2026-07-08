@@ -30,7 +30,7 @@ export const buttonBaseClass =
 
 export const buttonPrimaryClass = cx(
   buttonBaseClass,
-  "bg-accent px-5 py-3 text-white shadow-soft hover:-translate-y-0.5 hover:bg-plum hover:shadow-float focus-visible:ring-accent/40",
+  "bg-accentStrong px-5 py-3 text-white shadow-soft hover:-translate-y-0.5 hover:bg-plum hover:shadow-float focus-visible:ring-accent/40",
 );
 
 export const buttonSecondaryClass = cx(

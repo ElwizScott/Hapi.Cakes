@@ -74,7 +74,18 @@
     "loading": "Đang tải bánh...",
     "notFound": "Không tìm thấy bánh.",
     "backToGallery": "← Quay lại bộ sưu tập",
-    "updateFailed": "Không thể cập nhật chi tiết bánh."
+    "updateFailed": "Không thể cập nhật chi tiết bánh.",
+    "description": "Mô tả",
+    "selectCategory": "Chọn danh mục",
+    "addImage": "Thêm ảnh",
+    "noImageAvailable": "Chưa có hình ảnh",
+    "editName": "Chỉnh sửa tên",
+    "editCategory": "Chỉnh sửa danh mục",
+    "editDescription": "Chỉnh sửa mô tả",
+    "previousImage": "Ảnh trước",
+    "nextImage": "Ảnh tiếp theo",
+    "deleteImage": "Xóa ảnh",
+    "uploadingProgress": "Đang tải {{current}}/{{total}}"
   },
   "forms": {
     "email": "Email",
@@ -82,5 +93,15 @@
     "password": "Mật khẩu",
     "name": "Tên của bạn",
     "optional": "Không bắt buộc"
+  },
+  "cakeCard": {
+    "defaultDescription": "Thiết kế tỉ mỉ và làm theo yêu cầu cho những dịp kỷ niệm thật riêng tư và tinh tế.",
+    "customMade": "Thiết kế riêng",
+    "pastelFinish": "Tông pastel",
+    "startingAt": "Giá từ",
+    "viewDetails": "Xem chi tiết",
+    "fromCustomers": "Từ khách hàng",
+    "noImage": "Chưa có hình ảnh",
+    "uncategorized": "Chưa phân loại"
   }
 }

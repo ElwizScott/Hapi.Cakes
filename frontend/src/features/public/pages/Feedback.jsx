@@ -217,7 +217,7 @@ export default function Feedback() {
                     setLightboxIndex(prevIndex);
                     setLightboxUrl(prevUrl);
                   }}
-                  aria-label="Previous feedback image"
+                  aria-label={t("feedback.controls.previous")}
                   className="absolute -left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
                 >
                   ‹
@@ -230,7 +230,7 @@ export default function Feedback() {
                     setLightboxIndex(nextIndex);
                     setLightboxUrl(nextUrl);
                   }}
-                  aria-label="Next feedback image"
+                  aria-label={t("feedback.controls.next")}
                   className="absolute -right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-ink shadow"
                 >
                   ›
@@ -239,7 +239,7 @@ export default function Feedback() {
             ) : null}
             <img
               src={lightboxUrl}
-              alt="Feedback zoom"
+              alt={t("feedback.imageAlt")}
               className="w-full max-h-[80vh] rounded-2xl object-contain"
             />
           </div>

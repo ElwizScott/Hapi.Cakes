@@ -74,7 +74,18 @@
     "loading": "Loading cake...",
     "notFound": "Cake not found.",
     "backToGallery": "← Back to gallery",
-    "updateFailed": "Unable to update cake details."
+    "updateFailed": "Unable to update cake details.",
+    "description": "Description",
+    "selectCategory": "Select category",
+    "addImage": "Add Image",
+    "noImageAvailable": "No image available",
+    "editName": "Edit name",
+    "editCategory": "Edit category",
+    "editDescription": "Edit description",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "deleteImage": "Delete image",
+    "uploadingProgress": "Uploading {{current}}/{{total}}"
   },
   "forms": {
     "email": "Email",
@@ -82,5 +93,15 @@
     "password": "Password",
     "name": "Your name",
     "optional": "Optional"
+  },
+  "cakeCard": {
+    "defaultDescription": "Delicately styled and made to order for celebrations that feel personal and beautifully polished.",
+    "customMade": "Custom made",
+    "pastelFinish": "Pastel finish",
+    "startingAt": "Starting at",
+    "viewDetails": "View details",
+    "fromCustomers": "From customers",
+    "noImage": "No image available",
+    "uncategorized": "Uncategorized"
   }
 }

@@ -8,6 +8,7 @@ export default {
         brandPink: "#d8a5c7",
         lavender: "#e8d9f1",
         accent: "#c69ac7",
+        accentStrong: "#8f5f97",
         plum: "#6e5575",
         ink: "#463544",
         muted: "#7d6a79",
