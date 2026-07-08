@@ -3,35 +3,37 @@ import EditableText from "../common/EditableText";
 import SectionHeading from "../common/SectionHeading";
 import Sprinkles from "../common/Sprinkles";
 import RevealSection from "./RevealSection";
-
-const reasons = [
-  {
-    title: "Refined custom styling",
-    body: "Every cake is designed with a boutique editorial eye, from color harmony to finishing details.",
-    icon: SparkleIcon,
-    tint: "bg-brandPink/20 text-plum",
-  },
-  {
-    title: "Celebration-first approach",
-    body: "We create pieces that don’t just taste lovely, but elevate the table and the memory around it.",
-    icon: HeartIcon,
-    tint: "bg-candy/25 text-plum",
-  },
-  {
-    title: "Soft premium aesthetic",
-    body: "Pastel palettes, floral details, and polished textures inspired by modern Korean and Japanese cafe culture.",
-    icon: BowIcon,
-    tint: "bg-lavender/40 text-plum",
-  },
-  {
-    title: "Warm, personal service",
-    body: "The process stays collaborative and thoughtful, so your order feels special from inquiry to delivery.",
-    icon: StarIcon,
-    tint: "bg-accent-soft text-accentStrong",
-  },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function WhyChooseUs() {
+  const { t } = useAppTranslation("home");
+  const reasons = [
+    {
+      title: t("why.items.refined.title"),
+      body: t("why.items.refined.body"),
+      icon: SparkleIcon,
+      tint: "bg-brandPink/20 text-plum",
+    },
+    {
+      title: t("why.items.celebration.title"),
+      body: t("why.items.celebration.body"),
+      icon: HeartIcon,
+      tint: "bg-candy/25 text-plum",
+    },
+    {
+      title: t("why.items.aesthetic.title"),
+      body: t("why.items.aesthetic.body"),
+      icon: BowIcon,
+      tint: "bg-lavender/40 text-plum",
+    },
+    {
+      title: t("why.items.service.title"),
+      body: t("why.items.service.body"),
+      icon: StarIcon,
+      tint: "bg-accent-soft text-accentStrong",
+    },
+  ];
+
   return (
     <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <Sprinkles variant="section" />
@@ -41,19 +43,19 @@ export default function WhyChooseUs() {
             eyebrow={
               <EditableText
                 copyKey="home.why.eyebrow"
-                defaultText="Why Choose Us"
+                defaultText={t("why.eyebrow")}
               />
             }
             title={
               <EditableText
                 copyKey="home.why.title"
-                defaultText="Designed for celebrations that deserve more than a standard cake"
+                defaultText={t("why.title")}
               />
             }
             description={
               <EditableText
                 copyKey="home.why.subtitle"
-                defaultText="Hapi.Cakes combines premium styling, cozy romance, and custom details so each celebration feels polished, personal, and camera-ready."
+                defaultText={t("why.subtitle")}
                 multiline
               />
             }

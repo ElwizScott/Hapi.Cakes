@@ -1,0 +1,24 @@
+{
+  "brand": {
+    "name": "Hapi.Cakes",
+    "alt": "Hapi.Cakes logo",
+    "tagline": "Get a taste of happiness"
+  },
+  "links": {
+    "home": "Home",
+    "elegantGallery": "Elegant Gallery",
+    "socialGallery": "Social Gallery",
+    "feedback": "Feedback",
+    "order": "Order",
+    "contact": "Contact"
+  },
+  "admin": {
+    "dashboard": "Dashboard"
+  },
+  "linksPlural": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "order": "Order",
+    "contact": "Contact"
+  }
+}

@@ -4,27 +4,7 @@ import PillBadge from "../common/PillBadge";
 import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
-
-const fallbackTestimonials = [
-  {
-    quote:
-      "The cake looked even softer and prettier in person. It felt like it belonged in a boutique cafe window.",
-    name: "Birthday Celebration",
-    tagline: "Loved for the pastel finish",
-  },
-  {
-    quote:
-      "The design was elegant, the details were thoughtful, and it instantly made the whole table feel more special.",
-    name: "Wedding Client",
-    tagline: "Loved for the romantic styling",
-  },
-  {
-    quote:
-      "Beautiful styling, lovely textures, and a premium finish that made our celebration feel complete.",
-    name: "Private Event",
-    tagline: "Loved for the finishing details",
-  },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 function Avatar({ image, name }) {
   return (
@@ -37,32 +17,46 @@ function Avatar({ image, name }) {
 }
 
 export default function Testimonials({ images = [] }) {
-  const cards = fallbackTestimonials.map((item, index) => ({
+  const { t } = useAppTranslation("home");
+  const cards = [
+    {
+      quote: t("testimonials.items.birthday.quote"),
+      name: t("testimonials.items.birthday.name"),
+    },
+    {
+      quote: t("testimonials.items.wedding.quote"),
+      name: t("testimonials.items.wedding.name"),
+    },
+    {
+      quote: t("testimonials.items.private.quote"),
+      name: t("testimonials.items.private.name"),
+    },
+  ].map((item, index) => ({
     ...item,
     image: images[index]?.url ?? images[index] ?? "",
   }));
   const [featured, ...rest] = cards;
 
   return (
-    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-4 sm:py-10 lg:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(232,217,241,0.16),rgba(255,255,255,0))]" />
       <SectionHeading
         eyebrow={
           <EditableText
             copyKey="home.testimonials.eyebrow"
-            defaultText="Customer Love"
+            defaultText={t("testimonials.eyebrow")}
           />
         }
         title={
           <EditableText
             copyKey="home.testimonials.title"
-            defaultText="Testimonials that feel as sweet as the cakes"
+            defaultText={t("testimonials.title")}
           />
         }
         description={
           <EditableText
             copyKey="home.testimonials.subtitle"
-            defaultText="Real celebrations, soft details, and memorable moments shared by customers who wanted their cake to feel extra special."
+            defaultText={t("testimonials.subtitle")}
             multiline
           />
         }
@@ -75,7 +69,7 @@ export default function Testimonials({ images = [] }) {
             <div className="relative space-y-4">
               <div className="flex items-center justify-between">
                 <PillBadge className="border-white/70 bg-white/85 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
-                  Featured Review
+                  {t("testimonials.featuredReview")}
                 </PillBadge>
                 <span className="font-serif text-5xl leading-none text-plum/30">
                   “
@@ -92,7 +86,7 @@ export default function Testimonials({ images = [] }) {
                   {featured.name}
                 </p>
                 <p className="text-sm text-text-secondary">
-                  {featured.tagline}
+                  {t("testimonials.tagline")}
                 </p>
               </div>
             </div>
@@ -113,7 +107,7 @@ export default function Testimonials({ images = [] }) {
                       {item.name}
                     </p>
                     <p className="text-xs text-text-secondary">
-                      {item.tagline}
+                      {t("testimonials.tagline")}
                     </p>
                   </div>
                 </div>

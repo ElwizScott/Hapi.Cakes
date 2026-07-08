@@ -1,4 +1,9 @@
-export default function Loader({ label = "Loading..." }) {
+import useAppTranslation from "../../i18n/useAppTranslation";
+
+export default function Loader({ label }) {
+  const { t } = useAppTranslation("common");
+  const resolvedLabel = label ?? t("states.loading");
+
   return (
     <div
       className="flex items-center justify-center gap-3 text-text-secondary"
@@ -9,7 +14,7 @@ export default function Loader({ label = "Loading..." }) {
         <span className="h-2.5 w-2.5 rounded-full bg-lavender/80 animate-soft-pulse [animation-delay:180ms]" />
         <span className="h-2.5 w-2.5 rounded-full bg-accent/80 animate-soft-pulse [animation-delay:360ms]" />
       </span>
-      <span className="text-sm">{label}</span>
+      <span className="text-sm">{resolvedLabel}</span>
     </div>
   );
 }

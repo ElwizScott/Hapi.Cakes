@@ -7,21 +7,13 @@ import { SparkleIcon } from "./BakeryIcons";
 import { cx } from "./designSystem";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 const linkClass =
-  "group relative inline-flex min-h-11 items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
+  "group relative inline-flex min-h-11 touch-manipulation items-center justify-center rounded-pill px-4 py-2.5 text-sm font-medium tracking-[0.02em] text-text-secondary transition-all duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white/65 hover:text-plum";
 
 const activeClass = "bg-accent-soft text-plum";
 const inactiveClass = "text-text-secondary hover:text-plum";
-
-const publicLinks = [
-  { to: "/", label: "Home" },
-  { to: "/gallery", label: "Elegant Gallery" },
-  { to: "/gallery-social", label: "Social Gallery" },
-  { to: "/feedback", label: "Feedback" },
-  { to: "/order", label: "Order" },
-  { to: "/contact", label: "Contact" },
-];
 
 function NavItem({ to, children, onClick, className = "" }) {
   return (
@@ -62,6 +54,7 @@ function NavItem({ to, children, onClick, className = "" }) {
 export default function Navbar() {
   const navigate = useNavigate();
   const { authenticated, clearSession } = useAdminAuth();
+  const { t } = useAppTranslation("navbar");
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -87,6 +80,15 @@ export default function Navbar() {
 
   const closeMenu = () => setIsOpen(false);
 
+  const publicLinks = [
+    { to: "/", label: t("links.home") },
+    { to: "/gallery", label: t("links.elegantGallery") },
+    { to: "/gallery-social", label: t("links.socialGallery") },
+    { to: "/feedback", label: t("links.feedback") },
+    { to: "/order", label: t("links.order") },
+    { to: "/contact", label: t("links.contact") },
+  ];
+
   return (
     <nav
       className={cx(
@@ -105,7 +107,7 @@ export default function Navbar() {
             <div className="relative">
               <img
                 src={logo}
-                alt="Hapi.Cakes"
+                alt={t("brand.alt")}
                 className={cx(
                   "h-11 w-11 rounded-full border object-cover transition-all duration-300 ease-soft group-hover:rotate-6",
                   isScrolled
@@ -117,10 +119,10 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className="font-script text-[2rem] leading-none">
-                Hapi.Cakes
+                {t("brand.name")}
               </span>
               <span className="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-plum/65 sm:text-[0.65rem] sm:tracking-[0.2em]">
-                Get a taste of happiness
+                {t("brand.tagline")}
               </span>
             </div>
           </NavLink>
@@ -135,7 +137,7 @@ export default function Navbar() {
             </div>
 
             {authenticated ? (
-              <NavItem to="/admin/dashboard">Dashboard</NavItem>
+              <NavItem to="/admin/dashboard">{t("admin.dashboard")}</NavItem>
             ) : null}
 
             {authenticated ? (
@@ -143,18 +145,20 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="ml-2 border-white/60 bg-white/70 px-4 py-2.5 text-xs uppercase tracking-[0.2em]"
               >
-                Log out
+                {t("buttons.logout", { ns: "common" })}
               </SecondaryButton>
             ) : null}
           </div>
 
           <PrimaryButton
-            className="min-h-11 px-4 py-2.5 text-xs uppercase tracking-[0.2em] lg:hidden"
+            className="min-h-12 px-5 py-3 text-xs uppercase tracking-[0.2em] lg:hidden"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsOpen((prev) => !prev)}
           >
-            {isOpen ? "Close" : "Menu"}
+            {isOpen
+              ? t("buttons.close", { ns: "common" })
+              : t("buttons.menu", { ns: "common" })}
           </PrimaryButton>
         </div>
       </div>
@@ -163,18 +167,20 @@ export default function Navbar() {
         id="mobile-menu"
         className={cx(
           "overflow-hidden border-t border-white/40 bg-surface/88 backdrop-blur-xl transition-all duration-300 ease-soft lg:hidden",
-          isOpen ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0",
+          isOpen
+            ? "max-h-[calc(100vh-5rem)] overflow-y-auto opacity-100"
+            : "max-h-0 opacity-0",
         )}
       >
         <div className="ds-page-shell py-3 sm:py-4">
-          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-3 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur">
-            <div className="grid gap-2">
+          <div className="rounded-[1.75rem] border border-white/55 bg-white/58 p-3 shadow-[0_18px_40px_rgba(198,154,199,0.14)] backdrop-blur sm:p-4">
+            <div className="grid gap-3">
               {publicLinks.map((link) => (
                 <NavItem
                   key={link.to}
                   to={link.to}
                   onClick={closeMenu}
-                  className="w-full justify-start px-4 py-3 text-sm"
+                  className="w-full justify-start px-4 py-3.5 text-base"
                 >
                   {link.label}
                 </NavItem>
@@ -184,9 +190,9 @@ export default function Navbar() {
                 <NavItem
                   to="/admin/dashboard"
                   onClick={closeMenu}
-                  className="w-full justify-start px-4 py-3 text-sm"
+                  className="w-full justify-start px-4 py-3.5 text-base"
                 >
-                  Dashboard
+                  {t("admin.dashboard")}
                 </NavItem>
               ) : null}
             </div>
@@ -194,9 +200,9 @@ export default function Navbar() {
             {authenticated ? (
               <SecondaryButton
                 onClick={handleLogout}
-                className="mt-3 w-full border-white/60 bg-white/72 uppercase tracking-[0.18em]"
+                className="mt-3 w-full border-white/60 bg-white/72 px-4 py-3 uppercase tracking-[0.18em]"
               >
-                Log out
+                {t("buttons.logout", { ns: "common" })}
               </SecondaryButton>
             ) : null}
           </div>

@@ -1,0 +1,30 @@
+{
+  "links": {
+    "home": "Trang chủ",
+    "gallery": "Bộ sưu tập",
+    "order": "Đặt bánh",
+    "contact": "Liên hệ"
+  },
+  "social": {
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "tiktok": "TikTok",
+    "threads": "Threads"
+  },
+  "brandTagline": "Trao vị ngọt của niềm vui",
+  "description": "Bánh thủ công cho những dịp đặc biệt, được gửi đến bạn với sự chỉn chu và một chút ngọt ngào dễ thương.",
+  "quickLinks": "Liên kết nhanh",
+  "followUs": "Theo dõi chúng mình",
+  "badgeOne": "Không gian ấm áp",
+  "badgeTwo": "Dành cho mọi dịp vui",
+  "newsletterEyebrow": "Cập nhật ngọt ngào",
+  "newsletterTitle": "Ghé vào góc nhỏ của Hapi.Cakes ✨",
+  "newsletterSubtitle": "Thỉnh thoảng tụi mình gửi vài mẫu bánh xinh, ý tưởng dễ thương và một chút ngọt ngào nho nhỏ.",
+  "newsletterPlaceholder": "Nhập email để nhận tin ngọt ngào",
+  "newsletterButton": "Đăng ký nhận tin",
+  "newsletterError": "Vui lòng thêm email hợp lệ để tiếp tục.",
+  "newsletterSuccess": "Bạn đã ở trong danh sách rồi — cảm hứng ngọt ngào đang đến!",
+  "copyright": "© {{year}} Hapi.Cakes. All rights reserved.",
+  "adminLogin": "Admin login",
+  "footerNote": "Dịu dàng làm nên những khoảnh khắc ngọt ngào nhất"
+}

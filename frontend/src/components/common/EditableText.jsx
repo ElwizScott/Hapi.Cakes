@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSiteCopy } from "../../features/public/context/SiteCopyContext";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
+import useAppTranslation from "../../i18n/useAppTranslation";
 import {
   cx,
   fieldClass,
@@ -18,6 +19,7 @@ export default function EditableText({
 }) {
   const { authenticated } = useAdminAuth();
   const { copy, updateCopy } = useSiteCopy();
+  const { t } = useAppTranslation("common");
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
   const [saving, setSaving] = useState(false);
@@ -38,7 +40,7 @@ export default function EditableText({
       await updateCopy(copyKey, draft);
       setEditing(false);
     } catch (err) {
-      setError("Save failed.");
+      setError(t("errors.saveFailed"));
     } finally {
       setSaving(false);
     }
@@ -79,14 +81,14 @@ export default function EditableText({
             disabled={saving}
             className={cx(buttonPrimaryClass, "px-3 py-1.5 text-xs")}
           >
-            {saving ? "Saving..." : "Save"}
+            {saving ? t("states.saving") : t("buttons.save")}
           </button>
           <button
             type="button"
             onClick={handleCancel}
             className={cx(buttonSecondaryClass, "px-3 py-1.5 text-xs")}
           >
-            Cancel
+            {t("buttons.cancel")}
           </button>
           {error ? <span className={fieldErrorClass}>{error}</span> : null}
         </div>
@@ -101,7 +103,7 @@ export default function EditableText({
         type="button"
         onClick={startEdit}
         className="rounded-pill bg-accent-soft px-2.5 py-1 text-xs text-plum opacity-0 transition duration-200 ease-soft group-hover:opacity-100"
-        title="Edit text"
+        title={t("actions.editText")}
       >
         ✎
       </button>

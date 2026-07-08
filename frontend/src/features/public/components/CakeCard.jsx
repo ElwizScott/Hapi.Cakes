@@ -2,6 +2,7 @@ import { formatVND } from "../../../utils/formatPrice";
 import { HeartIcon, SparkleIcon } from "../../../components/common/BakeryIcons";
 import PillBadge from "../../../components/common/PillBadge";
 import { cx } from "../../../components/common/designSystem";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function CakeCard({
   imageUrl,
@@ -14,6 +15,8 @@ export default function CakeCard({
   onEdit,
   onClick,
 }) {
+  const { t } = useAppTranslation("common");
+
   return (
     <div
       onClick={onClick}
@@ -26,10 +29,12 @@ export default function CakeCard({
     >
       {showAdminEdit && (
         <button
+          type="button"
           onClick={(event) => {
             event.stopPropagation();
             onEdit?.();
           }}
+          aria-label={`Edit ${name}`}
           className="absolute right-3 top-3 z-30 rounded-pill border border-border-soft bg-surface-elevated/95 px-3 py-1.5 text-xs font-semibold text-plum opacity-0 shadow-soft transition duration-300 ease-soft group-hover:opacity-100"
         >
           ✎
@@ -37,14 +42,12 @@ export default function CakeCard({
       )}
 
       <div className="flex h-full flex-col p-3 sm:p-4">
-        <div className="relative aspect-[4/3.15] w-full overflow-hidden rounded-card border border-border-soft/80 bg-gradient-to-br from-surface via-accent-soft/30 to-lavender/30 shadow-soft">
-          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.42),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(110,85,117,0.12))]" />
+        <div className="relative aspect-[4/3.15] w-full overflow-hidden rounded-card border border-border-soft/80 bg-surface shadow-soft">
           <img
             src={imageUrl}
             alt={name}
             className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-soft group-hover:scale-[1.04]"
           />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-20 bg-gradient-to-t from-plum/22 via-plum/6 to-transparent" />
           {categoryName ? (
             <div className="absolute left-3 top-3 z-20">
               <PillBadge className="border-white/75 bg-white/84 px-3 py-1 text-[0.6rem] tracking-[0.16em] text-plum shadow-soft">
@@ -78,19 +81,18 @@ export default function CakeCard({
               </p>
             ) : (
               <p className="text-sm leading-6 text-text-secondary">
-                Delicately styled and made to order for celebrations that feel
-                personal and beautifully polished.
+                {t("cakeCard.defaultDescription")}
               </p>
             )}
 
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <PillBadge className="gap-1 border-white/75 bg-surface-elevated/92 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
                 <HeartIcon className="h-3 w-3 text-candy" />
-                Custom made
+                {t("cakeCard.customMade")}
               </PillBadge>
               <PillBadge className="gap-1 border-white/75 bg-surface-elevated/92 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
                 <SparkleIcon className="h-3 w-3 text-accentStrong" />
-                Pastel finish
+                {t("cakeCard.pastelFinish")}
               </PillBadge>
             </div>
           </div>
@@ -100,25 +102,25 @@ export default function CakeCard({
               <div className="flex items-end justify-between gap-3">
                 <div>
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-text-secondary">
-                    Starting at
+                    {t("cakeCard.startingAt")}
                   </p>
                   <p className="mt-1 font-serif text-xl font-semibold text-plum sm:text-[1.4rem]">
                     {formatVND(price)}
                   </p>
                 </div>
                 <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-plum sm:text-[0.68rem] sm:tracking-[0.18em]">
-                  View details
+                  {t("cakeCard.viewDetails")}
                 </div>
               </div>
               {feedbackImageUrl ? (
                 <div className="flex items-center gap-2 rounded-[1.1rem] border border-border-soft bg-surface-elevated/75 p-2">
                   <img
                     src={feedbackImageUrl}
-                    alt="Feedback"
+                    alt={t("feedback.imageAlt")}
                     className="h-12 w-12 rounded-xl object-cover"
                   />
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-text-secondary">
-                    From customers
+                    {t("cakeCard.fromCustomers")}
                   </p>
                 </div>
               ) : null}
@@ -126,7 +128,7 @@ export default function CakeCard({
           ) : (
             <div className="mt-4 border-t border-border-soft/70 pt-4">
               <div className="rounded-pill bg-accent-soft px-3 py-1.5 text-center text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-plum sm:text-[0.68rem] sm:tracking-[0.18em]">
-                View details
+                {t("cakeCard.viewDetails")}
               </div>
             </div>
           )}

@@ -19,10 +19,13 @@ import PrimaryButton from "../../../components/common/PrimaryButton";
 import ScallopDivider from "../../../components/common/ScallopDivider";
 import SecondaryButton from "../../../components/common/SecondaryButton";
 import Sprinkles from "../../../components/common/Sprinkles";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Home() {
   const { authenticated } = useAdminAuth();
   const navigate = useNavigate();
+  const { t: tHome } = useAppTranslation("home");
+  const { t: tCommon } = useAppTranslation("common");
   const [images, setImages] = useState({
     featured: "",
   });
@@ -151,20 +154,16 @@ export default function Home() {
               <div>
                 <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-plum/75">
                   <HeartIcon className="h-3.5 w-3.5 text-candy" />
-                  Final Touch
+                  {tHome("cta.eyebrow")}
                 </p>
                 <h3 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                   <EditableText
                     copyKey="home.cta.title"
-                    defaultText="Custom cake in mind?"
+                    defaultText={tHome("cta.title")}
                   />
                 </h3>
                 <p className="mt-3 max-w-2xl text-base leading-7 text-text-secondary">
-                  <EditableText
-                    copyKey="home.cta.subtitle"
-                    defaultText="Tell us your mood, colors, and celebration details. We’ll help shape a cake that feels beautiful, personal, and worth remembering."
-                    multiline
-                  />
+                  {tHome("cta.subtitle")}
                 </p>
               </div>
 
@@ -174,7 +173,7 @@ export default function Home() {
                   onClick={() => navigate("/order")}
                   className="px-6 py-3 text-xs uppercase tracking-[0.18em]"
                 >
-                  Start order
+                  {tCommon("buttons.startOrder")}
                 </PrimaryButton>
                 <SecondaryButton
                   type="button"
@@ -183,7 +182,7 @@ export default function Home() {
                 >
                   <EditableText
                     copyKey="home.cta.button"
-                    defaultText="Contact Us"
+                    defaultText={tHome("cta.button")}
                   />
                 </SecondaryButton>
               </div>

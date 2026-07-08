@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import EditableText from "../../../components/common/EditableText";
 import PageHero from "../../../components/common/PageHero";
+import PrimaryButton from "../../../components/common/PrimaryButton";
+import SurfaceCard from "../../../components/common/SurfaceCard";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function Contact() {
+  const navigate = useNavigate();
+  const { t } = useAppTranslation("contact");
+  const { t: tCommon } = useAppTranslation("common");
+
   const socials = [
     {
       name: "Instagram",
@@ -64,21 +72,30 @@ export default function Contact() {
           eyebrow={
             <EditableText
               copyKey="contact.header.label"
-              defaultText="Contact"
+              defaultText={t("header.label")}
             />
           }
           title={
             <EditableText
               copyKey="contact.header.title"
-              defaultText="Let’s Plan Something Sweet"
+              defaultText={t("header.title")}
             />
           }
           description={
             <EditableText
               copyKey="contact.header.subtitle"
-              defaultText="Share your idea, ask a question, or say hello — we’d love to hear from you."
+              defaultText={t("header.subtitle")}
               multiline
             />
+          }
+          actions={
+            <PrimaryButton
+              type="button"
+              onClick={() => navigate("/order")}
+              className="px-6 py-3 text-xs uppercase tracking-[0.18em]"
+            >
+              {tCommon("buttons.startOrder")}
+            </PrimaryButton>
           }
         />
 
@@ -89,24 +106,35 @@ export default function Contact() {
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-4 rounded-3xl border border-lavender/50 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(200,141,191,0.25)] sm:p-5"
+              className="group flex min-h-12 items-center gap-4 rounded-card border border-border-soft bg-surface p-4 shadow-soft transition duration-300 ease-soft hover:-translate-y-1 hover:border-accent/50 hover:shadow-float sm:p-5"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-white via-white to-lavender/30 text-plum shadow-sm sm:h-12 sm:w-12">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[1.1rem] bg-accent-soft/75 text-plum shadow-soft transition duration-300 ease-soft group-hover:bg-white sm:h-12 sm:w-12">
                 {social.icon}
               </div>
-              <div>
-                <p className="text-sm font-semibold text-ink">{social.name}</p>
-                <p className="text-xs text-muted">{social.handle}</p>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-text-primary">
+                  {social.name}
+                </p>
+                <p className="text-xs text-text-secondary">{social.handle}</p>
               </div>
-              <span className="ml-auto text-sm font-semibold text-plum transition group-hover:text-brandPink">
+              <span className="ml-auto shrink-0 text-sm font-semibold text-plum transition group-hover:text-brandPink">
                 <EditableText
                   copyKey="contact.social.visit"
-                  defaultText="Visit →"
+                  defaultText={t("social.visit")}
                 />
               </span>
             </a>
           ))}
         </div>
+
+        <SurfaceCard className="border-white/70 bg-white/72 p-5 text-center backdrop-blur sm:p-6">
+          <p className="text-sm leading-6 text-text-secondary">
+            <EditableText
+              copyKey="contact.cta.label"
+              defaultText={t("cta.label")}
+            />
+          </p>
+        </SurfaceCard>
       </div>
     </section>
   );

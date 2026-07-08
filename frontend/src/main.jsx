@@ -12,6 +12,7 @@ import "@fontsource/quicksand/600.css";
 import "@fontsource/quicksand/700.css";
 import "@fontsource/dancing-script/600.css";
 import "@fontsource/dancing-script/700.css";
+import "./i18n";
 import "./index.css";
 import "./styles/globals.css";
 

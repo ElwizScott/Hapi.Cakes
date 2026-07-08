@@ -1,0 +1,92 @@
+{
+  "header": {
+    "label": "Custom order",
+    "title": "Build Your Dream Cake",
+    "subtitle": "A boutique cake builder designed to make your order feel clear, inspiring, and beautifully personal from the very first step."
+  },
+  "steps": {
+    "contact": {
+      "label": "Step 1",
+      "title": "Your celebration",
+      "description": "Share the occasion and how we should reach you."
+    },
+    "cake": {
+      "label": "Step 2",
+      "title": "Cake design",
+      "description": "Choose the flavors, size, and styling direction."
+    },
+    "delivery": {
+      "label": "Step 3",
+      "title": "Delivery details",
+      "description": "Set timing, fulfillment, and extra notes."
+    }
+  },
+  "badges": {
+    "premium": "Soft premium styling",
+    "guided": "Guided 3-step flow"
+  },
+  "fields": {
+    "name": "Name",
+    "occasion": "Occasion",
+    "email": "Email",
+    "phone": "Phone",
+    "flavor": "Flavor",
+    "servings": "Servings",
+    "budget": "Budget",
+    "reference": "Inspiration / Reference URL",
+    "date": "Date",
+    "fulfillment": "Pickup or Delivery",
+    "address": "Delivery Address",
+    "notes": "Notes"
+  },
+  "placeholders": {
+    "name": "Your name",
+    "email": "you@example.com",
+    "phone": "Optional",
+    "servings": "Select servings",
+    "reference": "Pinterest, Instagram, or mood board link",
+    "address": "Street, district, and city",
+    "notes": "Color palette, floral style, dietary notes, message on cake..."
+  },
+  "options": {
+    "birthday": {"value": "Birthday", "hint": "Playful, personal, and photo-ready"},
+    "wedding": {"value": "Wedding", "hint": "Elegant florals and soft finishes"},
+    "anniversary": {"value": "Anniversary", "hint": "Romantic and polished"},
+    "babyShower": {"value": "Baby Shower", "hint": "Sweet pastel storytelling"},
+    "graduation": {"value": "Graduation", "hint": "Celebration centerpiece styling"},
+    "other": {"value": "Other", "hint": "Custom mood and concept"},
+    "vanilla": "Vanilla",
+    "chocolate": "Chocolate",
+    "strawberry": "Strawberry",
+    "matcha": "Matcha",
+    "redVelvet": "Red Velvet",
+    "custom": "Custom",
+    "pickup": {"title": "Pickup", "hint": "Simple collection from the bakery"},
+    "delivery": {"title": "Delivery", "hint": "Bring it straight to the celebration"}
+  },
+  "cta": {
+    "submit": "Send Request",
+    "back": "Back",
+    "continue": "Continue"
+  },
+  "messages": {
+    "review": "You can review and submit after the final step.",
+    "ready": "Everything looks ready. Send your request when you’re happy.",
+    "submitted": "Thank you! Your request has been received. We’ll contact you soon.",
+    "nameRequired": "Name is required.",
+    "contactRequired": "Email or phone is required.",
+    "occasionRequired": "Occasion is required.",
+    "dateRequired": "Date is required.",
+    "addressRequired": "Delivery address is required.",
+    "previewTitle": "Your custom cake",
+    "dreamFlavor": "Dream flavor",
+    "selectSize": "Select size",
+    "celebrationType": "Celebration type",
+    "builderNotes": "Builder notes",
+    "builderDescription": "Choose your flavor, budget, and fulfillment option to shape the feel of your custom cake request.",
+    "received": "What we’ll receive",
+    "notAdded": "Not added",
+    "included": "Included",
+    "optional": "Optional"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "hero": {
+    "title": "Hapi.Cakes",
+    "eyebrow": "Những chiếc bánh nhỏ cho ngày thật vui ✨",
+    "kicker": "Chiếc bánh dành riêng cho khoảnh khắc đặc biệt của bạn",
+    "subtitle": "Từ sinh nhật, kỷ niệm đến tiệc cưới, Hapi.Cakes tạo nên những chiếc bánh được thiết kế riêng theo phong cách bạn yêu thích nhẹ nhàng, xinh xắn và đủ khiến ngày hôm đó trở nên đáng nhớ hơn một chút.",
+    "ctaOrder": "Đặt bánh ngay",
+    "ctaGallery": "Xem mẫu bánh",
+    "ctaContact": "Nhắn tụi mình nè",
+    "proof1": "Hơn 100 khách hàng đã tin tưởng",
+    "proof2": "Thiết kế riêng theo yêu cầu",
+    "proof3": "Làm thủ công mỗi ngày",
+    "note1": "Mỗi chiếc bánh đều làm riêng theo đơn",
+    "note2": "Nguyên liệu được chọn lựa kỹ lưỡng",
+    "note3": "Điều chỉnh decor theo ý bạn",
+    "bestFor": "Phù hợp cho",
+    "bestForText": "Sinh nhật, tiệc nhỏ, kỷ niệm và cả những dịp cần thêm một chút niềm vui",
+    "signatureStyle": "Phong cách đặc trưng",
+    "signatureStyleText": "Tone pastel dịu mắt cùng những chi tiết hoa mềm mại mang nét riêng của Hapi.Cakes",
+    "featuredCake": "Mẫu bánh nổi bật",
+    "featuredAlt": "Bánh nổi bật của Hapi.Cakes",
+    "editFeatured": "Cập nhật bánh nổi bật"
+  },
+
+  "featured": {
+    "eyebrow": "Những mẫu bánh được yêu thích nhất",
+    "title": "Mẫu bánh nổi bật hôm nay",
+    "subtitle": "Những chiếc bánh được khách thương nhiều nhất tại Hapi.Cakes - nhẹ nhàng, tinh tế và lên hình siêu xinh.",
+    "viewAll": "Xem tất cả",
+    "cardDescription": "Thiết kế pastel nhẹ nhàng với nét decor đặc trưng chỉ có tại Hapi.Cakes."
+  },
+
+  "categories": {
+    "eyebrow": "Bánh cho từng dịp đặc biệt",
+    "title": "Mỗi buổi tiệc đều xứng đáng có một chiếc bánh thật xinh ✨",
+    "subtitle": "Tụi mình tin rằng một chiếc bánh phù hợp sẽ khiến không khí buổi tiệc trở nên trọn vẹn và đáng nhớ hơn rất nhiều.",
+    "collection": "Bộ sưu tập",
+    "noImage": "Chưa có hình ảnh",
+    "description": "Khám phá những mẫu bánh dành cho {{name}} với phong cách nhẹ nhàng, đáng yêu và cực kỳ nổi bật khi lên hình."
+  },
+
+  "why": {
+    "eyebrow": "Vì sao mọi người chọn Hapi.Cakes",
+    "title": "Không chỉ là bánh, mà còn là một phần của buổi tiệc ✨",
+    "subtitle": "Mỗi chiếc bánh đều được tụi mình chăm chút thật kỹ để vừa xinh khi lên hình, vừa phù hợp với không khí đặc biệt của ngày hôm đó.",
+    "items": {
+      "refined": {
+        "title": "Thiết kế theo tone riêng",
+        "body": "Từ màu sắc đến từng chi tiết decor đều được điều chỉnh để chiếc bánh thật hài hòa và đúng với phong cách bạn thích."
+      },
+      "celebration": {
+        "title": "Giúp bàn tiệc nổi bật hơn",
+        "body": "Không chỉ ngon, chiếc bánh còn là điểm nhấn khiến buổi tiệc trở nên đặc biệt và có cảm giác “đúng vibe” hơn rất nhiều."
+      },
+      "aesthetic": {
+        "title": "Màu sắc dịu dàng",
+        "body": "Những gam màu nhẹ cùng chi tiết nhỏ được kết hợp vừa đủ để chiếc bánh hài hòa và dễ nhìn."
+      },
+      "service": {
+        "title": "Tụi mình hỗ trợ thật kỹ",
+        "body": "Từ lúc lên ý tưởng cho đến khi nhận bánh, Hapi.Cakes luôn đồng hành để bạn có trải nghiệm thật dễ chịu và thoải mái."
+      }
+    }
+  },
+
+  "process": {
+    "eyebrow": "Cách đặt bánh",
+    "title": "Đặt bánh thật dễ, phần còn lại để tụi mình lo ✨",
+    "subtitle": "Chỉ cần gửi mẫu hoặc ý tưởng bạn thích, tụi mình sẽ cùng bạn tạo nên một chiếc bánh thật xinh cho ngày đặc biệt đó.",
+    "orderButton": "Bắt đầu đặt bánh",
+    "steps": {
+      "share": {
+        "title": "Gửi mẫu bánh bạn thích",
+        "body": "Bạn có thể gửi hình tham khảo, màu sắc hoặc ý tưởng để tụi mình hiểu rõ phong cách mà bạn đang muốn hướng tới."
+      },
+      "refine": {
+        "title": "Chọn size và vị bánh",
+        "body": "Cùng thống nhất kích thước, hương vị và kiểu decor để chiếc bánh vừa đẹp mắt vừa đúng ý bạn."
+      },
+      "celebrate": {
+        "title": "Nhận bánh và tận hưởng buổi tiệc",
+        "body": "Chiếc bánh sẽ được chuẩn bị thật chỉn chu để trở thành điểm nhấn xinh xắn cho ngày đặc biệt của bạn."
+      }
+    }
+  },
+
+  "testimonials": {
+    "eyebrow": "Feedback từ khách hàng",
+    "title": "Những lời nhắn dễ thương tụi mình nhận được",
+    "subtitle": "Mỗi feedback đều là động lực để Hapi.Cakes tiếp tục làm ra thật nhiều chiếc bánh xinh cho những dịp thật vui.",
+    "featuredReview": "Feedback nổi bật",
+    "tagline": "Được yêu thích bởi sự chỉn chu và cảm giác nhẹ nhàng",
+    "items": {
+      "birthday": {
+        "quote": "Bánh ngoài đời còn xinh hơn cả ảnh nữa 🥹",
+        "name": "Sinh nhật"
+      },
+      "wedding": {
+        "quote": "Tone màu siêu hợp tiệc, lên hình nổi bật cực kỳ luôn.",
+        "name": "Đám cưới"
+      },
+      "private": {
+        "quote": "Decor rất có gu, bánh mềm và tổng thể nhìn siêu dễ thương.",
+        "name": "Tiệc riêng"
+      }
+    }
+  },
+
+  "social": {
+    "eyebrow": "Góc nhỏ của Hapi.Cakes",
+    "title": "Những chiếc bánh nhỏ cho những ngày thật vui ✨",
+    "subtitle": "Một chút pastel, một chút dễ thương và thật nhiều chiếc bánh được làm riêng cho từng dịp đặc biệt.",
+    "cta": "Xem thêm hình bánh",
+    "imageAlt": "Hình ảnh Hapi.Cakes"
+  },
+
+  "cta": {
+    "eyebrow": "Đặt bánh cùng Hapi.Cakes",
+    "title": "Bạn đã nghĩ ra chiếc bánh mình muốn chưa?",
+    "subtitle": "Chỉ cần gửi tụi mình mẫu bạn thích hoặc ý tưởng bạn đang nghĩ tới, Hapi.Cakes sẽ giúp bạn tạo nên một chiếc bánh thật xinh cho ngày đặc biệt đó ✨",
+    "button": "Liên hệ ngay"
+  }
+}

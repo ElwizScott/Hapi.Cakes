@@ -1,0 +1,24 @@
+{
+  "brand": {
+    "name": "Hapi.Cakes",
+    "alt": "Logo Hapi.Cakes",
+    "tagline": "Trao vị ngọt của niềm vui"
+  },
+  "links": {
+    "home": "Trang chủ",
+    "elegantGallery": "Bộ sưu tập tinh tế",
+    "socialGallery": "Thư viện chia sẻ",
+    "feedback": "Phản hồi",
+    "order": "Đặt bánh",
+    "contact": "Liên hệ"
+  },
+  "admin": {
+    "dashboard": "Bảng điều khiển"
+  },
+  "linksPlural": {
+    "home": "Trang chủ",
+    "gallery": "Bộ sưu tập",
+    "order": "Đặt bánh",
+    "contact": "Liên hệ"
+  }
+}

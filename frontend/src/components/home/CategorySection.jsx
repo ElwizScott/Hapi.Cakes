@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "../common/EditableText";
 import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function CategorySection({ categories = [] }) {
   const navigate = useNavigate();
+  const { t } = useAppTranslation("home");
   const [hovered, setHovered] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setCanHover(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   return (
     <RevealSection
@@ -17,23 +29,22 @@ export default function CategorySection({ categories = [] }) {
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_20%_50%,rgba(216,165,199,0.1),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(232,217,241,0.18),transparent_35%)]" />
       <SectionHeading
-        align="center"
         eyebrow={
           <EditableText
             copyKey="home.categories.eyebrow"
-            defaultText="Celebration Showcase"
+            defaultText={t("categories.eyebrow")}
           />
         }
         title={
           <EditableText
             copyKey="home.categories.title"
-            defaultText="Special Events & Occasions"
+            defaultText={t("categories.title")}
           />
         }
         description={
           <EditableText
             copyKey="home.categories.subtitle"
-            defaultText="Browse our signature styles by occasion and discover the visual mood that fits your sweetest celebration."
+            defaultText={t("categories.subtitle")}
             multiline
           />
         }
@@ -41,8 +52,8 @@ export default function CategorySection({ categories = [] }) {
 
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {categories.map((c, index) => {
-          const isHovered = hovered === index;
-          const isOther = hovered !== null && hovered !== index;
+          const isHovered = canHover && hovered === index;
+          const isOther = canHover && hovered !== null && hovered !== index;
           const isClicked = clickedIndex === index;
 
           let translate = "";
@@ -62,11 +73,11 @@ export default function CategorySection({ categories = [] }) {
           return (
             <RevealSection
               key={c.id ?? c.slug}
-              onMouseEnter={() => setHovered(index)}
-              onMouseLeave={() => setHovered(null)}
+              onMouseEnter={canHover ? () => setHovered(index) : undefined}
+              onMouseLeave={canHover ? () => setHovered(null) : undefined}
               onClick={handleClick}
               className={`
-                relative transition-all duration-500 ease-soft
+                relative cursor-pointer transition-all duration-500 ease-soft
                 ${translate}
                 ${isHovered ? "scale-[1.03] z-20" : ""}
                 ${isOther ? "scale-[0.985] opacity-90" : ""}
@@ -84,7 +95,7 @@ export default function CategorySection({ categories = [] }) {
                     />
                   ) : (
                     <div className="flex aspect-[4/4.8] h-full w-full items-center justify-center text-sm text-muted">
-                      No image yet
+                      {t("categories.noImage")}
                     </div>
                   )}
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-plum/25 via-transparent to-transparent" />
@@ -92,14 +103,15 @@ export default function CategorySection({ categories = [] }) {
 
                 <div className="space-y-2 px-1 pb-1">
                   <p className="text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
-                    Curated Collection
+                    {t("categories.collection")}
                   </p>
                   <p className="font-serif text-xl text-ink transition-colors duration-300 sm:text-2xl">
                     {c.name}
                   </p>
                   <p className="text-sm leading-6 text-text-secondary">
-                    Explore cakes styled for {c.name.toLowerCase()} with soft
-                    palettes, romantic details, and boutique presentation.
+                    {t("categories.description", {
+                      name: c.name.toLowerCase(),
+                    })}
                   </p>
                 </div>
               </SurfaceCard>

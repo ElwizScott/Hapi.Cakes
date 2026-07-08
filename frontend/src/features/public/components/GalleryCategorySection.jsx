@@ -1,5 +1,6 @@
 import CakeCard from "./CakeCard";
 import PillBadge from "../../../components/common/PillBadge";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 
 export default function GalleryCategorySection({
   category,
@@ -9,6 +10,7 @@ export default function GalleryCategorySection({
   onAdd,
   onSelect,
 }) {
+  const { t } = useAppTranslation("common");
   const orderedCakes = [...cakes].reverse();
 
   return (
@@ -19,7 +21,7 @@ export default function GalleryCategorySection({
             {category.name}
           </h2>
           <PillBadge className="border-white/75 bg-surface-elevated/90 px-2.5 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
-            {cakes.length} cakes
+            {t("gallery.elegant.count", { count: cakes.length })}
           </PillBadge>
         </div>
         <div
@@ -32,7 +34,7 @@ export default function GalleryCategorySection({
         {showAdminEdit && (
           <button
             onClick={onAdd}
-            className="flex min-h-11 flex-none w-[19rem] items-center justify-center rounded-card border border-dashed border-border-soft bg-surface-elevated/75 px-4 text-xs font-semibold uppercase tracking-[0.16em] text-text-secondary shadow-soft transition duration-300 ease-soft hover:-translate-y-1 hover:border-accent hover:text-plum hover:shadow-float sm:w-[20.5rem] md:w-[22rem] lg:w-[22.5rem]"
+            className="flex min-h-12 flex-none w-[19rem] items-center justify-center rounded-card border border-dashed border-border-soft bg-surface-elevated/75 px-4 text-xs font-semibold uppercase tracking-[0.16em] text-text-secondary shadow-soft transition duration-300 ease-soft hover:-translate-y-1 hover:border-accent hover:text-plum hover:shadow-float sm:w-[20.5rem] md:w-[22rem] lg:w-[22.5rem]"
           >
             + Add
           </button>

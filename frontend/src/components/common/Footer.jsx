@@ -7,13 +7,7 @@ import PillBadge from "./PillBadge";
 import ScallopDivider from "./ScallopDivider";
 import SurfaceCard from "./SurfaceCard";
 import { bodyClass, buttonGhostClass, cx, fieldClass } from "./designSystem";
-
-const quickLinks = [
-  { label: "Home", to: "/" },
-  { label: "Gallery", to: "/gallery" },
-  { label: "Order", to: "/order" },
-  { label: "Contact", to: "/contact" },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 const socialLinks = [
   {
@@ -41,7 +35,7 @@ const socialLinks = [
     ),
   },
   {
-    label: "Tiktok",
+    label: "TikTok",
     href: "https://www.tiktok.com/@hapi.cakes_bymichelle",
     icon: (
       <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
@@ -69,6 +63,14 @@ const socialLinks = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [newsletterState, setNewsletterState] = useState("idle");
+  const { t } = useAppTranslation("footer");
+
+  const quickLinks = [
+    { label: t("links.home"), to: "/" },
+    { label: t("links.gallery"), to: "/gallery" },
+    { label: t("links.order"), to: "/order" },
+    { label: t("links.contact"), to: "/contact" },
+  ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -106,7 +108,7 @@ export default function Footer() {
                     />
                   </p>
                   <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-plum/60">
-                    Get a taste of happiness
+                    {t("brandTagline")}
                   </p>
                 </div>
 
@@ -115,17 +117,17 @@ export default function Footer() {
                 >
                   <EditableText
                     copyKey="footer.description"
-                    defaultText="Handcrafted cakes for celebrations, delivered with care and a dash of sweetness."
+                    defaultText={t("description")}
                     multiline
                   />
                 </p>
 
                 <div className="flex flex-wrap gap-1.5">
                   <PillBadge className="border-white/75 bg-white/82 px-2.5 py-1 text-[0.58rem] tracking-[0.16em] shadow-soft">
-                    Cozy aesthetic
+                    {t("badgeOne")}
                   </PillBadge>
                   <PillBadge className="border-white/75 bg-white/82 px-2.5 py-1 text-[0.58rem] tracking-[0.16em] shadow-soft">
-                    Made for celebrations
+                    {t("badgeTwo")}
                   </PillBadge>
                 </div>
               </div>
@@ -136,7 +138,7 @@ export default function Footer() {
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
                     <EditableText
                       copyKey="footer.quick_links"
-                      defaultText="Quick Links"
+                      defaultText={t("quickLinks")}
                     />
                   </p>
                   <ul className="mt-2.5 space-y-1.5 text-xs">
@@ -146,7 +148,7 @@ export default function Footer() {
                           to={link.to}
                           className={cx(
                             buttonGhostClass,
-                            "inline-flex px-0 py-0.5 text-xs font-medium text-text-secondary hover:bg-transparent hover:text-plum",
+                            "inline-flex min-h-11 px-0 py-2 text-xs font-medium text-text-secondary hover:bg-transparent hover:text-plum",
                           )}
                         >
                           {link.label}
@@ -160,7 +162,7 @@ export default function Footer() {
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
                     <EditableText
                       copyKey="footer.follow_us"
-                      defaultText="Follow Us"
+                      defaultText={t("followUs")}
                     />
                   </p>
                   <ul className="mt-2.5 space-y-1.5">
@@ -170,9 +172,9 @@ export default function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="group flex items-center gap-2 rounded-[1rem] border border-transparent bg-white/36 px-2.5 py-1.5 transition duration-300 ease-soft hover:-translate-y-0.5 hover:border-white/75 hover:bg-white/72 hover:shadow-soft"
+                          className="group flex min-h-11 items-center gap-2 rounded-[1rem] border border-transparent bg-white/36 px-3 py-2 transition duration-300 ease-soft hover:-translate-y-0.5 hover:border-white/75 hover:bg-white/72 hover:shadow-soft"
                         >
-                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent-soft/75 text-xs text-plum transition duration-300 ease-soft group-hover:bg-white">
+                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent-soft/75 text-xs text-plum transition duration-300 ease-soft group-hover:bg-white">
                             {link.icon}
                           </span>
                           <span className="text-xs font-semibold text-text-primary">
@@ -193,14 +195,13 @@ export default function Footer() {
               <div>
                 <p className="flex items-center gap-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
                   <HeartIcon className="h-3 w-3 text-candy" />
-                  Sweet Updates
+                  {t("newsletterEyebrow")}
                 </p>
                 <h3 className="mt-1 font-serif text-xl font-semibold tracking-tight text-text-primary">
-                  Join the Hapi.Cakes circle
+                  {t("newsletterTitle")}
                 </h3>
                 <p className="mt-1.5 text-xs leading-5 text-text-secondary">
-                  First to see seasonal styles, boutique celebration ideas, and
-                  pastel bakery inspiration.
+                  {t("newsletterSubtitle")}
                 </p>
               </div>
 
@@ -218,7 +219,7 @@ export default function Footer() {
                       fieldClass,
                       "border-transparent bg-transparent px-3 py-1.5 text-xs shadow-none focus:border-border-soft",
                     )}
-                    placeholder="Your email for sweet news"
+                    placeholder={t("newsletterPlaceholder")}
                   />
                 </div>
 
@@ -226,17 +227,15 @@ export default function Footer() {
                   type="submit"
                   className="w-full px-4 py-2 text-[0.65rem] uppercase tracking-[0.18em]"
                 >
-                  Join the newsletter
+                  {t("newsletterButton")}
                 </PrimaryButton>
 
                 {newsletterState === "error" && (
-                  <p className="text-xs text-danger">
-                    Please add a valid email to continue.
-                  </p>
+                  <p className="text-xs text-danger">{t("newsletterError")}</p>
                 )}
                 {newsletterState === "success" && (
                   <p className="text-xs text-success">
-                    You're on the list — sweet inspiration incoming!
+                    {t("newsletterSuccess")}
                   </p>
                 )}
               </form>
@@ -247,21 +246,21 @@ export default function Footer() {
         {/* ── Legal bar ── */}
         <div className="relative mt-5 flex flex-col items-center gap-2 border-t border-border-soft/80 pt-4 text-center text-[0.68rem] text-text-secondary sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-            <p>© {new Date().getFullYear()} Hapi.Cakes. All rights reserved.</p>
+            <p>{t("copyright", { year: new Date().getFullYear() })}</p>
             <Link
               to="/admin/login"
               className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-plum/80 shadow-soft transition duration-300 ease-soft hover:-translate-y-0.5 hover:bg-white hover:text-plum focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-              aria-label="Admin login"
-              title="Admin login"
+              aria-label={t("adminLogin")}
+              title={t("adminLogin")}
             >
               <span className="text-[0.7rem]" role="img" aria-hidden="true">
                 🍰
               </span>
-              Admin
+              {t("adminLogin")}
             </Link>
           </div>
           <p className="text-[0.62rem] uppercase tracking-[0.22em] text-plum/60">
-            Softly made for your sweetest moments
+            {t("footerNote")}
           </p>
         </div>
       </div>

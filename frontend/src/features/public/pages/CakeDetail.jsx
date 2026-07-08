@@ -11,6 +11,7 @@ import Loader from "../../../components/common/Loader";
 import PillBadge from "../../../components/common/PillBadge";
 import SurfaceCard from "../../../components/common/SurfaceCard";
 import { formatVND } from "../../../utils/formatPrice";
+import useAppTranslation from "../../../i18n/useAppTranslation";
 import {
   bodyClass,
   buttonGhostClass,
@@ -29,6 +30,7 @@ export default function CakeDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const { authenticated } = useAdminAuth();
+  const { t } = useAppTranslation("common");
 
   const [cake, setCake] = useState(() => location.state?.cake ?? null);
   const [categoryName, setCategoryName] = useState(
@@ -91,7 +93,7 @@ export default function CakeDetail() {
         if (!active) return;
         const found = cakes.find((item) => String(item.id) === String(cakeId));
         if (!found) {
-          setError("Cake not found.");
+          setError(t("cakeDetail.notFound"));
           setLoading(false);
           return;
         }
@@ -105,7 +107,7 @@ export default function CakeDetail() {
       })
       .catch(() => {
         if (!active) return;
-        setError("Unable to load this cake.");
+        setError(t("cakeDetail.notFound"));
         setLoading(false);
       });
 
@@ -389,7 +391,7 @@ export default function CakeDetail() {
       setCategoryName(nextCategory?.name ?? "");
       setEditingField(null);
     } catch (err) {
-      setUpdateError("Unable to update cake details.");
+      setUpdateError(t("cakeDetail.updateFailed"));
     }
   };
 
@@ -404,7 +406,7 @@ export default function CakeDetail() {
   };
 
   if (loading) {
-    return <Loader label="Loading cake..." />;
+    return <Loader label={t("cakeDetail.loading")} />;
   }
 
   if (error || !cake) {
@@ -413,7 +415,7 @@ export default function CakeDetail() {
         elevated
         className="mx-auto max-w-xl p-6 text-center text-sm text-text-secondary sm:p-8"
       >
-        {error || "Cake not found."}
+        {error || t("cakeDetail.notFound")}
       </SurfaceCard>
     );
   }
@@ -443,7 +445,7 @@ export default function CakeDetail() {
               "min-h-11 px-4 py-2 text-xs uppercase tracking-[0.18em]",
             )}
           >
-            ← Back to gallery
+            {t("cakeDetail.backToGallery")}
           </button>
           <PillBadge className="px-3 py-1 text-[0.62rem] tracking-[0.18em]">
             {categoryName}
@@ -476,7 +478,7 @@ export default function CakeDetail() {
                       bodyClass,
                     )}
                   >
-                    No image available
+                    {t("cakeDetail.noImageAvailable")}
                   </div>
                 )}
                 {images.length > 1 ? (
@@ -485,7 +487,7 @@ export default function CakeDetail() {
                       type="button"
                       onClick={goPrev}
                       className="absolute left-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition duration-300 ease-soft hover:-translate-y-1/2 hover:bg-white hover:shadow-float"
-                      aria-label="Previous image"
+                      aria-label={t("cakeDetail.previousImage")}
                     >
                       <span className="text-lg leading-none">‹</span>
                     </button>
@@ -493,7 +495,7 @@ export default function CakeDetail() {
                       type="button"
                       onClick={goNext}
                       className="absolute right-3 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition duration-300 ease-soft hover:-translate-y-1/2 hover:bg-white hover:shadow-float"
-                      aria-label="Next image"
+                      aria-label={t("cakeDetail.nextImage")}
                     >
                       <span className="text-lg leading-none">›</span>
                     </button>
@@ -504,7 +506,7 @@ export default function CakeDetail() {
                   <button
                     type="button"
                     onClick={handleDeleteImage}
-                    aria-label="Delete image"
+                    aria-label={t("cakeDetail.deleteImage")}
                     className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition hover:bg-white hover:shadow-float"
                     disabled={savingImages}
                   >
@@ -520,7 +522,7 @@ export default function CakeDetail() {
                       "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 text-xs opacity-0 transition duration-300 group-hover:opacity-100",
                     )}
                   >
-                    Add Image
+                    {t("cakeDetail.addImage")}
                   </button>
                 ) : null}
               </div>
@@ -569,7 +571,10 @@ export default function CakeDetail() {
               ) : null}
               {savingImages && uploadProgress ? (
                 <p className={cx("mt-2 text-xs", bodyClass)}>
-                  Uploading {uploadProgress.current}/{uploadProgress.total}
+                  {t("cakeDetail.uploadingProgress", {
+                    current: uploadProgress.current,
+                    total: uploadProgress.total,
+                  })}
                 </p>
               ) : null}
             </div>
@@ -623,7 +628,8 @@ export default function CakeDetail() {
                           buttonPrimaryClass,
                           "min-h-9 px-3 py-1.5 text-xs",
                         )}
-                        title="Save"
+                        title={t("buttons.save")}
+                        aria-label={t("buttons.save")}
                       >
                         ✔
                       </button>
@@ -634,7 +640,8 @@ export default function CakeDetail() {
                           buttonSecondaryClass,
                           "min-h-9 px-3 py-1.5 text-xs",
                         )}
-                        title="Cancel"
+                        title={t("buttons.cancel")}
+                        aria-label={t("buttons.cancel")}
                       >
                         ✕
                       </button>
@@ -647,7 +654,8 @@ export default function CakeDetail() {
                         buttonSecondaryClass,
                         "min-h-9 px-3 py-1.5 text-xs",
                       )}
-                      title="Edit name"
+                      title={t("cakeDetail.editName")}
+                      aria-label={t("cakeDetail.editName")}
                     >
                       ✎
                     </button>
@@ -666,7 +674,7 @@ export default function CakeDetail() {
                     }
                     className={fieldClass}
                   >
-                    <option value="">Select category</option>
+                    <option value="">{t("cakeDetail.selectCategory")}</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.id}>
                         {category.name}
@@ -675,7 +683,7 @@ export default function CakeDetail() {
                   </select>
                 ) : (
                   <span className="inline-flex items-center rounded-pill border border-border-soft bg-accent-soft px-3 py-1 text-xs font-semibold text-plum shadow-soft">
-                    {categoryName || "Uncategorized"}
+                    {categoryName || t("cakeCard.uncategorized")}
                   </span>
                 )}
                 {authenticated ? (
@@ -688,7 +696,8 @@ export default function CakeDetail() {
                           buttonPrimaryClass,
                           "min-h-9 px-3 py-1.5 text-xs",
                         )}
-                        title="Save"
+                        title={t("buttons.save")}
+                        aria-label={t("buttons.save")}
                       >
                         ✔
                       </button>
@@ -699,7 +708,8 @@ export default function CakeDetail() {
                           buttonSecondaryClass,
                           "min-h-9 px-3 py-1.5 text-xs",
                         )}
-                        title="Cancel"
+                        title={t("buttons.cancel")}
+                        aria-label={t("buttons.cancel")}
                       >
                         ✕
                       </button>
@@ -712,7 +722,8 @@ export default function CakeDetail() {
                         buttonSecondaryClass,
                         "min-h-9 px-3 py-1.5 text-xs",
                       )}
-                      title="Edit category"
+                      title={t("cakeDetail.editCategory")}
+                      aria-label={t("cakeDetail.editCategory")}
                     >
                       ✎
                     </button>
@@ -729,7 +740,7 @@ export default function CakeDetail() {
             <div className="space-y-3 border-b border-border-soft/80 pb-4">
               <div className="flex items-center gap-2">
                 <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-plum/75">
-                  Description
+                  {t("cakeDetail.description")}
                 </h3>
                 {authenticated ? (
                   editingField === "description" ? (
@@ -741,7 +752,8 @@ export default function CakeDetail() {
                           buttonPrimaryClass,
                           "min-h-9 px-3 py-1.5 text-xs",
                         )}
-                        title="Save"
+                        title={t("buttons.save")}
+                        aria-label={t("buttons.save")}
                       >
                         ✔
                       </button>
@@ -752,7 +764,8 @@ export default function CakeDetail() {
                           buttonSecondaryClass,
                           "min-h-9 px-3 py-1.5 text-xs",
                         )}
-                        title="Cancel"
+                        title={t("buttons.cancel")}
+                        aria-label={t("buttons.cancel")}
                       >
                         ✕
                       </button>
@@ -765,7 +778,8 @@ export default function CakeDetail() {
                         buttonSecondaryClass,
                         "min-h-9 px-3 py-1.5 text-xs",
                       )}
-                      title="Edit description"
+                      title={t("cakeDetail.editDescription")}
+                      aria-label={t("cakeDetail.editDescription")}
                     >
                       ✎
                     </button>
@@ -799,7 +813,7 @@ export default function CakeDetail() {
                       overflowY: showFullDescription ? "auto" : "hidden",
                     }}
                   >
-                    {cake.description || "No description provided."}
+                    {cake.description || t("feedback.description.none")}
                   </div>
                   {cake.description && cake.description.length > 180 ? (
                     <button
@@ -810,7 +824,9 @@ export default function CakeDetail() {
                         "mt-3 px-3 py-1.5 text-[0.62rem] uppercase tracking-[0.16em]",
                       )}
                     >
-                      {showFullDescription ? "See less" : "See more"}
+                      {showFullDescription
+                        ? t("feedback.description.seeLess")
+                        : t("feedback.description.seeMore")}
                     </button>
                   ) : null}
                 </div>
@@ -823,7 +839,7 @@ export default function CakeDetail() {
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-plum/75">
-                  Feedback
+                  {t("feedback.header.label")}
                 </h3>
                 {authenticated ? (
                   <button
@@ -835,7 +851,9 @@ export default function CakeDetail() {
                     )}
                     disabled={savingFeedback}
                   >
-                    {savingFeedback ? "Uploading..." : "Add Feedback Image"}
+                    {savingFeedback
+                      ? t("feedback.header.uploading")
+                      : t("feedback.header.addImages")}
                   </button>
                 ) : null}
               </div>
@@ -850,7 +868,7 @@ export default function CakeDetail() {
               />
 
               {loadingFeedback ? (
-                <p className={bodyClass}>Loading feedback...</p>
+                <p className={bodyClass}>{t("feedback.header.loading")}</p>
               ) : feedbackImages.length ? (
                 <div className="relative">
                   <div className="w-full max-w-full min-w-0 overflow-x-auto pb-2 pr-2 sm:pr-6">
@@ -862,7 +880,7 @@ export default function CakeDetail() {
                         >
                           <img
                             src={image}
-                            alt="Feedback"
+                            alt={t("feedback.imageAlt")}
                             className="block aspect-[4/3] w-full cursor-zoom-in object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]"
                             onClick={() => handleOpenFeedbackLightbox(index)}
                           />
@@ -874,7 +892,7 @@ export default function CakeDetail() {
                                 event.stopPropagation();
                                 handleDeleteFeedbackImage(index);
                               }}
-                              aria-label="Delete feedback image"
+                              aria-label={t("feedback.controls.delete")}
                               className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft transition hover:bg-white hover:shadow-float"
                               disabled={savingFeedback}
                             >
@@ -888,7 +906,7 @@ export default function CakeDetail() {
                   <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-white via-white/70 to-transparent" />
                 </div>
               ) : (
-                <p className={bodyClass}>No feedback images yet.</p>
+                <p className={bodyClass}>{t("feedback.header.empty")}</p>
               )}
               {feedbackError ? (
                 <p className={fieldErrorClass}>{feedbackError}</p>
@@ -909,6 +927,7 @@ export default function CakeDetail() {
             <button
               type="button"
               onClick={() => setLightboxOpen(false)}
+              aria-label={t("buttons.close")}
               className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
             >
               ✕
@@ -948,7 +967,7 @@ export default function CakeDetail() {
                         feedbackImages.length,
                     )
                   }
-                  aria-label="Previous feedback image"
+                  aria-label={t("feedback.controls.previous")}
                   className="absolute -left-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
                 >
                   ‹
@@ -960,7 +979,7 @@ export default function CakeDetail() {
                       (prev) => (prev + 1) % feedbackImages.length,
                     )
                   }
-                  aria-label="Next feedback image"
+                  aria-label={t("feedback.controls.next")}
                   className="absolute -right-10 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-surface-elevated text-plum shadow-soft"
                 >
                   ›

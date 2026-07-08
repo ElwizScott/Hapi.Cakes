@@ -1,0 +1,30 @@
+{
+  "links": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "order": "Order",
+    "contact": "Contact"
+  },
+  "social": {
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "tiktok": "TikTok",
+    "threads": "Threads"
+  },
+  "brandTagline": "Get a taste of happiness",
+  "description": "Handcrafted cakes for celebrations, delivered with care and a touch of sweetness.",
+  "quickLinks": "Quick links",
+  "followUs": "Follow us",
+  "badgeOne": "Cozy aesthetic",
+  "badgeTwo": "Made for celebrations",
+  "newsletterEyebrow": "Sweet updates",
+  "newsletterTitle": "Join the Hapi.Cakes circle",
+  "newsletterSubtitle": "Be first to see seasonal styles, boutique celebration ideas, and pastel bakery inspiration.",
+  "newsletterPlaceholder": "Enter your email for sweet updates",
+  "newsletterButton": "Join the newsletter",
+  "newsletterError": "Please add a valid email to continue.",
+  "newsletterSuccess": "You're on the list — sweet inspiration incoming!",
+  "copyright": "© {{year}} Hapi.Cakes. All rights reserved.",
+  "adminLogin": "Admin login",
+  "footerNote": "Softly made for your sweetest moments"
+}

@@ -4,32 +4,34 @@ import PrimaryButton from "../common/PrimaryButton";
 import SectionHeading from "../common/SectionHeading";
 import SurfaceCard from "../common/SurfaceCard";
 import RevealSection from "./RevealSection";
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function SocialGallery({ images = [] }) {
   const navigate = useNavigate();
+  const { t } = useAppTranslation("home");
   const galleryImages = images.slice(0, 6);
 
   if (!galleryImages.length) return null;
 
   return (
-    <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
+    <RevealSection className="ds-page-shell relative py-4 sm:py-10 lg:py-14">
       <SectionHeading
         eyebrow={
           <EditableText
             copyKey="home.social.eyebrow"
-            defaultText="Social Gallery"
+            defaultText={t("social.eyebrow")}
           />
         }
         title={
           <EditableText
             copyKey="home.social.title"
-            defaultText="A Peek Into the Hapi.Cakes World"
+            defaultText={t("social.title")}
           />
         }
         description={
           <EditableText
             copyKey="home.social.subtitle"
-            defaultText="Pastel cake finishes, celebration tables, and sweet details that make the brand feel like a boutique dessert studio."
+            defaultText={t("social.subtitle")}
             multiline
           />
         }
@@ -39,12 +41,12 @@ export default function SocialGallery({ images = [] }) {
             onClick={() => navigate("/gallery-social")}
             className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
           >
-            See customer gallery
+            {t("social.cta")}
           </PrimaryButton>
         }
       />
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
+      <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-4 sm:grid-cols-2 lg:grid-cols-12">
         {galleryImages.map((image, index) => {
           const url = image?.url ?? image;
           const spanClass =
@@ -64,7 +66,7 @@ export default function SocialGallery({ images = [] }) {
                 <div className="relative h-full min-h-[11rem] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-surface via-accent-soft/20 to-lavender/30 sm:min-h-[14rem]">
                   <img
                     src={url}
-                    alt="Hapi.Cakes social gallery"
+                    alt={t("social.imageAlt")}
                     className="h-full w-full object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.05]"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-plum/20 via-transparent to-transparent opacity-70" />

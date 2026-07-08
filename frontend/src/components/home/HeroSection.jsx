@@ -6,6 +6,7 @@ import PrimaryButton from "../common/PrimaryButton";
 import ScallopDivider from "../common/ScallopDivider";
 import SecondaryButton from "../common/SecondaryButton";
 import Sprinkles from "../common/Sprinkles";
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function HeroSection({
   featuredImageUrl,
@@ -15,6 +16,8 @@ export default function HeroSection({
   onGalleryClick,
   onContactClick,
 }) {
+  const { t } = useAppTranslation("home");
+
   return (
     <section className="mx-auto max-w-7xl px-3 pt-6 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
       <div className="relative isolate overflow-hidden rounded-[2.25rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,250,245,0.995)_0%,rgba(255,248,252,0.99)_38%,rgba(248,239,250,0.985)_100%)] shadow-[0_30px_80px_rgba(125,106,121,0.14)]">
@@ -34,24 +37,24 @@ export default function HeroSection({
               <div className="inline-flex items-center gap-2 rounded-pill border border-white/65 bg-white/60 px-4 py-2 shadow-soft backdrop-blur">
                 <SparkleIcon className="h-3.5 w-3.5 text-plum" />
                 <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-plum/75">
-                  Custom Celebration Cakes
+                  {t("hero.eyebrow")}
                 </span>
               </div>
 
               <div className="mt-5 space-y-3">
                 <p className="font-script text-4xl leading-none text-plum/85 sm:text-5xl">
-                  Sweetly made for your best moments
+                  {t("hero.kicker")}
                 </p>
                 <h1 className="max-w-xl font-serif text-4xl font-bold leading-[1.04] tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
                   <EditableText
                     copyKey="home.hero.title"
-                    defaultText="Hapi.Cakes"
+                    defaultText={t("hero.title")}
                   />
                 </h1>
                 <p className="max-w-2xl text-base leading-7 text-text-secondary sm:text-lg">
                   <EditableText
                     copyKey="home.hero.subtitle"
-                    defaultText="From soft birthday florals to elegant wedding centerpieces, Hapi.Cakes creates custom cakes that feel romantic, polished, and made just for your sweetest celebration."
+                    defaultText={t("hero.subtitle")}
                     multiline
                   />
                 </p>
@@ -65,7 +68,7 @@ export default function HeroSection({
                 >
                   <EditableText
                     copyKey="home.hero.cta_order"
-                    defaultText="Order Now"
+                    defaultText={t("hero.ctaOrder")}
                   />
                 </PrimaryButton>
 
@@ -76,7 +79,7 @@ export default function HeroSection({
                 >
                   <EditableText
                     copyKey="home.hero.cta_gallery"
-                    defaultText="See Gallery"
+                    defaultText={t("hero.ctaGallery")}
                   />
                 </SecondaryButton>
 
@@ -87,7 +90,7 @@ export default function HeroSection({
                 >
                   <EditableText
                     copyKey="home.hero.cta_contact"
-                    defaultText="Contact Us"
+                    defaultText={t("hero.ctaContact")}
                   />
                   <span aria-hidden="true">→</span>
                 </button>
@@ -98,34 +101,34 @@ export default function HeroSection({
                   <StarIcon className="h-3.5 w-3.5 text-accentStrong" />
                   <EditableText
                     copyKey="home.hero.proof_1"
-                    defaultText="100+ happy customers"
+                    defaultText={t("hero.proof1")}
                   />
                 </PillBadge>
                 <PillBadge className="justify-center gap-1.5 border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft transition duration-300 ease-soft hover:rotate-1 hover:bg-white">
                   <SparkleIcon className="h-3.5 w-3.5 text-accentStrong" />
                   <EditableText
                     copyKey="home.hero.proof_2"
-                    defaultText="Custom designs"
+                    defaultText={t("hero.proof2")}
                   />
                 </PillBadge>
                 <PillBadge className="justify-center gap-1.5 border-white/70 bg-white/72 px-4 py-3 text-[0.68rem] tracking-[0.2em] shadow-soft transition duration-300 ease-soft hover:-rotate-1 hover:bg-white">
                   <HeartIcon className="h-3.5 w-3.5 text-accentStrong" />
                   <EditableText
                     copyKey="home.hero.proof_3"
-                    defaultText="Made with love"
+                    defaultText={t("hero.proof3")}
                   />
                 </PillBadge>
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary">
                 <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                  Handcrafted in small batches
+                  {t("hero.note1")}
                 </div>
                 <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                  Premium ingredients
+                  {t("hero.note2")}
                 </div>
                 <div className="rounded-pill border border-white/65 bg-white/58 px-4 py-2 shadow-soft">
-                  Personalized celebration styling
+                  {t("hero.note3")}
                 </div>
               </div>
             </div>
@@ -133,19 +136,19 @@ export default function HeroSection({
             <div className="relative z-20 mx-auto w-full max-w-[32rem] lg:max-w-none">
               <div className="absolute -left-6 top-8 z-30 hidden w-40 rounded-[1.75rem] border border-white/80 bg-[rgba(255,252,249,0.94)] p-4 shadow-[0_20px_45px_rgba(125,106,121,0.14)] backdrop-blur md:block animate-[overlayIn_700ms_ease-out]">
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-plum/70">
-                  Best For
+                  {t("hero.bestFor")}
                 </p>
                 <p className="mt-2 font-serif text-lg text-text-primary">
-                  Birthdays, weddings, intimate parties
+                  {t("hero.bestForText")}
                 </p>
               </div>
 
               <div className="absolute -right-3 bottom-8 z-30 hidden w-44 rounded-[1.75rem] border border-white/80 bg-[rgba(255,252,249,0.95)] p-4 shadow-[0_20px_45px_rgba(125,106,121,0.15)] backdrop-blur sm:block animate-[overlayIn_700ms_ease-out] [animation-delay:180ms]">
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-plum/70">
-                  Signature Style
+                  {t("hero.signatureStyle")}
                 </p>
                 <p className="mt-2 text-sm leading-6 text-text-secondary">
-                  Delicate florals, pastel palettes, and bakery-fresh elegance.
+                  {t("hero.signatureStyleText")}
                 </p>
               </div>
 
@@ -159,12 +162,12 @@ export default function HeroSection({
                       {featuredImageUrl ? (
                         <img
                           src={featuredImageUrl}
-                          alt="Featured cake"
+                          alt={t("hero.featuredAlt")}
                           className="h-full w-full object-cover transition-transform duration-700 ease-soft hover:scale-[1.035]"
                         />
                       ) : (
                         <div className="flex h-full items-center justify-center px-8 text-center font-serif text-2xl text-plum">
-                          Featured Cake
+                          {t("hero.featuredCake")}
                         </div>
                       )}
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-t from-plum/18 via-plum/4 to-transparent" />
@@ -186,7 +189,7 @@ export default function HeroSection({
 
               {isAdmin ? (
                 <AdminImageEditOverlay
-                  label="Update featured cake"
+                  label={t("hero.editFeatured")}
                   uploadEndpoint="/api/admin/upload/featured"
                   currentImageUrl={featuredImageUrl}
                   onUploaded={onFeaturedImageUploaded}

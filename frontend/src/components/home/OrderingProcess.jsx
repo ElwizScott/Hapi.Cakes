@@ -2,42 +2,47 @@ import EditableText from "../common/EditableText";
 import PrimaryButton from "../common/PrimaryButton";
 import SectionHeading from "../common/SectionHeading";
 import RevealSection from "./RevealSection";
-
-const steps = [
-  {
-    title: "Share your inspiration",
-    body: "Tell us your celebration, palette, mood, and references so we can shape a cake that feels truly personal.",
-  },
-  {
-    title: "Refine the sweet details",
-    body: "We align on size, flavor, styling direction, and finishing touches to create a design that feels polished and thoughtful.",
-  },
-  {
-    title: "Celebrate beautifully",
-    body: "Your cake arrives ready to anchor the table and elevate the whole celebration with a premium boutique feel.",
-  },
-];
+import useAppTranslation from "../../i18n/useAppTranslation";
 
 export default function OrderingProcess({ onOrderClick }) {
+  const { t } = useAppTranslation("home");
+  const steps = [
+    {
+      number: "01",
+      title: t("process.steps.share.title"),
+      body: t("process.steps.share.body"),
+    },
+    {
+      number: "02",
+      title: t("process.steps.refine.title"),
+      body: t("process.steps.refine.body"),
+    },
+    {
+      number: "03",
+      title: t("process.steps.celebrate.title"),
+      body: t("process.steps.celebrate.body"),
+    },
+  ];
+
   return (
     <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
       <SectionHeading
         eyebrow={
           <EditableText
             copyKey="home.process.eyebrow"
-            defaultText="How It Works"
+            defaultText={t("process.eyebrow")}
           />
         }
         title={
           <EditableText
             copyKey="home.process.title"
-            defaultText="A custom cake process that feels easy, personal, and premium"
+            defaultText={t("process.title")}
           />
         }
         description={
           <EditableText
             copyKey="home.process.subtitle"
-            defaultText="From your first inspiration to the final reveal, every step is designed to make ordering feel calm, collaborative, and beautifully tailored."
+            defaultText={t("process.subtitle")}
             multiline
           />
         }
@@ -47,7 +52,7 @@ export default function OrderingProcess({ onOrderClick }) {
             onClick={onOrderClick}
             className="px-5 py-3 text-xs uppercase tracking-[0.18em]"
           >
-            Start your order
+            {t("process.orderButton")}
           </PrimaryButton>
         }
       />

@@ -1,0 +1,107 @@
+{
+  "buttons": {
+    "menu": "Menu",
+    "close": "Đóng",
+    "logout": "Đăng xuất",
+    "startOrder": "Bắt đầu đặt bánh",
+    "contactUs": "Liên hệ",
+    "back": "Quay lại",
+    "continue": "Tiếp tục",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "submit": "Gửi yêu cầu",
+    "logIn": "Đăng nhập",
+    "update": "Cập nhật"
+  },
+  "states": {
+    "saving": "Đang lưu...",
+    "loading": "Đang tải..."
+  },
+  "actions": {
+    "editText": "Chỉnh sửa nội dung"
+  },
+  "errors": {
+    "saveFailed": "Lưu thất bại."
+  },
+  "gallery": {
+    "elegant": {
+      "label": "Bộ sưu tập tinh tế",
+      "title": "Bộ sưu tập tinh tế",
+      "subtitle": "Khám phá các mẫu bánh đặc trưng và những lựa chọn theo mùa.",
+      "loading": "Đang tải bánh...",
+      "unableToLoad": "Không thể tải bánh lúc này.",
+      "count": "{{count}} mẫu bánh"
+    },
+    "social": {
+      "label": "Thư viện xã hội",
+      "title": "Instagram Gallery",
+      "subtitle": "Một nguồn cảm hứng ngọt ngào từ những sáng tạo mới nhất."
+    },
+    "controls": {
+      "previousImage": "Ảnh trước",
+      "nextImage": "Ảnh tiếp theo"
+    }
+  },
+  "feedback": {
+    "header": {
+      "label": "Yêu thương từ khách hàng",
+      "title": "Thư viện phản hồi",
+      "subtitle": "Những khoảnh khắc ngọt ngào được khách hàng chia sẻ.",
+      "uploading": "Đang tải...",
+      "addImages": "Thêm ảnh phản hồi",
+      "loading": "Đang tải phản hồi...",
+      "empty": "Chưa có ảnh phản hồi.",
+      "titleModal": "Phản hồi"
+    },
+    "imageAlt": "Ảnh phản hồi của khách hàng",
+    "controls": {
+      "previous": "Ảnh phản hồi trước",
+      "next": "Ảnh phản hồi tiếp theo",
+      "delete": "Xóa ảnh phản hồi"
+    },
+    "description": {
+      "none": "Chưa có mô tả.",
+      "seeLess": "Thu gọn",
+      "seeMore": "Xem thêm"
+    }
+  },
+  "galleryPage": {
+    "addCategory": "Thêm danh mục",
+    "manageCategories": "Quản lý danh mục",
+    "noCategories": "Không có danh mục nào cho lựa chọn này."
+  },
+  "cakeDetail": {
+    "loading": "Đang tải bánh...",
+    "notFound": "Không tìm thấy bánh.",
+    "backToGallery": "← Quay lại bộ sưu tập",
+    "updateFailed": "Không thể cập nhật chi tiết bánh.",
+    "description": "Mô tả",
+    "selectCategory": "Chọn danh mục",
+    "addImage": "Thêm ảnh",
+    "noImageAvailable": "Chưa có hình ảnh",
+    "editName": "Chỉnh sửa tên",
+    "editCategory": "Chỉnh sửa danh mục",
+    "editDescription": "Chỉnh sửa mô tả",
+    "previousImage": "Ảnh trước",
+    "nextImage": "Ảnh tiếp theo",
+    "deleteImage": "Xóa ảnh",
+    "uploadingProgress": "Đang tải {{current}}/{{total}}"
+  },
+  "forms": {
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "password": "Mật khẩu",
+    "name": "Tên của bạn",
+    "optional": "Không bắt buộc"
+  },
+  "cakeCard": {
+    "defaultDescription": "Thiết kế tỉ mỉ và làm theo yêu cầu cho những dịp kỷ niệm thật riêng tư và tinh tế.",
+    "customMade": "Thiết kế riêng",
+    "pastelFinish": "Tông pastel",
+    "startingAt": "Giá từ",
+    "viewDetails": "Xem chi tiết",
+    "fromCustomers": "Từ khách hàng",
+    "noImage": "Chưa có hình ảnh",
+    "uncategorized": "Chưa phân loại"
+  }
+}
