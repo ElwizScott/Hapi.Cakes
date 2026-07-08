@@ -1,3 +1,4 @@
+import { SparkleIcon } from "./BakeryIcons";
 import {
   bodyClass,
   cx,
@@ -30,9 +31,7 @@ export default function PageHero({
         <div className="absolute -left-8 -top-10 h-28 w-28 rounded-full bg-brandPink/18 blur-3xl" />
         <div className="absolute right-6 top-10 h-20 w-20 rounded-full bg-lavender/35 blur-2xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(247,232,244,0.75),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(232,217,241,0.6),transparent_40%)]" />
-        <div className="absolute right-4 top-4 text-[10px] text-plum/35 sm:right-6 sm:top-6 lg:right-10 lg:top-8">
-          ✧ ✦ ✧
-        </div>
+        <SparkleIcon className="absolute right-6 top-6 h-6 w-6 animate-wiggle text-brandPink/45 sm:right-8 sm:top-8 lg:right-12 lg:top-10" />
       </div>
       <div
         className={cx(

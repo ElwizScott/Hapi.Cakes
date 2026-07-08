@@ -1,37 +1,42 @@
+import { BowIcon, HeartIcon, SparkleIcon, StarIcon } from "../common/BakeryIcons";
 import EditableText from "../common/EditableText";
 import SectionHeading from "../common/SectionHeading";
-import SurfaceCard from "../common/SurfaceCard";
+import Sprinkles from "../common/Sprinkles";
 import RevealSection from "./RevealSection";
 
 const reasons = [
   {
     title: "Refined custom styling",
     body: "Every cake is designed with a boutique editorial eye, from color harmony to finishing details.",
+    icon: SparkleIcon,
+    tint: "bg-brandPink/20 text-plum",
   },
   {
     title: "Celebration-first approach",
     body: "We create pieces that don’t just taste lovely, but elevate the table and the memory around it.",
+    icon: HeartIcon,
+    tint: "bg-candy/25 text-plum",
   },
   {
     title: "Soft premium aesthetic",
     body: "Pastel palettes, floral details, and polished textures inspired by modern Korean and Japanese cafe culture.",
+    icon: BowIcon,
+    tint: "bg-lavender/40 text-plum",
   },
   {
     title: "Warm, personal service",
     body: "The process stays collaborative and thoughtful, so your order feels special from inquiry to delivery.",
+    icon: StarIcon,
+    tint: "bg-accent-soft text-accentStrong",
   },
 ];
 
 export default function WhyChooseUs() {
   return (
     <RevealSection className="ds-page-shell relative py-6 sm:py-10 lg:py-14">
-      <div className="relative overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,253,249,0.98),rgba(250,242,250,0.94))] p-4 shadow-soft sm:p-8 lg:p-10">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-brandPink/10 blur-3xl" />
-          <div className="absolute right-8 bottom-0 h-36 w-36 rounded-full bg-lavender/18 blur-3xl" />
-        </div>
-
-        <div className="relative z-10">
+      <Sprinkles variant="section" />
+      <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-14">
+        <div>
           <SectionHeading
             eyebrow={
               <EditableText
@@ -42,7 +47,7 @@ export default function WhyChooseUs() {
             title={
               <EditableText
                 copyKey="home.why.title"
-                defaultText="Designed for Celebrations That Deserve More Than a Standard Cake"
+                defaultText="Designed for celebrations that deserve more than a standard cake"
               />
             }
             description={
@@ -53,24 +58,31 @@ export default function WhyChooseUs() {
               />
             }
           />
+        </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {reasons.map((reason, index) => (
+        <div className="grid gap-5 sm:grid-cols-2">
+          {reasons.map((reason, index) => {
+            const Icon = reason.icon;
+            return (
               <RevealSection key={reason.title} delay={index * 80}>
-                <SurfaceCard className="h-full border-white/70 bg-white/72 p-5 backdrop-blur">
-                  <div className="space-y-3">
-                    <div className="h-2.5 w-12 rounded-full bg-gradient-to-r from-brandPink to-accent" />
-                    <h3 className="font-serif text-2xl font-semibold tracking-tight text-text-primary">
+                <div className="group flex h-full gap-4 rounded-[1.75rem] border border-border-soft/70 bg-white/55 p-5 transition-all duration-300 ease-soft hover:-translate-y-1 hover:border-accent/50 hover:bg-white hover:shadow-float">
+                  <div
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-soft group-hover:scale-110 group-hover:rotate-6 ${reason.tint}`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="font-serif text-lg font-semibold tracking-tight text-text-primary">
                       {reason.title}
                     </h3>
                     <p className="text-sm leading-6 text-text-secondary">
                       {reason.body}
                     </p>
                   </div>
-                </SurfaceCard>
+                </div>
               </RevealSection>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </RevealSection>

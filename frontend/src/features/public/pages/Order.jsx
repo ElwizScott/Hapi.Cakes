@@ -117,7 +117,7 @@ function ProgressStep({ step, index, currentStep, total }) {
         className={cx(
           "grid h-11 w-11 flex-shrink-0 place-items-center rounded-full border text-sm font-semibold transition-all duration-300 ease-soft",
           complete
-            ? "border-accent bg-accent text-white"
+            ? "border-accentStrong bg-accentStrong text-white"
             : active
               ? "border-accent bg-accent-soft text-plum ring-2 ring-accent/15"
               : "border-white/80 bg-white/75 text-text-secondary",

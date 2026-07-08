@@ -12,6 +12,9 @@
   "dependencies": {
     "@cloudinary/react": "^1.14.3",
     "@cloudinary/url-gen": "^1.22.0",
+    "@fontsource/dancing-script": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@fontsource/quicksand": "^5.2.10",
     "axios": "^1.13.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

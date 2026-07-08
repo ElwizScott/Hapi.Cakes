@@ -1,4 +1,5 @@
 import { formatVND } from "../../../utils/formatPrice";
+import { HeartIcon, SparkleIcon } from "../../../components/common/BakeryIcons";
 import PillBadge from "../../../components/common/PillBadge";
 import { cx } from "../../../components/common/designSystem";
 
@@ -83,10 +84,12 @@ export default function CakeCard({
             )}
 
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              <PillBadge className="border-white/75 bg-surface-elevated/92 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+              <PillBadge className="gap-1 border-white/75 bg-surface-elevated/92 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+                <HeartIcon className="h-3 w-3 text-candy" />
                 Custom made
               </PillBadge>
-              <PillBadge className="border-white/75 bg-surface-elevated/92 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+              <PillBadge className="gap-1 border-white/75 bg-surface-elevated/92 px-3 py-1 text-[0.62rem] tracking-[0.18em] shadow-soft">
+                <SparkleIcon className="h-3 w-3 text-accentStrong" />
                 Pastel finish
               </PillBadge>
             </div>

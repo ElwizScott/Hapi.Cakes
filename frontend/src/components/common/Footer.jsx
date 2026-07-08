@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { HeartIcon } from "./BakeryIcons";
 import EditableText from "./EditableText";
 import PrimaryButton from "./PrimaryButton";
 import PillBadge from "./PillBadge";
+import ScallopDivider from "./ScallopDivider";
 import SurfaceCard from "./SurfaceCard";
 import { bodyClass, buttonGhostClass, cx, fieldClass } from "./designSystem";
 
@@ -80,7 +82,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-border-soft bg-[linear-gradient(180deg,rgba(255,246,251,0.98),rgba(250,243,250,0.96),rgba(255,248,252,0.98))] backdrop-blur">
+    <footer className="relative overflow-hidden bg-[linear-gradient(180deg,rgba(255,246,251,0.98),rgba(250,243,250,0.96),rgba(255,248,252,0.98))] backdrop-blur">
+      <ScallopDivider fillClassName="text-white" flip size="sm" />
       {/* Ambient blobs — kept subtle */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-8 top-6 h-32 w-32 animate-float-gentle rounded-full bg-brandPink/10 blur-3xl" />
@@ -188,7 +191,8 @@ export default function Footer() {
           <SurfaceCard className="overflow-hidden border-white/75 bg-[linear-gradient(180deg,rgba(255,252,248,0.96),rgba(250,241,249,0.96))] p-4 sm:p-5">
             <div className="space-y-3.5">
               <div>
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
+                <p className="flex items-center gap-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-plum/75">
+                  <HeartIcon className="h-3 w-3 text-candy" />
                   Sweet Updates
                 </p>
                 <h3 className="mt-1 font-serif text-xl font-semibold tracking-tight text-text-primary">

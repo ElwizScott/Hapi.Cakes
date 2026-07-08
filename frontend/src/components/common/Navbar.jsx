@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import useAdminAuth from "../../features/admin/hooks/useAdminAuth";
 import { fetchPublic } from "../../api/http";
 import logo from "../../assets/logo.jpg";
+import { SparkleIcon } from "./BakeryIcons";
 import { cx } from "./designSystem";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
@@ -101,16 +102,19 @@ export default function Navbar() {
             to="/"
             className="group flex items-center gap-3 text-plum transition-transform duration-300 ease-soft hover:translate-y-[-1px]"
           >
-            <img
-              src={logo}
-              alt="Hapi.Cakes"
-              className={cx(
-                "h-11 w-11 rounded-full border object-cover transition-all duration-300 ease-soft",
-                isScrolled
-                  ? "border-white/70 shadow-[0_10px_24px_rgba(110,85,117,0.12)]"
-                  : "border-border-soft/80 shadow-soft",
-              )}
-            />
+            <div className="relative">
+              <img
+                src={logo}
+                alt="Hapi.Cakes"
+                className={cx(
+                  "h-11 w-11 rounded-full border object-cover transition-all duration-300 ease-soft group-hover:rotate-6",
+                  isScrolled
+                    ? "border-white/70 shadow-[0_10px_24px_rgba(110,85,117,0.12)]"
+                    : "border-border-soft/80 shadow-soft",
+                )}
+              />
+              <SparkleIcon className="absolute -right-1 -top-1 h-3.5 w-3.5 text-candy opacity-0 transition-opacity duration-300 ease-soft group-hover:opacity-100" />
+            </div>
             <div className="flex flex-col">
               <span className="font-script text-[2rem] leading-none">
                 Hapi.Cakes
